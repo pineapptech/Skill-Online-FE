@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { motion, useAnimate } from "motion/react";
+import React from "react";
 import Navbar from "@/components/navbar";
+import HeroSection from "@/components/hero";
 
 const Homepage = () => {
   return (
     <>
       <Navbar />
+      <HeroSection />
     </>
   );
 };

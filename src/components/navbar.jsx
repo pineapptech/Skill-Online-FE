@@ -37,13 +37,11 @@ const Navbar = () => {
     }
   }, [location]);
 
-  console.log(location);
-
   return (
     <motion.nav
       animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 py-4 bg-primary-foreground sticky",
+        "px-8 py-4 bg-primary-foreground sticky z-10",
         !inView && "rounded-full max-w-[900px] mx-auto py-2"
       )}
       style={{ top: inView ? 0 : 16 }}
@@ -78,10 +76,12 @@ const Navbar = () => {
                 variants={{
                   drawBorder: { width: "100%", left: 0 },
                 }}
-                className={cn(
-                  "absolute w-0 h-0.5 bg-current top-full left-1/2",
-                  location.hash == href && "text-secondary !w-full !left-0"
-                )}
+                style={
+                  location.hash == href
+                    ? { width: "100%", left: 0 }
+                    : { width: 0, left: "50%" }
+                }
+                className={cn("absolute h-0.5 bg-current top-full")}
               ></motion.div>
             </motion.li>
           ))}
