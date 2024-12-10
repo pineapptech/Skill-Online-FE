@@ -3,40 +3,30 @@ import { motion, useAnimate, useMotionValue } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const HeroSection = () => {
-  const h1BgRotate = useMotionValue(0);
-  const [scope, animate] = useAnimate();
-
-  useEffect(() => {
-    const h1BgRotateControl = animate(h1BgRotate, 360, {
-      duration: 180,
-      repeat: Infinity,
-    });
-
-    return () => {
-      h1BgRotateControl.stop();
-    };
-  });
-
   return (
-    <section
-      ref={scope}
-      className={cn(
-        "hero relative bg-primary-foreground",
-        "md:bg-[url(/images/circuit.svg)] bg-no-repeat bg-[length:200px_200px] bg-[left_-50px_top_10px]"
-      )}
-    >
+    <section className={cn("hero relative bg-primary-foreground")}>
+      <motion.div
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
+        className="absolute top-0 -left-4 size-[170px] md:bg-[url(/images/circuit.svg)] bg-no-repeat bg-[length:170px_170px] "
+      />
       <div className="container mx-auto py-8 px-4 flex justify-between gap-4">
         <div className="info w-2/3 leading-10">
           <h1
-            className={cn(
+            className={
               "relative overflow-hidden font-extrabold text-4xl md:text-6xl 2xl:text-8xl py-4 "
-            )}
+            }
           >
             Emerging tech skills for{" "}
             <span className="text-secondary">Africa</span> Program
             <motion.div
               className="img-bg absolute top-0 right-0 bottom-0 w-[296px] h-[296px] bg-[url(/images/circuit.svg)] bg-cover bg-no-repeat bg-right"
-              style={{ rotate: h1BgRotate }}
+              // style={{ rotate: bgRotate }}
+              animate={{ rotate: [0, 360] }}
+              transition={{
+                duration: 180,
+                repeat: Infinity,
+              }}
             />
           </h1>
 

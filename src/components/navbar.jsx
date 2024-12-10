@@ -22,8 +22,8 @@ const Navbar = () => {
   const [inView, setInView] = useState(true);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 120 && inView) setInView(false);
-    if (latest <= 120 && !inView) setInView(true);
+    if (latest > 110 && inView) setInView(false);
+    if (latest < 110 && !inView) setInView(true);
   });
 
   useEffect(() => {
