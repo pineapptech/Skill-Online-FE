@@ -24,7 +24,7 @@ const HeroSection = () => {
               // style={{ rotate: bgRotate }}
               animate={{ rotate: [0, 360] }}
               transition={{
-                duration: 180,
+                duration: 600,
                 repeat: Infinity,
               }}
             />

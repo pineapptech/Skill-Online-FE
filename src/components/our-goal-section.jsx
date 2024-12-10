@@ -16,14 +16,17 @@ const fadeBottom = {
 const OurGoalSection = () => {
   return (
     <motion.section
-      className="our-goal bg-neutral-200 p-8 py-12"
+      className="our-goal bg-neutral-200 p-8 py-12 overflow-hidden"
       initial="out"
       whileInView="in"
       transition={transition}
     >
       <div className="container mx-auto flex justify-between items-stretch *:basis-0 *:grow gap-4">
         <motion.div
-          variants={{ out: { x: -50, opacity: 0 }, in: { x: 0, opacity: 1 } }}
+          variants={{
+            out: { x: -50, opacity: 0 },
+            in: { x: 0, opacity: 1 },
+          }}
           transition={transition}
           className="img-wrapper"
         >
