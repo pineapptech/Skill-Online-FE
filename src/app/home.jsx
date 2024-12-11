@@ -7,6 +7,7 @@ import GetStartedSection from "@/components/get-started-section";
 import OurCoursesSection from "@/components/our-courses-section";
 import ApplicationProcessSection from "@/components/application-process-section";
 import AboutSection from "@/components/about-section";
+import ContactSection from "@/components/contact-section";
 
 const Homepage = () => {
   return (
@@ -19,6 +20,7 @@ const Homepage = () => {
       <OurCoursesSection />
       <ApplicationProcessSection />
       <AboutSection />
+      <ContactSection />
     </>
   );
 };
