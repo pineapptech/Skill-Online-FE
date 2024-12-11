@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admission Letter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: montserrat, inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin-bottom: 1.25rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.24rem;
+      }
+      p {
+        margin-bottom: 0.5rem;
+        text-wrap: pretty;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: 100px;
+        column-gap: 3rem;
+        max-width: 1000px;
+        position: relative;
+        padding: 2rem 1rem 1rem;
+        margin: 0 auto;
+        color: #643;
+        background: rgba(255,255,255,0.9);
+      }
+      main:before{ 
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url(skillonline.svg) center / 90% no-repeat;
+        z-index: -1;
+      }
+     .header-line {
+        align-self: center;
+        height: 3px;
+        width: 100%;
+        background-color: currentColor;
+        border: none;
+      }
+      .logo {
+        flex-basis: 40%;
+        width: 100%;
+        max-width: 200px;
+        height: 100%;
+        max-height: 100px;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .course-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+      .course-info__title {
+        font-weight: bold;
+      }
+      .onboarding-info ul {
+        list-style: none;
+        border-left: 2px solid currentColor;
+      }
+      .onboarding-info li {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 0.75rem;
+      }
+      .letter-body {
+        text-align: justify;
+        font-weight: 500;
+        color: #421;
+      }
+      .letter-footer{
+        font-weight: bold;
+        margin: 3rem 0 1rem;
+      }
+      .letter-footer img {
+        height: 50px;
+      }
+      [class*=placeholder] {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="skillonline.svg" alt="SkillOnline Logo" class="logo" />
+      <hr class="header-line" />
+      <div class="info">
+        <div class="course-info">
+            <div class="course-info__title">Course of choice:</div>
+            <div class="course-placeholder">Course of choice</div>
+            <div class="course-info__title">Unique Reg No:</div>
+            <div class="reg-no-placeholder">12345678AB</div>
+            <div class="course-info__title">Name of candidate:</div>
+            <div class="name-placeholder">Surname Firstname</div>
+            <div class="course-info__title">Address:</div>
+            <div class="address-placeholder">Placeholder text</div>
+            <div class="course-info__title">Phone number</div>
+            <div class="phone-placeholder">Placeholder text</div>
+            <div class="course-info__title">Date</div>
+            <div class="date-placeholder">Placeholder text</div>
+        </div>
+        <div class="onboarding-info">
+          <h2>Onboarding details</h2>
+          <ul>
+            <li>Online course sessions starts on Monday, February 3rd 2025</li>
+            <li>Fully virtual classes</li>
+            <li>2 learning sessions per week
+
+              (1 and half hours per session)
+            </li>
+            <li>6 months duration (26 weeks)</li>
+            <li>Weekly hands-on task + Capstone project</li>
+            <li>Application form registration closes Midnight (WAT), January 31st 2025</li>
+            <li>Skillonline will send your login credentials to your LMS between the 30th and 2nd of february 2025</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="letter">
+        <h1>OFFER LETTER OF ADMISSION</h1>
+
+        
+        <div class="letter-body">
+          <p class="greeting">Dear <span class="name-placeholder">John Doe</span>,</p>
+          <p>This is to inform you that Skillonline Srl on behalf of this Consortium (INTERTEK, ACCREDIA, CIRPS, IBI), has evaluated your application to undergo this international online professional certification course and is pleased to offer you an admission into this program to study <div class="course-placeholder">******************</div></p>
+          <p>The program which has a duration of six months will commence on the 3rd of February, 2025.</p>
+          <p>We are excited to have you join our community of learners and look forward to supporting your journey towards achieving professional excellence in this field. As part of your admission onboarding, further details regarding the enrollment process, course schedule and program requirements are enclosed separately,  in this email to you. Please confirm your acceptance of this offer by replying this email with the line “ I accept this offer”  within 72 hours of receipt of this email.</p>
+          <p>Congratulations on your admission!</p>
+        </div>
+        
+        <footer class="letter-footer">
+          <p>Best regards,</p>
+          <img src="signature.png" alt="Signature">
+          <p>Gabriele Tomasi-Canova</p>
+        </footer>
+        <hr>
+      </div>
+    </main>
+  </body>
+</html>
