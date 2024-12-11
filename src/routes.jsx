@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Homepage from "./app/home";
+import Register from "./app/register";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<Homepage />}></Route>
+        <Route path="register" element={<Register />}></Route>
       </Routes>
     </BrowserRouter>
   );
