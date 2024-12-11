@@ -8,6 +8,7 @@ import OurCoursesSection from "@/components/our-courses-section";
 import ApplicationProcessSection from "@/components/application-process-section";
 import AboutSection from "@/components/about-section";
 import ContactSection from "@/components/contact-section";
+import Newsletter from "@/components/newsletter";
 
 const Homepage = () => {
   return (
@@ -21,6 +22,7 @@ const Homepage = () => {
       <ApplicationProcessSection />
       <AboutSection />
       <ContactSection />
+      <Newsletter />
     </>
   );
 };
