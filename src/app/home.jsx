@@ -9,6 +9,7 @@ import ApplicationProcessSection from "@/components/application-process-section"
 import AboutSection from "@/components/about-section";
 import ContactSection from "@/components/contact-section";
 import Newsletter from "@/components/newsletter";
+import Footer from "@/components/footer";
 
 const Homepage = () => {
   return (
@@ -23,6 +24,7 @@ const Homepage = () => {
       <AboutSection />
       <ContactSection />
       <Newsletter />
+      <Footer />
     </>
   );
 };
