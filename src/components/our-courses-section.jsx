@@ -68,7 +68,7 @@ const OurCoursesSection = () => {
   };
 
   return (
-    <section className="our-courses py-8">
+    <section className="our-courses p-8">
       <div className="container mx-auto">
         <h2>Our Courses</h2>
 
