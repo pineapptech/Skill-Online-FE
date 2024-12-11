@@ -6,6 +6,7 @@ import OurGoalSection from "@/components/our-goal-section";
 import GetStartedSection from "@/components/get-started-section";
 import OurCoursesSection from "@/components/our-courses-section";
 import ApplicationProcessSection from "@/components/application-process-section";
+import AboutSection from "@/components/about-section";
 
 const Homepage = () => {
   return (
@@ -17,6 +18,7 @@ const Homepage = () => {
       <GetStartedSection />
       <OurCoursesSection />
       <ApplicationProcessSection />
+      <AboutSection />
     </>
   );
 };
