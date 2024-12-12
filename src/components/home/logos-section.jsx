@@ -1,6 +1,6 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
-import { inView, motion, stagger, useAnimate } from "motion/react";
+import { Fragment, useState } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const LogosSection = () => {
@@ -37,14 +37,13 @@ const LogosSection = () => {
       },
     ],
   ]);
-  const [scope, animate] = useAnimate();
 
   return (
-    <section ref={scope} className="logos p-8 md:px-24 mx-auto container ">
+    <section className="logos p-8 md:px-24 mx-auto container ">
       <motion.div
         initial="initial"
         whileInView="whileInView"
-        viewport={{ amount: "all", once: true, margin: "60px 0px" }}
+        viewport={{ amount: 1, once: true, margin: "-60px 0px" }}
         className="logos-wrapper grid grid-flow-col items-center justify-between"
       >
         {logos.map((item, index) => {

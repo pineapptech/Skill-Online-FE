@@ -8,7 +8,7 @@ import OurCoursesSection from "@/components/home/our-courses-section";
 import ApplicationProcessSection from "@/components/home/application-process-section";
 import AboutSection from "@/components/home/about-section";
 // import ContactSection from "@/components/home/contact-section";
-// import Newsletter from "@/components/home/newsletter";
+import Newsletter from "@/components/home/newsletter";
 // import Footer from "@/components/footer";
 
 const Homepage = () => {
@@ -23,7 +23,7 @@ const Homepage = () => {
       <ApplicationProcessSection />
       <AboutSection />
       {/* <ContactSection /> */}
-      {/* <Newsletter /> */}
+      <Newsletter />
       {/* <Footer /> */}
     </>
   );

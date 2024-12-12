@@ -9,45 +9,45 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const navlinks = [
-  { label: "Home", href: "/" },
-  { label: "Courses", href: "#courses" },
-  { label: "About us", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#" },
+  { label: "Courses", href: "/#courses" },
+  { label: "About us", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const Navbar = () => {
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [inView, setInView] = useState(true);
+  const [fullUrl, setFullUrl] = useState(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 110 && inView) setInView(false);
-    if (latest < 110 && !inView) setInView(true);
+    else if (latest <= 110 && !inView) setInView(true);
   });
 
   useEffect(() => {
-    if (pathname.hash) {
-      const el = document.querySelector(pathname.hash);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [pathname]);
+    const handleHashChange = () => {
+      setFullUrl(window.location.pathname + (window.location.hash || "#"));
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   return (
     <motion.nav
-      // animate={{ top: inView ? 0 : 16 }}
+      animate={{ top: inView ? 0 : 16 }}
       className={cn(
         "px-8 md:px-24 py-4 sticky z-30",
         !inView &&
-          "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 border-primary border backdrop-blur-sm"
+          "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 shadow-md backdrop-blur-sm"
       )}
       style={{ top: inView ? 0 : 16 }}
     >
       <div className="container flex justify-between items-center  mx-auto">
-        <Link href="/">
+        <a href="/">
           <Image
             src={logo}
             alt="ETSAP Logo"
@@ -55,7 +55,7 @@ const Navbar = () => {
             width={92}
             height={52}
           />
-        </Link>
+        </a>
         <ul className="flex items-center gap-2 md:gap-4 lg:gap-12 font-bold text-sm text-gray-600">
           {navlinks.map(({ label, href }) => (
             <motion.li
@@ -63,21 +63,21 @@ const Navbar = () => {
               whileHover="drawBorder"
               className="relative"
             >
-              <Link
+              <a
                 className={cn(
                   "p-2 border-b-2 border-transparent",
-                  pathname.hash == href && "text-secondary"
+                  fullUrl == href && "text-secondary"
                 )}
                 href={href}
               >
                 {label}
-              </Link>
+              </a>
               <motion.div
                 variants={{
                   drawBorder: { width: "100%", left: 0 },
                 }}
                 style={
-                  pathname.hash == href
+                  fullUrl == href
                     ? { width: "100%", left: 0 }
                     : { width: 0, left: "50%" }
                 }
@@ -85,10 +85,12 @@ const Navbar = () => {
               ></motion.div>
             </motion.li>
           ))}
-          {!pathname?.pathname?.startsWith("/register") && (
+          {!fullUrl?.startsWith("/register") && (
             <li>
               <Button className="rounded-full" asChild>
-                <Link href="/register">Register Now</Link>
+                <Link href="/register" scroll={false}>
+                  Apply Now
+                </Link>
               </Button>
             </li>
           )}
