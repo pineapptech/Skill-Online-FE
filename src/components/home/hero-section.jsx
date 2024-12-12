@@ -63,7 +63,8 @@ const HeroSection = () => {
             className={cn(
               "relative overflow-hidden font-extrabold leading-10 text-4xl md:text-6xl 2xl:text-8xl py-4 ",
               "fade-bottom",
-              "flex gap-4 flex-wrap"
+              "flex gap-4 flex-wrap",
+              "xl:mb-16"
             )}
           >
             {"Emerging tech skills for *Africa* Program"
@@ -133,7 +134,7 @@ const HeroSection = () => {
           >
             In partnership with
           </motion.p>
-          <div className="partners font-header capitalize grid grid-flow-col font-bold tracking-wider">
+          <div className="partners font-header w-[700px] capitalize flex justify-between font-bold tracking-wider">
             {[
               "International Bio-research institute",
               "Enugu State TECH HUB - Enugu state GOVERNMENT, NIGERIA",
@@ -142,7 +143,7 @@ const HeroSection = () => {
                 {index !== 0 && (
                   <motion.div
                     initial={fadeBottom.out}
-                    className="fade-bottom divider fade-bottom h-full w-0.5 bg-current"
+                    className="fade-bottom divider fade-bottom  h-8 shrink-0 w-0.5 bg-current"
                   />
                 )}
                 <motion.p

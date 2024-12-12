@@ -56,7 +56,7 @@ const Navbar = () => {
             height={52}
           />
         </Link>
-        <ul className="flex items-center gap-4 font-bold text-sm text-gray-600">
+        <ul className="flex items-center gap-2 md:gap-4 lg:gap-12 font-bold text-sm text-gray-600">
           {navlinks.map(({ label, href }) => (
             <motion.li
               key={label + href}

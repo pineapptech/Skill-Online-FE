@@ -8,7 +8,7 @@ const LogosSection = () => {
     {
       src: "/images/logos/skillonline.svg",
       alt: "SkillOnline Logo",
-      height: "30px",
+      height: "20px",
     },
     [
       {
@@ -39,19 +39,12 @@ const LogosSection = () => {
   ]);
   const [scope, animate] = useAnimate();
 
-  // useEffect(() => {
-  //   inView("section.logos", (info) => {
-  //     animate("img.logo", { scale: 3 });
-  //   });
-  // });
-
   return (
     <section ref={scope} className="logos p-8 md:px-24 mx-auto container ">
       <motion.div
         initial="initial"
         whileInView="whileInView"
-        viewport={{ amount: "all" }}
-        transition={{ staggerChildren: 0.2 }}
+        viewport={{ amount: "all", once: true, margin: "60px 0px" }}
         className="logos-wrapper grid grid-flow-col items-center justify-between"
       >
         {logos.map((item, index) => {
@@ -87,8 +80,8 @@ const MovingImage = ({ src, alt, width, height, className }) => {
   return (
     <motion.img
       variants={{
-        initial: { x: -100, opacity: 0 },
-        whileInView: { x: 0, opacity: 1 },
+        initial: { y: 60, opacity: 0 },
+        whileInView: { y: 0, opacity: 1 },
       }}
       transition={{
         duration: 0.4,
