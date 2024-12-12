@@ -5,7 +5,7 @@ import {
   IconBrandX,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import Link from "next/link";
 
 const links = [
   { name: "Home", href: "#" },
@@ -30,7 +30,7 @@ const Footer = () => {
             whileHover="show"
             initial="hide"
           >
-            <Link to={link.href}>{link.name}</Link>
+            <Link href={link.href}>{link.name}</Link>
             <motion.div
               variants={{ show: { scaleX: 0.7 }, hide: { scaleX: 0 } }}
               className="absolute top-full left-0 w-full h-0.5 bg-current"
@@ -46,7 +46,7 @@ const Footer = () => {
             whileHover={{ y: -3 }}
             className="p-2 rounded-full bg-neutral-200 text-blue-400"
           >
-            <Link to={link.href}>{link.icon}</Link>
+            <Link href={link.href}>{link.icon}</Link>
           </motion.li>
         ))}
       </ul>

@@ -1,14 +1,18 @@
+"use client";
 import { useState } from "react";
 import { motion, useAnimate } from "motion/react";
 
 const LogosSection = () => {
   const [logos, setLogos] = useState([
-    { src: "/logos/skillonline.svg", alt: "SkillOnline Logo" },
-    { src: "/logos/aic.svg", alt: "Accredia, Intertek, CIRPS Logos" },
-    { src: "/logos/malta.svg", alt: "Malta University Logo" },
-    { src: "/logos/ibi.jpg", alt: "IBI Logo" },
-    { src: "/logos/enugu-state.png", alt: "Enugu State Government Logo" },
-    { src: "/logos/esthub.svg", alt: "Enugu State Tech Hub Logo" },
+    { src: "/images/logos/skillonline.svg", alt: "SkillOnline Logo" },
+    { src: "/images/logos/aic.svg", alt: "Accredia, Intertek, CIRPS Logos" },
+    { src: "/images/logos/malta.svg", alt: "Malta University Logo" },
+    { src: "/images/logos/ibi.jpg", alt: "IBI Logo" },
+    {
+      src: "/images/logos/enugu-state.png",
+      alt: "Enugu State Government Logo",
+    },
+    { src: "/images/logos/esthub.svg", alt: "Enugu State Tech Hub Logo" },
   ]);
   const [scope, animate] = useAnimate();
 
@@ -18,7 +22,12 @@ const LogosSection = () => {
       className="logos bg-primary-foreground relative py-8 px-4 overflow-x-hidden"
     >
       {logos.map(({ src, alt }, index) => (
-        <MovingImage src={src} alt={alt} delay={(10 / logos.length) * index} />
+        <MovingImage
+          key={src + index}
+          src={src}
+          alt={alt}
+          delay={(10 / logos.length) * index}
+        />
       ))}
     </section>
   );

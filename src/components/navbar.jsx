@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import logo from "@/assets/logo-dark.svg";
-import { Link, NavLink, useLocation } from "react-router";
-import {
-  motion,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-} from "motion/react";
+import Link from "next/link";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navlinks = [
   { label: "Home", href: "/" },
@@ -18,7 +16,7 @@ const navlinks = [
 ];
 
 const Navbar = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [inView, setInView] = useState(true);
 
@@ -28,28 +26,28 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    if (location.hash) {
-      const el = document.querySelector(location.hash);
+    if (pathname.hash) {
+      const el = document.querySelector(pathname.hash);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       }
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [location]);
+  }, [pathname]);
 
   return (
     <motion.nav
       animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 md:px-24 py-4 bg-primary-foreground sticky z-10",
+        "px-8 md:px-24 py-4  sticky z-30",
         !inView &&
           "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 border-primary border backdrop-blur-sm"
       )}
     >
       <div className="container flex justify-between items-center  mx-auto">
-        <Link to="/">
-          <img
+        <Link href="/">
+          <Image
             src={logo}
             alt="ETSAP Logo"
             className="logo w-20"
@@ -64,21 +62,21 @@ const Navbar = () => {
               whileHover="drawBorder"
               className="relative"
             >
-              <NavLink
+              <Link
                 className={cn(
                   "p-2 border-b-2 border-transparent",
-                  location.hash == href && "text-secondary"
+                  pathname.hash == href && "text-secondary"
                 )}
-                to={href}
+                href={href}
               >
                 {label}
-              </NavLink>
+              </Link>
               <motion.div
                 variants={{
                   drawBorder: { width: "100%", left: 0 },
                 }}
                 style={
-                  location.hash == href
+                  pathname.hash == href
                     ? { width: "100%", left: 0 }
                     : { width: 0, left: "50%" }
                 }
@@ -86,10 +84,10 @@ const Navbar = () => {
               ></motion.div>
             </motion.li>
           ))}
-          {!location.pathname.startsWith("/register") && (
+          {!pathname?.pathname?.startsWith("/register") && (
             <li>
               <Button className="rounded-full" asChild>
-                <Link to="/register">Register Now</Link>
+                <Link href="/register">Register Now</Link>
               </Button>
             </li>
           )}

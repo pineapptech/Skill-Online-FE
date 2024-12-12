@@ -125,7 +125,7 @@ const RegistrationForm = () => {
           </DialogHeader>
           <DialogFooter className="sm:justify-center">
             <Button>
-              <Link to="/">Go to homepage</Link>
+              <Link href"/">Go to homepage</Link>
             </Button>
           </DialogFooter>
         </DialogContent>

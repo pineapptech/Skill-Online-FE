@@ -1,8 +1,10 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/sroll-area";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
-import { motion } from "motion/react";
+"use client";
 import { useRef } from "react";
-import { Link } from "react-router";
+import { ScrollArea, ScrollBar } from "@/components/ui/sroll-area";
+// import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { motion } from "motion/react";
+import Link from "next/link";
+
 import courses from "@/data/courses";
 
 const OurCoursesSection = () => {
@@ -26,20 +28,20 @@ const OurCoursesSection = () => {
             className="prev bg-gray-300 hover:bg-gray-400 active:bg-gray-500 disabled:bg-gray-200 rounded-full size-8 flex justify-center items-center p-1.5"
             onClick={(e) => scrollCourses(-1)}
           >
-            <IconChevronLeft />
+            {/* <IconChevronLeft /> */}
           </button>
           <button
             className="next bg-gray-300 hover:bg-gray-400 active:bg-gray-500 disabled:bg-gray-200 rounded-full size-8 flex justify-center items-center p-1.5"
             onClick={(e) => scrollCourses(1)}
           >
-            <IconChevronRight />
+            {/* <IconChevronRight /> */}
           </button>
         </div>
 
         <ScrollArea ref={scrollRef} className="container ">
           <div className="flex *:shrink-0 gap-6">
-            {courses.map((course) => (
-              <CourseCard {...course} />
+            {courses.map((course, index) => (
+              <CourseCard key={course.name + index} {...course} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
@@ -69,10 +71,11 @@ const CourseCard = ({ name, description, src, alt, href }) => {
           className="w-fit"
         >
           <Link
-            to={href}
+            href={href ?? "#"}
             className="relative inline-flex items-center gap-0 border-current group"
           >
-            Apply Now <IconChevronRight className="size-5 transition-all" />
+            Apply Now
+            {/* <IconChevronRight className="size-5 transition-all" /> */}
             <motion.div
               variants={{
                 hide: { scaleX: 0 },

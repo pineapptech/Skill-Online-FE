@@ -1,5 +1,6 @@
-import { IconMailFilled, IconMapPinFilled } from "@tabler/icons-react";
+"use client";
 import React from "react";
+import { IconMailFilled, IconMapPinFilled } from "@tabler/icons-react";
 
 const ContactSection = () => {
   return (

@@ -1,6 +1,7 @@
-import { motion } from "motion/react";
+"use client";
 import { useState } from "react";
-import { Link } from "react-router";
+import { motion } from "motion/react";
+import Link from "next/link";
 
 const processList = [
   {
@@ -28,7 +29,6 @@ const processList = [
 ];
 
 const ApplicationProcessSection = () => {
-  const [toggle, setToggle] = useState(true);
   return (
     <section className="application-process flex flex-col gap-8 bg-neutral-100 py-8">
       <div className="container mx-auto">
@@ -87,7 +87,10 @@ const ApplicationProcessSection = () => {
           ))}
         </ul>
       </div>
-      <Link className="p-2 mx-8 flex justify-center items-center .container rounded-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white">
+      <Link
+        href="/register"
+        className="p-2 mx-8 flex justify-center items-center .container rounded-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white"
+      >
         Apply Now
       </Link>
     </section>

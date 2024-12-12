@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
+"use client";
 import { useState, Fragment } from "react";
+import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
 const partners = [
@@ -34,7 +35,7 @@ const partners = [
         </ol>
       </>
     ),
-    logo: "/logos/skillonline.svg",
+    logo: "/images/logos/skillonline.svg",
   },
   {
     name: "Intertek",
@@ -75,7 +76,7 @@ const partners = [
         </p>
       </>
     ),
-    logo: "/logos/intertek.svg",
+    logo: "/images/logos/intertek.svg",
   },
   {
     name: "CIRPS",
@@ -123,7 +124,7 @@ const partners = [
         </ol>
       </>
     ),
-    logo: "/logos/cirps.svg",
+    logo: "/images/logos/cirps.svg",
   },
   {
     name: "ACCREDIA",
@@ -157,7 +158,7 @@ const partners = [
         </p>
       </>
     ),
-    logo: "/logos/accredia.svg",
+    logo: "/images/logos/accredia.svg",
   },
   {
     name: "IBI",
@@ -209,7 +210,7 @@ const partners = [
         </p>
       </>
     ),
-    logo: "/logos/ibi.jpg",
+    logo: "/images/logos/ibi.jpg",
   },
   {
     name: "ESTHUB",
@@ -243,7 +244,7 @@ const partners = [
         </p>
       </>
     ),
-    logo: "/logos/esthub.svg",
+    logo: "/images/logos/esthub.svg",
   },
 ];
 

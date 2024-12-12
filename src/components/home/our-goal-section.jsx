@@ -1,5 +1,6 @@
-import { motion, useInView } from "motion/react";
+"use client";
 import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 
 const transition = {
   duration: 0.4,
@@ -20,6 +21,7 @@ const OurGoalSection = () => {
       initial="out"
       whileInView="in"
       transition={transition}
+      id="goals"
     >
       <div className="container mx-auto flex justify-between items-stretch *:basis-0 *:grow gap-4">
         <motion.div
