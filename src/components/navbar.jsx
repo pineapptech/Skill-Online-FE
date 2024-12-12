@@ -38,12 +38,13 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      animate={{ top: inView ? 0 : 16 }}
+      // animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 md:px-24 py-4  sticky z-30",
+        "px-8 md:px-24 py-4 sticky z-30",
         !inView &&
           "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 border-primary border backdrop-blur-sm"
       )}
+      style={{ top: inView ? 0 : 16 }}
     >
       <div className="container flex justify-between items-center  mx-auto">
         <Link href="/">
