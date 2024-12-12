@@ -8,9 +8,10 @@ import {
   useScroll,
 } from "motion/react";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 const navlinks = [
-  { label: "Home", href: "" },
+  { label: "Home", href: "/" },
   { label: "Courses", href: "#courses" },
   { label: "About us", href: "#about" },
   { label: "Contact", href: "#contact" },
@@ -41,10 +42,10 @@ const Navbar = () => {
     <motion.nav
       animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 py-4 bg-primary-foreground sticky z-10",
-        !inView && "rounded-full max-w-[900px] mx-auto py-2"
+        "px-8 md:px-24 py-4 bg-primary-foreground sticky z-10",
+        !inView &&
+          "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 border-primary border backdrop-blur-sm"
       )}
-      style={{ top: inView ? 0 : 16 }}
     >
       <div className="container flex justify-between items-center  mx-auto">
         <Link to="/">
@@ -56,7 +57,7 @@ const Navbar = () => {
             height={52}
           />
         </Link>
-        <ul className="flex gap-4 font-bold text-sm text-gray-600">
+        <ul className="flex items-center gap-4 font-bold text-sm text-gray-600">
           {navlinks.map(({ label, href }) => (
             <motion.li
               key={label + href}
@@ -85,6 +86,13 @@ const Navbar = () => {
               ></motion.div>
             </motion.li>
           ))}
+          {!location.pathname.startsWith("/register") && (
+            <li>
+              <Button className="rounded-full" asChild>
+                <Link to="/register">Register Now</Link>
+              </Button>
+            </li>
+          )}
         </ul>
       </div>
     </motion.nav>
