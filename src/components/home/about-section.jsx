@@ -9,10 +9,10 @@ const partners = [
     description: (
       <>
         <p>
-          SkillOnline S.r.l. is an Italian organization established in 1998,
+          {`SkillOnline S.r.l. is an Italian organization established in 1998,
           based in Turin. It specializes in distance learning and digital
           education, offering certifications, professional development, and
-          e-learning tools tailored to modern educational needs.
+          e-learning tools tailored to modern educational needs.`}
         </p>
         Key Areas of Focus:
         <ol>
@@ -131,14 +131,14 @@ const partners = [
     description: (
       <>
         <p>
-          ACCREDIA is Italy's National Accreditation Body, responsible for
+          {`ACCREDIA is Italy's National Accreditation Body, responsible for
           accrediting organizations that carry out conformity assessments. These
           organizations include testing laboratories, inspection bodies,
           certification bodies, and verification bodies. Its accreditation
           services are designed to ensure that these organizations meet
           internationally recognized standards, providing confidence to
           consumers and businesses in the reliability of certifications, tests,
-          and inspections.
+          and inspections.`}
         </p>
         <p>
           Founded in 2009 through the merging of SIT, SINAL, and SINCERT,
@@ -165,14 +165,14 @@ const partners = [
     description: (
       <>
         <p>
-          The International Bio-Research Institute (IBI), based in Euorpe with a
+          {`The International Bio-Research Institute (IBI), based in Euorpe with a
           regional office in Enugu, is a tertiary-level research institution
           approved by the Nigerian Federal Ministry of Education. It emphasizes
           interdisciplinary research and education to address global challenges
           related to science, technology, and societal development. The
           institute focuses on bridging gaps between education, production,
           research, and innovation while promoting bioethical standards and a
-          "culture of life."
+          "culture of life."`}
         </p>
         Key Areas of Focus:
         <ol>
@@ -254,7 +254,7 @@ const AboutSection = () => {
   const partner = partners.find((partner) => partner.name === selectedPartner);
 
   return (
-    <section className="about p-8 md:px-24">
+    <section id="about" className="about p-8 md:px-24">
       <div className="container">
         <div className="flex justify-between gap-8">
           <div className="info basis-1/2">

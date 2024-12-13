@@ -36,7 +36,7 @@ const OurGoalSection = () => {
         </motion.div>
         <motion.div
           initial={{ x: 75, opacity: 0 }}
-          className="info rounded-xl bg-neutral-300 p-8 leading-6 *:mb-4"
+          className="info rounded-xl bg-neutral-300 p-8 leading-6 *:mb-4 text-justify"
         >
           <motion.h2
             initial={{ y: 50, opacity: 0 }}

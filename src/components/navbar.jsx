@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const navlinks = [
@@ -16,7 +15,6 @@ const navlinks = [
 ];
 
 const Navbar = () => {
-  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [inView, setInView] = useState(true);
   const [fullUrl, setFullUrl] = useState(null);
@@ -47,7 +45,7 @@ const Navbar = () => {
       style={{ top: inView ? 0 : 16 }}
     >
       <div className="container flex justify-between items-center  mx-auto">
-        <a href="/">
+        <Link href="/">
           <Image
             src={logo}
             alt="ETSAP Logo"
@@ -55,7 +53,7 @@ const Navbar = () => {
             width={92}
             height={52}
           />
-        </a>
+        </Link>
         <ul className="flex items-center gap-2 md:gap-4 lg:gap-12 font-bold text-sm text-gray-600">
           {navlinks.map(({ label, href }) => (
             <motion.li

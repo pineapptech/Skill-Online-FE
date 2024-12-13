@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const ContactSection = () => {
   return (
-    <section className="contact bg-neutral-100 p-8 md:px-24">
+    <section id="contact" className="contact bg-neutral-100 p-8 md:px-24">
       <div className="container mx-auto">
         <h2 className="my-0">Get In Touch With Us</h2>
         <p className="mb-8">

@@ -28,10 +28,11 @@ const inputs = [
   {
     label: "Unique Reg Number",
     name: "regNumber",
+    placeholder: "This will automatically be generated for you",
     inputProps: {
       readOnly: true,
     },
-    classes: { input: "italic cursor-not-allowed 1bg-red-400" },
+    classes: { input: "italic cursor-not-allowed" },
   },
   {
     type: "flex",
@@ -83,17 +84,19 @@ const RegistrationForm = () => {
     course: searchParams.get("course") ?? "",
   });
   const [submitStatus, setSubmitStatus] = useState();
-  const [rand, setRand] = useState(Math.random());
+  const [rand, setRand] = useState(Math.random);
 
   useEffect(() => {
+    if (!formData.course) return;
+
     setFormData((fd) => ({
       ...fd,
       regNumber: `ETSAP/SO/${fd.course
         .split("-")
-        .map((s) => s[0].toUpperCase())
+        .map((s) => s[0]?.toUpperCase())
         .join("")}/${Math.floor(rand * 90000 + 10000)}`,
     }));
-  }, [formData.course]);
+  }, [formData.course, rand]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -111,7 +114,7 @@ const RegistrationForm = () => {
             inputs={inputs}
             formData={formData}
             setFormData={setFormData}
-            className="p-4 rounded-lg shadow bg-neutral-100"
+            className="p-4 rounded-lg shadow bg-neutral-50"
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
           <Button className="w-full">Submit</Button>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Navbar from "@/components/navbar";
 import RegistrationForm from "@/components/register/registration-form";
 
@@ -7,7 +7,9 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <RegistrationForm />
+      <Suspense>
+        <RegistrationForm />
+      </Suspense>
     </>
   );
 };

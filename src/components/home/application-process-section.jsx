@@ -87,7 +87,7 @@ const ApplicationProcessSection = () => {
           ))}
         </ul>
       </div>
-      <Button className="mx-auto container max-w-[500px] md:p-6">
+      <Button className="mx-auto container max-w-[500px] md:p-6" asChild>
         <Link href="/register">Apply Now</Link>
       </Button>
     </section>
