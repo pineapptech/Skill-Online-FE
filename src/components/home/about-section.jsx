@@ -254,7 +254,7 @@ const AboutSection = () => {
   const partner = partners.find((partner) => partner.name === selectedPartner);
 
   return (
-    <section className="about p-8">
+    <section className="about p-8 md:px-24">
       <div className="container">
         <div className="flex justify-between gap-8">
           <div className="info basis-1/2">

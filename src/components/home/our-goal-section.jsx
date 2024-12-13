@@ -36,7 +36,7 @@ const OurGoalSection = () => {
         </motion.div>
         <motion.div
           initial={{ x: 75, opacity: 0 }}
-          className="info rounded-xl bg-neutral-300 p-8 leading-6 *:mb-4 "
+          className="info rounded-xl bg-neutral-300 p-8 leading-6 *:mb-4"
         >
           <motion.h2
             initial={{ y: 50, opacity: 0 }}
@@ -44,6 +44,7 @@ const OurGoalSection = () => {
           >
             Our Goal
           </motion.h2>
+
           <motion.p initial={{ y: 50, opacity: 0 }}>
             We seek to create a robust framework for delivering tuition-free
             Tech Professional Certification programs, specifically in the
@@ -53,14 +54,26 @@ const OurGoalSection = () => {
             The learning platform will be powered by Skillonline - INTERTEK -
             CIRPS, three of the foremost partners of this initiative.
             Participants will be awarded Globally accredited Diploma
-            certifications from another prime partner of this upskilling
-            initiative, The University of Malta.
+            certifications from over 170 international universities under the
+            umbrella of Skillonline.
           </motion.p>
           <motion.p initial={{ y: 50, opacity: 0 }}>
-            Our objectives is to enroll One Million beneficiaries from Nigeria
-            and other African countries across ten(10) widely sought emerging
-            technology skills, bridging the gap of a lean ecosystem of talents
-            and startups with these skills in Nigeria and Africa as a continent.
+            Skillonline is an international online education provider,
+            partnering with over 170 universities across Europe, Asia, America
+            and Canada, to deliver specialized distance learning, digital
+            education and upskilling, offering certifications, professional
+            development, and e-learning tools tailored to modern educational
+            needs and are proudly supported by the European Union(EU). They are
+            certified by ACCREDIA, an international Accreditation body,
+            responsible for accrediting organizations involved in testing,
+            inspection, educational and technology upskilling and certification
+            across Europe, America, Asia and Canada.
+          </motion.p>
+          <motion.p initial={{ y: 50, opacity: 0 }}>
+            We aim to enroll One Million beneficiaries from Nigeria and other
+            African countries across ten(10) widely sought emerging technology
+            skills, bridging the gap of a lean ecosystem of talents and startups
+            with these skills in Nigeria and Africa as a continent.
           </motion.p>
         </motion.div>
       </div>

@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import { IconMailFilled, IconMapPinFilled } from "@tabler/icons-react";
+import { Mail, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ContactSection = () => {
   return (
-    <section className="contact bg-neutral-100 p-8">
+    <section className="contact bg-neutral-100 p-8 md:px-24">
       <div className="container mx-auto">
         <h2 className="my-0">Get In Touch With Us</h2>
         <p className="mb-8">
@@ -15,7 +16,7 @@ const ContactSection = () => {
         <div className="flex justify-between gap-6">
           <div className="info basis-2/5 space-y-4 [&_p]:mb-2">
             <div className="email-section flex gap-2">
-              <IconMailFilled className="text-primary size-6" />
+              <Mail className="text-primary size-6" />
               <div className="email-info">
                 <h3 className="text-primary m-0">Email Address</h3>
                 <p>communitymanager@etsap.com</p>
@@ -23,7 +24,7 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="location-section flex gap-4">
-              <IconMapPinFilled className="text-primary size-9" />
+              <MapPin className="text-primary size-9" />
               <div className="location-info">
                 <h3 className="text-primary m-0">Location</h3>
                 <p>
@@ -54,9 +55,7 @@ const ContactSection = () => {
               placeholder="Message"
               className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
             ></textarea>
-            <button className="p-2 rounded-full bg-primary text-white hover:bg-primary/90 active:bg-primary/80">
-              Submit
-            </button>
+            <Button size="lg">Submit</Button>
           </form>
         </div>
       </div>

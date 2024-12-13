@@ -6,10 +6,10 @@ import OurGoalSection from "@/components/home/our-goal-section";
 import OurCoursesSection from "@/components/home/our-courses-section";
 import ApplicationProcessSection from "@/components/home/application-process-section";
 import AboutSection from "@/components/home/about-section";
-// import ContactSection from "@/components/home/contact-section";
+import ContactSection from "@/components/home/contact-section";
 import Newsletter from "@/components/home/newsletter";
 import GetStartedSection from "@/components/home/get-started-section";
-// import Footer from "@/components/footer";
+import Footer from "@/components/footer";
 
 const Homepage = () => {
   return (
@@ -22,9 +22,9 @@ const Homepage = () => {
       <OurCoursesSection />
       <ApplicationProcessSection />
       <AboutSection />
-      {/* <ContactSection /> */}
+      <ContactSection />
       <Newsletter />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

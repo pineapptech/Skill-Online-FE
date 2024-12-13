@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Clock5, FileX, Rocket, SquareCheckBig } from "lucide-react";
 import {
   motion,
-  scroll,
   useAnimate,
   useMotionValue,
-  useMotionValueEvent,
   useScroll,
   useTransform,
 } from "motion/react";
@@ -119,7 +117,7 @@ const GetStartedSection = () => {
             <p>
               To participate in this groundbreaking program, candidates are
               required to apply for any of the courses and pay a one-time
-              application fee of 5,000 Naira (or its dollar equivalent). The
+              application fee of 5,000 Naira (or its dollar equivalent). The
               application is processed instantly and candidate receives an
               admission letter and onboarding credentials into their desired
               course
@@ -141,10 +139,10 @@ const GetStartedSection = () => {
               initial="initial"
               whileInView="whileInView"
               transition={{ staggerChildren: 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.5 }}
             >
               <motion.div
-                className="line absolute left-0 top-0 w-0.5 h-full bg-secondary"
+                className="line absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b from-secondary to-[#3333]"
                 variants={{
                   initial: { height: 0 },
                   whileInView: { height: "100%" },
