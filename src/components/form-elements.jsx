@@ -340,7 +340,7 @@ export const AllInput = ({
     <>
       {inputs.map((input, index) => {
         if (input.type == "flex") {
-          const { type, items, className, ...itemProps } = input;
+          const { type, items, ...itemProps } = input;
           return (
             <div
               key={"flex" + index}
@@ -363,7 +363,11 @@ export const AllInput = ({
         }
 
         const InputElement = mapping[input.type] ?? mapping.text;
-        return <InputElement key={input.name} {...generateProps(input)} />;
+        return (
+          <div key={input.name} className={cn(className)}>
+            <InputElement {...generateProps(input)} />
+          </div>
+        );
       })}
 
       {issueFields.length !== 0 && (

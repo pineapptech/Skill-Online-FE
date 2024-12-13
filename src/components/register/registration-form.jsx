@@ -9,11 +9,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { IconCircleCheck, IconCircleCheckFilled } from "@tabler/icons-react";
-import { motion, useAnimate, useInView } from "motion/react";
-import { Link } from "react-router";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const inputs = [
   {
@@ -21,13 +20,29 @@ const inputs = [
     type: "select",
     placeholder: "Select a course you want to register for",
     name: "course",
-    options: courses.map((course) => course.name),
+    options: courses.map((course) => ({
+      label: course.name,
+      value: course.name.toLowerCase().replaceAll(" ", "-"),
+    })),
   },
-  { label: "Surname", name: "surname", placeholder: "Enter your surname" },
   {
-    label: "First name",
-    name: "firstname",
-    placeholder: "Enter your first name",
+    label: "Unique Reg Number",
+    name: "regNumber",
+    inputProps: {
+      readOnly: true,
+    },
+    classes: { input: "italic cursor-not-allowed 1bg-red-400" },
+  },
+  {
+    type: "flex",
+    items: [
+      { label: "Surname", name: "surname", placeholder: "Enter your surname" },
+      {
+        label: "First name",
+        name: "firstname",
+        placeholder: "Enter your first name",
+      },
+    ],
   },
   {
     label: "Gender",
@@ -54,11 +69,31 @@ const inputs = [
     placeholder: "Enter your Passport/National ID number",
   },
   { label: "Passport ID/National ID", name: "idImage", type: "file" },
-];
+].map((input) => ({
+  ...input,
+  required: true,
+  classes: {
+    input: `${input.type !== "file" ? "p-6" : ""} ${input.classes?.input}`,
+  },
+}));
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({});
-  const [submitStatus, setSubmitStatus] = useState({ status: "success" });
+  const searchParams = useSearchParams();
+  const [formData, setFormData] = useState({
+    course: searchParams.get("course") ?? "",
+  });
+  const [submitStatus, setSubmitStatus] = useState();
+  const [rand, setRand] = useState(Math.random());
+
+  useEffect(() => {
+    setFormData((fd) => ({
+      ...fd,
+      regNumber: `ETSAP/SO/${fd.course
+        .split("-")
+        .map((s) => s[0].toUpperCase())
+        .join("")}/${Math.floor(rand * 90000 + 10000)}`,
+    }));
+  }, [formData.course]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -70,12 +105,13 @@ const RegistrationForm = () => {
   return (
     <form className="p-8" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
-        <h1 className="text-3xl text-center">Application Form</h1>
-        <div className="flex flex-col gap-4">
+        <h1 className="text-3xl text-center mb-12">Application Form</h1>
+        <div className="max-w-[800px] mx-auto flex flex-col gap-4">
           <AllInput
             inputs={inputs}
             formData={formData}
             setFormData={setFormData}
+            className="p-4 rounded-lg shadow bg-neutral-100"
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
           <Button className="w-full">Submit</Button>
@@ -121,11 +157,14 @@ const RegistrationForm = () => {
             <DialogTitle className="self-center my-2">
               Registration Successful
             </DialogTitle>
-            <DialogDescription>{submitStatus?.message}</DialogDescription>
+            <DialogDescription>
+              {submitStatus?.message ??
+                "Check your email for necessary documents"}
+            </DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-center">
             <Button>
-              <Link href"/">Go to homepage</Link>
+              <Link href="/">Go to homepage</Link>
             </Button>
           </DialogFooter>
         </DialogContent>
