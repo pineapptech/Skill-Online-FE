@@ -32,6 +32,7 @@ const OurCoursesSection = () => {
       <div className="container mx-auto">
         <motion.h2
           variants={{ initial: { opacity: 0 }, whileInView: { opacity: 1 } }}
+          className=" md:px-24"
         >
           Our Courses
         </motion.h2>
