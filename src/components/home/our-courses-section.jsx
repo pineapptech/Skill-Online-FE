@@ -1,16 +1,18 @@
 "use client";
-import { useRef } from "react";
-import { ScrollArea, ScrollBar } from "@/components/ui/sroll-area";
-// import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { useRef, useState } from "react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { motion } from "motion/react";
 import Link from "next/link";
 
 import courses from "@/data/courses";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const OurCoursesSection = () => {
   const scrollRef = useRef(null);
+  const [scrollEdge, setScrollEdge] = useState({ start: false, end: false });
 
-  const scrollCourses = (direction = 1) => {
+  const scrollCourses = (direction) => {
     const scrollarea = scrollRef.current;
     scrollarea.querySelector("[data-radix-scroll-area-viewport]").scrollBy({
       left: scrollarea.clientWidth * direction - 40,
@@ -19,26 +21,63 @@ const OurCoursesSection = () => {
   };
 
   return (
-    <section className="our-courses p-8">
+    <motion.section
+      initial="initial"
+      whileInView="whileInView"
+      transition={{ staggerChildren: 0.1 }}
+      viewport={{ once: true }}
+      className="our-courses p-8"
+      id="courses"
+    >
       <div className="container mx-auto">
-        <h2>Our Courses</h2>
+        <motion.h2
+          variants={{ initial: { opacity: 0 }, whileInView: { opacity: 1 } }}
+        >
+          Our Courses
+        </motion.h2>
 
         <div className="controls flex justify-end gap-2 my-2">
-          <button
-            className="prev bg-gray-300 hover:bg-gray-400 active:bg-gray-500 disabled:bg-gray-200 rounded-full size-8 flex justify-center items-center p-1.5"
+          <Button
+            size="icon"
+            variant="outline"
+            className="prev rounded-full"
             onClick={(e) => scrollCourses(-1)}
+            disabled={scrollEdge.start}
           >
-            {/* <IconChevronLeft /> */}
-          </button>
-          <button
-            className="next bg-gray-300 hover:bg-gray-400 active:bg-gray-500 disabled:bg-gray-200 rounded-full size-8 flex justify-center items-center p-1.5"
+            <ChevronLeft className="text-primary" />
+          </Button>
+          <Button
+            size="icon"
+            variant="outline"
+            className="next rounded-full"
             onClick={(e) => scrollCourses(1)}
+            disabled={scrollEdge.end}
           >
-            {/* <IconChevronRight /> */}
-          </button>
+            <ChevronRight className="text-primary" />
+          </Button>
         </div>
 
-        <ScrollArea ref={scrollRef} className="container ">
+        <ScrollArea
+          ref={scrollRef}
+          className="container"
+          onScroll={(e) => {
+            const sl = e.target.scrollLeft;
+            const sw = e.target.scrollWidth;
+            const cw = e.target.clientWidth;
+
+            if (sl <= 0 && !scrollEdge.start) {
+              setScrollEdge((se) => ({ ...se, start: true }));
+            } else if (sl > 0 && scrollEdge.start) {
+              setScrollEdge((se) => ({ ...se, start: false }));
+            }
+
+            if (sl + cw >= sw && !scrollEdge.end) {
+              setScrollEdge((se) => ({ ...se, end: true }));
+            } else if (sl + cw < sw && scrollEdge.end) {
+              setScrollEdge((se) => ({ ...se, end: false }));
+            }
+          }}
+        >
           <div className="flex *:shrink-0 gap-6">
             {courses.map((course, index) => (
               <CourseCard key={course.name + index} {...course} />
@@ -47,13 +86,20 @@ const OurCoursesSection = () => {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
 const CourseCard = ({ name, description, src, alt, href }) => {
   return (
-    <div className="card p-4 rounded-xl bg-neutral-100 max-w-80 w-fit flex flex-col">
+    <motion.div
+      variants={{
+        initial: { y: 100, opacity: 0 },
+        whileInView: { y: 0, opacity: 1 },
+      }}
+      transition={{ duration: 0.3 }}
+      className="card p-4 rounded-xl bg-neutral-100 max-w-80 w-fit flex flex-col"
+    >
       <img
         src={src}
         alt={alt || `${name} image`}
@@ -71,11 +117,11 @@ const CourseCard = ({ name, description, src, alt, href }) => {
           className="w-fit"
         >
           <Link
-            href={href ?? "#"}
+            href={`/register?course=${name.toLowerCase().replaceAll(" ", "-")}`}
             className="relative inline-flex items-center gap-0 border-current group"
           >
             Apply Now
-            {/* <IconChevronRight className="size-5 transition-all" /> */}
+            <ChevronRight className="size-5 transition-all" />
             <motion.div
               variants={{
                 hide: { scaleX: 0 },
@@ -86,7 +132,7 @@ const CourseCard = ({ name, description, src, alt, href }) => {
           </Link>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
