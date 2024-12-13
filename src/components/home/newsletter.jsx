@@ -1,10 +1,10 @@
-import { IconRss } from "@tabler/icons-react";
+import { Rss } from "lucide-react";
 
 const Newsletter = () => {
   return (
     <section className="newsletter p-8 text-white bg-[url(/images/newsletter-bg.svg)]">
       <div className="container flex flex-col items-center">
-        <IconRss className="size-20 text-neutral-400 mb-4" />
+        <Rss className="size-20 text-neutral-400 mb-4" />
         <h2>SUBSCRIBE TO NEWSLETTER</h2>
         <p>News . Opportunities . Information . & More </p>
         <div className="flex items-center gap-4 my-4">

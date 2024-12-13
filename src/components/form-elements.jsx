@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { IconCloudUpload } from "@tabler/icons-react";
+import { CloudUpload } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -89,7 +89,7 @@ export const FileInput = ({
             <p className="text-center">{selectedFile.name}</p>
           ) : (
             <>
-              <IconCloudUpload size={32} />
+              <CloudUpload size={32} />
               {uploadLabel}
             </>
           )}
