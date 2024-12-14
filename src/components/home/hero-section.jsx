@@ -33,13 +33,10 @@ const HeroSection = () => {
         fadeBottom.in,
         { delay: stagger(0.03) },
       ],
-      ["p.fade-bottom:nth-of-type(1)", fadeBottom.in, { delay: stagger(0.1) }],
-      [".core-partners .divider", fadeBottom.in, { delay: stagger(0.1) }],
+      ["p.fade-bottom", fadeBottom.in, { delay: stagger(0.1) }],
+      [".divider", fadeBottom.in, { delay: stagger(0.1) }],
       [".core-partners p", slideLeft.in, { delay: stagger(0.1) }],
-      ["p.fade-bottom:nth-of-type(2)", fadeBottom.in, { delay: stagger(0.1) }],
-      ["p.fade-bottom:nth-of-type(3)", fadeBottom.in, { delay: stagger(0.1) }],
-      [".partners .divider", fadeBottom.in, { delay: stagger(0.1) }],
-      [".partners p", slideLeft.in, { delay: stagger(0.1) }],
+      [".partners p", slideLeft.in, { delay: stagger(0.1), at: "<" }],
     ]);
 
     animate(
