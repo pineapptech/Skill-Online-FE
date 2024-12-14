@@ -108,12 +108,12 @@ const GetStartedSection = () => {
   return (
     <section
       ref={scope}
-      className="get-started relative max-w-[100vw] overflow-hidden text-primary-foreground bg-transparent p-8 md:px-24 md:py-12"
+      className="get-started relative max-w-[100vw] overflow-hidden text-primary-foreground bg-transparent"
     >
-      <div className="container mx-auto leading-6 font-normal">
+      <div className="container mx-auto">
         <div className="flex gap-4">
           <div className="info basis-2/3">
-            <h2 className="font-medium  text-3xl mb-4">Get started today!</h2>
+            <h2 className="">Get started today!</h2>
             <p>
               To participate in this groundbreaking program, candidates are
               required to apply for any of the courses and pay a one-time
@@ -122,17 +122,13 @@ const GetStartedSection = () => {
               admission letter and onboarding credentials into their desired
               course
             </p>
-            <h3 className="font-medium text-xl my-4">
-              Full tuition-free scholarship
-            </h3>
+            <h3>Full tuition-free scholarship</h3>
             <p>
               The program offers a full tuition-free scholarship on ALL ten
               emerging technology courses offered for one million beneficiaries
               from Nigeria and other African countries
             </p>
-            <h3 className="font-medium text-xl my-4">
-              The program dynamics are:
-            </h3>
+            <h3>The program dynamics are:</h3>
 
             <motion.ul
               className="space-y-6 relative pl-6 py-px"

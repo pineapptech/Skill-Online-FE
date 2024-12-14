@@ -14,7 +14,7 @@ const navlinks = [
   { label: "Contact", href: "/#contact" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ className }) => {
   const { scrollY } = useScroll();
   const [inView, setInView] = useState(true);
   const [fullUrl, setFullUrl] = useState(null);
@@ -38,9 +38,10 @@ const Navbar = () => {
     <motion.nav
       animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 md:px-24 py-4 sticky z-30",
+        "px-8 md:px-24 py-4 sticky z-30 mx-auto",
         !inView &&
-          "md:px-8 rounded-full max-w-[900px] mx-auto py-2 bg-primary-foreground/80 shadow-md backdrop-blur-sm"
+          "md:px-8 rounded-full max-w-[1100px] py-2 bg-primary-foreground/80 shadow-md backdrop-blur-sm",
+        typeof className == "function" ? className(inView) : className
       )}
       style={{ top: inView ? 0 : 16 }}
     >

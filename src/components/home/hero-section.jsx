@@ -54,7 +54,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section ref={scope} className={cn("hero p-8 md:px-24 relative")}>
+    <section ref={scope} className={cn("hero revert p-8 md:px-24 relative")}>
       <div className="absolute -top-1 left-4 size-[300px] md:bg-[url(/images/circuit-3.svg)] bg-no-repeat bg-contain" />
       <div className="container mx-auto flex justify-between gap-4">
         <div className="info w-3/5 grow z-10">

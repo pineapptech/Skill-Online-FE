@@ -2,6 +2,8 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const processList = [
   {
@@ -28,33 +30,39 @@ const processList = [
   },
 ];
 
+const gridShifts = [
+  "col-start-1",
+  "col-start-2",
+  "col-start-3",
+  "col-start-2",
+  "col-start-1",
+];
+
 const ApplicationProcessSection = () => {
+  const [bgAttachment, setBgAttachment] = useState("scroll");
+
   return (
-    <section className="application-process flex flex-col gap-8 bg-neutral-100 py-8">
+    <section className="application-process flex flex-col gap-6 bg-neutral-100">
       <div className="container mx-auto">
         <h2>Application Process</h2>
       </div>
 
-      <div className="grid grid-flow-col gap-8">
-        <div className="img-wrapper self-start basis-1/2 rounded-e-full overflow-hidden">
+      <div className="section-escape grid grid-cols-2 grid-flow-col gap-4">
+        <motion.div className="img-wrapper overflow-hidden w-full h-[550px]">
           <img
             src="/images/application-process.png"
             alt="Application Process Image"
-            className="w-full h-full object-cover"
-            style={{
-              clipPath:
-                "path(M0 0H491C617.473 0 720 102.527 720 229C720 355.473 617.473 458 491 458H0V0Z)",
-            }}
+            className="w-full h-full object-cover rounded-e-full"
           />
-        </div>
-        <ul className="info flex flex-col gap-4 basis-1/2 pr-8">
+        </motion.div>
+        <ul className="info self-center grid grid-cols-12 gap-4 pr-8">
           {processList.map(({ name, description }, index) => (
             <motion.li
               key={name}
-              className="my-2 rounded-md p-4 bg-neutral-200 group flex gap-4 items-center "
-              style={{
-                marginLeft: `calc(${Math.abs(index * 2 - 4) * -10}px)`,
-              }}
+              className={cn(
+                "col-span-9 grid grid-cols-6 grid-flow-col gap-4 my-2 rounded-md p-4 bg-neutral-200",
+                gridShifts[index]
+              )}
               initial="hide"
               whileHover="show"
               transition={{
@@ -62,23 +70,17 @@ const ApplicationProcessSection = () => {
                 delay: index * 0.1,
               }}
             >
-              <div
-                className="number size-8 flex justify-center items-center rounded-full shrink-0 bg-slate-950 text-white"
-                style={{
-                  clipPath:
-                    "path(M0 0H491C617.473 0 720 102.527 720 229C720 355.473 617.473 458 491 458H0V0Z)",
-                }}
-              >
+              <div className="number col-span-1 size-8 flex justify-center items-center rounded-full shrink-0 bg-slate-950 text-white">
                 {index + 1}
               </div>
-              <div className="">
-                <h4>{name}</h4>
+              <div className="self-center col-span-5">
+                <h4 className="">{name}</h4>
                 <motion.p
                   variants={{
-                    show: { height: "auto" },
-                    hide: { height: 0 },
+                    show: { height: "auto", visibility: "visible" },
+                    hide: { height: 0, visibility: "hidden" },
                   }}
-                  className="transition-transform overflow-hidden origin-top duration-500"
+                  className="transition-transform m-0 overflow-hidden origin-top duration-500"
                 >
                   {description}
                 </motion.p>
@@ -87,7 +89,7 @@ const ApplicationProcessSection = () => {
           ))}
         </ul>
       </div>
-      <Button className="mx-auto container max-w-[500px] md:p-6" asChild>
+      <Button className="mx-auto container max-w-[700px] md:p-6" asChild>
         <Link href="/register">Apply Now</Link>
       </Button>
     </section>

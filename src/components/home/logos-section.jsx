@@ -39,7 +39,7 @@ const LogosSection = () => {
   ]);
 
   return (
-    <section className="logos p-8 md:px-24 mx-auto container ">
+    <section className="logos revert p-8 md:px-24 mx-auto container ">
       <motion.div
         initial="initial"
         whileInView="whileInView"

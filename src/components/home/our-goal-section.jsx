@@ -24,7 +24,7 @@ const OurGoalSection = () => {
     <motion.section
       ref={scope}
       id="goals"
-      className="our-goal bg-neutral-200 p-8 md:px-24 overflow-hidden"
+      className="our-goal bg-neutral-200 overflow-hidden"
     >
       <div className="container mx-auto flex justify-between items-stretch *:basis-0 *:grow gap-4">
         <motion.div initial={{ x: -75, opacity: 0 }} className="img-wrapper">

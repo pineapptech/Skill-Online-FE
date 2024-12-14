@@ -50,4 +50,14 @@
   h3 {
     @apply text-xl my-2;
   }
+  p {
+    @apply leading-6 mb-4;
+  }
+  section:not(.revert),
+  .section {
+    @apply pt-20 pb-16 px-8 md:px-24;
+  }
+  .section-escape {
+    @apply -mx-8 md:-mx-24;
+  }
 }

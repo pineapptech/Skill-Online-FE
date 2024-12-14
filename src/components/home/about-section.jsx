@@ -1,5 +1,5 @@
 "use client";
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
@@ -36,6 +36,7 @@ const partners = [
       </>
     ),
     logo: "/images/logos/skillonline.svg",
+    className: "h-[20px]",
   },
   {
     name: "Intertek",
@@ -254,39 +255,37 @@ const AboutSection = () => {
   const partner = partners.find((partner) => partner.name === selectedPartner);
 
   return (
-    <section id="about" className="about p-8 md:px-24">
-      <div className="container">
-        <div className="flex justify-between gap-8">
-          <div className="info basis-1/2">
-            <img
-              src={partner.logo}
-              alt={partner.name + " Logo"}
-              className="mb-4 h-16"
-            />
-            <div className="[&_ol]:list-decimal [&_ol]:list-inside [&_li]:my-2 [&_p]:mb-3">
-              {partner.description}
-            </div>
+    <section id="about">
+      <div className="container grid grid-cols-9 gap-8">
+        <h2 className="mb-6 col-start-7 col-end-11">About our Partners</h2>
+        <div className="info col-span-5 text-justify">
+          <img
+            src={partner.logo}
+            alt={partner.name + " Logo"}
+            className={cn("mb-4 h-16", partner.className)}
+          />
+          <div className="[&_ol]:list-decimal [&_ol]:list-inside [&_li]:my-2 [&_p]:mb-3">
+            {partner.description}
           </div>
-          <nav className="basis-1/3 mt-8">
-            <h2 className="mb-6">About our Partners</h2>
-            <ul className="flex flex-col gap-8">
-              {partners.map((partner) => (
-                <motion.li
-                  key={partner.name}
-                  onClick={() => setselectedPartner(partner.name)}
-                  className={cn(
-                    "font-bold text-primary text-base cursor-pointer border-l-4 border-current p-2 hover:border-dashed transition-all",
-                    partner.name === selectedPartner &&
-                      "text-secondary border-dashed"
-                  )}
-                  layout
-                >
-                  {partner.name}
-                </motion.li>
-              ))}
-            </ul>
-          </nav>
         </div>
+        <nav className="col-start-7 col-end-11">
+          <ul className="flex flex-col gap-8">
+            {partners.map((partner) => (
+              <motion.li
+                key={partner.name}
+                onClick={() => setselectedPartner(partner.name)}
+                className={cn(
+                  "font-bold text-primary text-base cursor-pointer border-l-4 border-current p-2 hover:border-dashed transition-all",
+                  partner.name === selectedPartner &&
+                    "text-secondary border-dashed"
+                )}
+                layout
+              >
+                {partner.name}
+              </motion.li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </section>
   );

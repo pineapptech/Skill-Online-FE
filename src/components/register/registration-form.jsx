@@ -74,7 +74,11 @@ const inputs = [
   ...input,
   required: true,
   classes: {
-    input: `${input.type !== "file" ? "p-6" : ""} ${input.classes?.input}`,
+    input: `${
+      input.type !== "file"
+        ? "py-6 border-0 shadow-none rounded-none focus-visible:ring-0"
+        : ""
+    } border-b border-neutral-500 ${input.classes?.input}`,
   },
 }));
 
@@ -114,10 +118,12 @@ const RegistrationForm = () => {
             inputs={inputs}
             formData={formData}
             setFormData={setFormData}
-            className="p-4 rounded-lg shadow bg-neutral-50"
+            className="p-4 rounded-lg bg-neutral-50 border"
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
-          <Button className="w-full">Submit</Button>
+          <Button size="xl" className="w-full">
+            Submit
+          </Button>
         </div>
       </div>
 

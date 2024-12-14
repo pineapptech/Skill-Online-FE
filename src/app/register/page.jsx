@@ -6,7 +6,7 @@ import RegistrationForm from "@/components/register/registration-form";
 const Register = () => {
   return (
     <>
-      <Navbar />
+      <Navbar className="max-w-[900px]" />
       <Suspense>
         <RegistrationForm />
       </Suspense>
