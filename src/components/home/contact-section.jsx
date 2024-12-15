@@ -2,7 +2,14 @@
 import React from "react";
 import { Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "motion/react";
 
+const formAnimation = {
+  initial: { x: 30, opacity: 0 },
+  whileInView: { x: 0, opacity: 1 },
+};
+
+const MotionButton = motion.create(Button);
 const ContactSection = () => {
   return (
     <section id="contact" className="contact bg-neutral-100">
@@ -16,7 +23,7 @@ const ContactSection = () => {
         <div className="flex justify-between gap-6">
           <div className="info basis-2/5 space-y-4 [&_p]:mb-2">
             <div className="email-section flex gap-2">
-              <Mail className="text-primary size-6" />
+              <Mail className="text-primary shrink-0" />
               <div className="email-info">
                 <h3 className="text-primary m-0">Email Address</h3>
                 <p>communitymanager@etsap.com</p>
@@ -24,7 +31,7 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="location-section flex gap-4">
-              <MapPin className="text-primary size-9" />
+              <MapPin className="text-primary shrink-0" />
               <div className="location-info">
                 <h3 className="text-primary m-0">Location</h3>
                 <p>
@@ -38,25 +45,36 @@ const ContactSection = () => {
               </div>
             </div>
           </div>
-          <form className="contact-form basis-2/5 flex flex-col gap-4">
-            <input
+          <motion.form
+            initial="initial"
+            whileInView="whileInView"
+            transition={{ duration: 0.3, staggerChildren: 0.1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="contact-form basis-2/5 flex flex-col gap-4"
+          >
+            <motion.input
+              variants={formAnimation}
               type="text"
               placeholder="Full Name"
               className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
             />
-            <input
+            <motion.input
+              variants={formAnimation}
               type="email"
               placeholder="Email Address"
               className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
             />
-            <textarea
+            <motion.textarea
+              variants={formAnimation}
               name="message"
               id="message"
               placeholder="Message"
               className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
-            ></textarea>
-            <Button size="lg">Submit</Button>
-          </form>
+            ></motion.textarea>
+            <MotionButton variants={formAnimation} size="lg">
+              Submit
+            </MotionButton>
+          </motion.form>
         </div>
       </div>
     </section>
