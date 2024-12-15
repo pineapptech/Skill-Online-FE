@@ -1,9 +1,16 @@
 "use client";
-import { motion } from "motion/react";
+import {
+  motion,
+  scroll,
+  stagger,
+  useAnimate,
+  useInView,
+  useScroll,
+} from "motion/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const processList = [
   {
@@ -30,7 +37,7 @@ const processList = [
   },
 ];
 
-const gridShifts = [
+const listShifts = [
   "col-start-1",
   "col-start-2",
   "col-start-3",
@@ -39,36 +46,51 @@ const gridShifts = [
 ];
 
 const ApplicationProcessSection = () => {
-  const [bgAttachment, setBgAttachment] = useState("scroll");
+  const [scope, animate] = useAnimate();
+  const inView = useInView(scope, { amount: 0.4, once: true });
+
+  useEffect(() => {
+    if (inView) {
+      animate([
+        [".img-overlay", { left: "100%" }, { duration: 0.5 }],
+        [
+          ".info li",
+          { x: [-30, 0], opacity: 1 },
+          { delay: stagger(0.1), duration: 0.4 },
+        ],
+      ]);
+    }
+  }, [inView]);
 
   return (
-    <section className="application-process flex flex-col gap-6 bg-neutral-100">
+    <section
+      ref={scope}
+      className="application-process flex flex-col gap-6 bg-neutral-100"
+    >
       <div className="container mx-auto">
         <h2>Application Process</h2>
       </div>
 
       <div className="section-escape grid grid-cols-2 grid-flow-col gap-4">
-        <motion.div className="img-wrapper overflow-hidden w-full h-[550px]">
+        <div className="img-wrapper relative overflow-hidden w-full h-[550px]">
+          <motion.div className="img-overlay absolute inset-0 bg-neutral-100" />
           <img
             src="/images/application-process.png"
             alt="Application Process Image"
             className="w-full h-full object-cover rounded-e-full"
           />
-        </motion.div>
+        </div>
         <ul className="info self-center grid grid-cols-12 gap-4 pr-8">
           {processList.map(({ name, description }, index) => (
             <motion.li
               key={name}
               className={cn(
-                "col-span-9 grid grid-cols-6 grid-flow-col gap-4 my-2 rounded-md p-4 bg-neutral-200",
-                gridShifts[index]
+                "col-span-9 grid grid-cols-6 grid-flow-col gap-4 opacity-0 my-2 rounded-md p-4 bg-neutral-200",
+                listShifts?.[index]
               )}
               initial="hide"
               whileHover="show"
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-              }}
+              layout
             >
               <div className="number col-span-1 size-8 flex justify-center items-center rounded-full shrink-0 bg-slate-950 text-white">
                 {index + 1}
@@ -89,11 +111,17 @@ const ApplicationProcessSection = () => {
           ))}
         </ul>
       </div>
-      <Button className="mx-auto container max-w-[700px] md:p-6" asChild>
+      <MotionButton
+        whileHover={{ maxWidth: "800px" }}
+        className="mx-auto container max-w-[700px] md:p-6"
+        asChild
+      >
         <Link href="/register">Apply Now</Link>
-      </Button>
+      </MotionButton>
     </section>
   );
 };
+
+const MotionButton = motion.create(Button);
 
 export default ApplicationProcessSection;
