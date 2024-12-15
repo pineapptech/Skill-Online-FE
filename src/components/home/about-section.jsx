@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 const partners = [
   {
@@ -257,17 +257,28 @@ const AboutSection = () => {
   return (
     <section id="about">
       <div className="container grid grid-cols-9 gap-8">
-        <h2 className="mb-6 col-start-7 col-end-11">About our Partners</h2>
-        <div className="info col-span-5 text-justify">
-          <img
-            src={partner.logo}
-            alt={partner.name + " Logo"}
-            className={cn("mb-4 h-16", partner.className)}
-          />
-          <div className="[&_ol]:list-decimal [&_ol]:list-inside [&_li]:my-2 [&_p]:mb-3">
-            {partner.description}
-          </div>
-        </div>
+        <h2 className="mb-6 col-start-3 md:col-start-5 lg:col-start-7 col-end-11 ">
+          About our Partners
+        </h2>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={partner.name}
+            className="info col-span-5 text-justify"
+            exit={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            initial={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] }}
+          >
+            <img
+              src={partner.logo}
+              alt={partner.name + " Logo"}
+              className={cn("mb-4 h-16", partner.className)}
+            />
+            <div className="[&_ol]:list-decimal [&_ol]:list-inside [&_li]:my-2 [&_p]:mb-3">
+              {partner.description}
+            </div>
+          </motion.div>
+        </AnimatePresence>
         <nav className="col-start-7 col-end-11">
           <ul className="flex flex-col gap-8">
             {partners.map((partner) => (
