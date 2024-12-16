@@ -2,10 +2,10 @@
 import { motion } from "motion/react";
 
 const links = [
-  { name: "Home", href: "#" },
-  { name: "Our Service", href: "#" },
-  { name: "About Us", href: "#" },
-  { name: "Contact", href: "#" },
+  { name: "Home", href: "/#" },
+  { name: "Our Courses", href: "/#courses" },
+  { name: "About Us", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 const socialLinks = [

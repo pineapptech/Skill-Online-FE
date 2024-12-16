@@ -2,17 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import courses from "@/data/courses";
 import { AllInput } from "../form-elements";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { motion } from "motion/react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { createZodSchema, handleFormSubmitHelper } from "@/lib/form-utils";
+import { z } from "zod";
+import { axiosInstance } from "@/lib/axios";
+import { CheckCircle, Loader2 } from "lucide-react";
+import ErrorDialog from "@/components/ui/error-dialog";
+import SuccessDialog from "@/components/ui/success-dialog";
 
 const inputs = [
   {
@@ -27,7 +23,7 @@ const inputs = [
   },
   {
     label: "Unique Reg Number",
-    name: "regNumber",
+    name: "regNo",
     placeholder: "This will automatically be generated for you",
     inputProps: {
       readOnly: true,
@@ -37,21 +33,26 @@ const inputs = [
   {
     type: "flex",
     items: [
-      { label: "Surname", name: "surname", placeholder: "Enter your surname" },
       {
         label: "First name",
-        name: "firstname",
-        placeholder: "Enter your first name",
+        name: "firstName",
+        placeholder: "Enter first name",
       },
+      { label: "Last name", name: "lastName", placeholder: "Enter last name" },
     ],
   },
   {
     label: "Gender",
+    type: "select",
     name: "gender",
-    options: ["Gay"],
+    options: ["Male", "Female", "Non-binary"],
     placeholder: "Select your gender",
   },
-  { label: "Email Address", name: "email", placeholder: "Enter your email" },
+  {
+    label: "Email Address",
+    name: "email",
+    placeholder: "Enter your email",
+  },
   {
     label: "Phone Number",
     name: "phone",
@@ -64,12 +65,13 @@ const inputs = [
   },
   { label: "Province", name: "province", placeholder: "Enter your province" },
   { label: "City", name: "city", placeholder: "Enter your City of residence" },
+  { label: "Address", name: "address", placeholder: "Enter your address" },
   {
     label: "Passport ID/National ID",
-    name: "id",
+    name: "passportId",
     placeholder: "Enter your Passport/National ID number",
   },
-  { label: "Passport ID/National ID", name: "idImage", type: "file" },
+  { label: "Passport ID/National ID", name: "file", type: "file" },
   {
     label: "I agree",
     placeholder:
@@ -91,32 +93,72 @@ const inputs = [
 
 const RegistrationForm = () => {
   const searchParams = useSearchParams();
+  // const [formData, setFormData] = useState({
+  //   course: searchParams.get("course") ?? "",
+  // });
   const [formData, setFormData] = useState({
-    course: searchParams.get("course") ?? "",
+    course: "CS",
+    // regNo: "ETSAP/SO/CS/57141",
+    firstName: "Mike",
+    lastName: "Tyson",
+    gender: "Female",
+    email: "tester@gmail.com",
+    phone: "09034584894",
+    state: "Enuu",
+    province: "PI",
+    city: "ci",
+    address: "addr",
+    passportId: "ini",
+    // file: {},
+    agreement: false,
   });
-  const [submitStatus, setSubmitStatus] = useState();
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [rand, setRand] = useState(Math.random);
-
-  console.log(formData);
 
   useEffect(() => {
     if (!formData.course) return;
 
     setFormData((fd) => ({
       ...fd,
-      regNumber: `ETSAP/SO/${fd.course}/${Math.floor(rand * 90000 + 10000)}`,
+      regNo: `ETSAP/SO/${fd.course}/${Math.floor(rand * 90000 + 10000)}`,
     }));
   }, [formData.course, rand]);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // Logic coming soon...
 
-    setSubmitStatus({ status: "success" });
+    const formSchema = createZodSchema(inputs).extend({
+      agreement: z.literal(true, {
+        errorMap: () => ({
+          message: "You must agree to the terms and conditions",
+        }),
+      }),
+      email: z.string().email({ message: "Invalid email address" }),
+      regNo: z.string().optional(),
+    });
+
+    const formStatus = await handleFormSubmitHelper({
+      formSchema,
+      formData,
+      endPoint: "/auth/register",
+      setSubmitStatus,
+      onError(formStatus) {
+        // Filter and handle unhandled/unfriendly backend errors
+        const issueField = Object.keys(formData).find((formField) =>
+          formStatus.error.includes(formField)
+        );
+
+        if (formStatus.error.includes("duplicate key") && issueField)
+          setSubmitStatus({
+            ...formStatus,
+            error: `User with ${issueField}: ${formData[issueField]} already exists.`,
+          });
+      },
+    });
   };
 
   return (
-    <form className="p-8" onSubmit={handleFormSubmit}>
+    <form className="p-8" method="post" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
         <h1 className="text-3xl text-center mb-12">Registration Form</h1>
         <div className="max-w-[800px] mx-auto flex flex-col gap-4">
@@ -127,63 +169,50 @@ const RegistrationForm = () => {
             className="p-4 rounded-lg bg-neutral-50 border"
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
-          <Button size="xl" className="w-full">
+          <Button
+            size="xl"
+            className="w-full"
+            type="submit"
+            disabled={submitStatus?.status === "submitting"}
+          >
             Register
+            {submitStatus?.status === "submitting" && (
+              <Loader2 className="animate-spin" />
+            )}
           </Button>
         </div>
       </div>
 
-      <Dialog
+      <SuccessDialog
         open={submitStatus?.status === "success"}
         onOpenChange={() => {
           setSubmitStatus(null);
           setFormData({});
         }}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <motion.svg
-              whileInView="draw"
-              animate="draw"
-              xmlns="http://www.w3.org/2000/svg"
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="tabler-icon tabler-icon-circle-check self-center size-16 text-green-500 fill-transparent"
-            >
-              <motion.path
-                variants={{
-                  draw: { pathLength: [0, 1], transition: { duration: 0.5 } },
-                }}
-                d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"
-              />
-              <motion.path
-                variants={{
-                  draw: { pathLength: [0, 1], transition: { duration: 0.5 } },
-                }}
-                d="M9 12l2 2l4 -4"
-              />
-            </motion.svg>
-            <DialogTitle className="self-center my-2">
-              Registration Successful
-            </DialogTitle>
-            <DialogDescription>
-              {submitStatus?.message ??
-                "Check your email for necessary documents"}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="sm:justify-center">
-            <Button>
-              <Link href="/">Go to homepage</Link>
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        title="Registration Successful"
+        description=""
+        body={
+          <>
+            Thank you for registering with us, we are excited that you have
+            taken this milestone step towards acquiring you tech emerging skill,
+            we are currently processing your application so you&apos;ll receive
+            your admission letter and your onboarding details shortly.
+            <br />
+            <br />
+            <em>Signed SkillOnline ETSAP Onboarding team</em>
+          </>
+        }
+      />
+      <ErrorDialog
+        open={submitStatus?.status === "error"}
+        onOpenChange={() => {
+          setSubmitStatus(null);
+        }}
+        title="Registration Failed"
+        description="An Error Occured"
+        body={submitStatus?.error}
+        classes={{ body: "text-center" }}
+      />
     </form>
   );
 };

@@ -97,7 +97,7 @@ const HeroSection = () => {
           >
             A transformative initiative hosted by
           </motion.p>
-          <div className="core-partners font-header grid  grid-flow-col items-center font-bold tracking-wider">
+          <div className="core-partners font-header grid grid-flow-col items-center font-bold text-sm tracking-wider">
             {["SkillOnline", "ACCREDIA", "Intertek", "CIRPS"].map(
               (item, index) => (
                 <Fragment key={item + index}>
@@ -110,7 +110,7 @@ const HeroSection = () => {
                   <motion.p
                     initial={slideLeft.out}
                     key={index}
-                    className="core-partner"
+                    className="core-partner mb-0"
                   >
                     {item}
                   </motion.p>
@@ -131,7 +131,7 @@ const HeroSection = () => {
           >
             In partnership with
           </motion.p>
-          <div className="partners font-header w-[700px] capitalize flex justify-between font-bold tracking-wider">
+          <div className="partners font-header w-[700px] capitalize flex justify-between font-bold text-sm tracking-wider">
             {[
               "International Bio-research institute",
               "Enugu State TECH HUB - Enugu state GOVERNMENT, NIGERIA",

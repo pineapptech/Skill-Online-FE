@@ -54,6 +54,11 @@ const ApplicationProcessSection = () => {
       animate([
         [".img-overlay", { left: "100%" }, { duration: 0.5 }],
         [
+          ".application-img",
+          { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+          { at: "<" },
+        ],
+        [
           ".info li",
           { x: [-30, 0], opacity: 1 },
           { delay: stagger(0.1), duration: 0.4 },
@@ -77,7 +82,7 @@ const ApplicationProcessSection = () => {
           <img
             src="/images/application-process.png"
             alt="Application Process Image"
-            className="w-full h-full object-cover rounded-e-full"
+            className="application-img w-full h-full object-cover rounded-full"
           />
         </div>
         <ul className="info self-center grid grid-cols-12 gap-4 pr-8">

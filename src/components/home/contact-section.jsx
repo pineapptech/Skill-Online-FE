@@ -49,7 +49,7 @@ const ContactSection = () => {
             initial="initial"
             whileInView="whileInView"
             transition={{ duration: 0.3, staggerChildren: 0.1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.5 }}
             className="contact-form basis-2/5 flex flex-col gap-4"
           >
             <motion.input

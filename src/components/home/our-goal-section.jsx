@@ -31,7 +31,7 @@ const OurGoalSection = () => {
           <img
             src="/images/our-goal.png"
             alt="A woman holding a tablet with a smile"
-            className="rounded-xl w-full object-contain"
+            className="rounded-xl w-full h-full object-cover"
           />
         </motion.div>
         <motion.div
