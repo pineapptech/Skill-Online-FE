@@ -124,7 +124,7 @@ const CourseCard = ({ name, description, src, alt, id }) => {
           className="w-fit"
         >
           <Link
-            href={`/register?course=${id}`}
+            href={`/auth/register?course=${id}`}
             className="relative inline-flex items-center gap-0 border-current group"
           >
             Apply Now

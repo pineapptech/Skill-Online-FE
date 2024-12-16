@@ -121,7 +121,7 @@ const ApplicationProcessSection = () => {
         className="mx-auto container max-w-[700px] md:p-6"
         asChild
       >
-        <Link href="/register">Apply Now</Link>
+        <Link href="/auth/register">Apply Now</Link>
       </MotionButton>
     </section>
   );

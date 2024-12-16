@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import { createZodSchema, handleFormSubmitHelper } from "@/lib/form-utils";
 import { z } from "zod";
-import { axiosInstance } from "@/lib/axios";
-import { CheckCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import ErrorDialog from "@/components/ui/error-dialog";
 import SuccessDialog from "@/components/ui/success-dialog";
+import Link from "next/link";
 
 const inputs = [
   {
@@ -42,16 +42,16 @@ const inputs = [
     ],
   },
   {
+    label: "Email Address",
+    name: "email",
+    placeholder: "Enter your email",
+  },
+  {
     label: "Gender",
     type: "select",
     name: "gender",
     options: ["Male", "Female", "Non-binary"],
     placeholder: "Select your gender",
-  },
-  {
-    label: "Email Address",
-    name: "email",
-    placeholder: "Enter your email",
   },
   {
     label: "Phone Number",
@@ -93,24 +93,8 @@ const inputs = [
 
 const RegistrationForm = () => {
   const searchParams = useSearchParams();
-  // const [formData, setFormData] = useState({
-  //   course: searchParams.get("course") ?? "",
-  // });
   const [formData, setFormData] = useState({
-    course: "CS",
-    // regNo: "ETSAP/SO/CS/57141",
-    firstName: "Mike",
-    lastName: "Tyson",
-    gender: "Female",
-    email: "tester@gmail.com",
-    phone: "09034584894",
-    state: "Enuu",
-    province: "PI",
-    city: "ci",
-    address: "addr",
-    passportId: "ini",
-    // file: {},
-    agreement: false,
+    course: searchParams.get("course") ?? "",
   });
   const [submitStatus, setSubmitStatus] = useState(null);
   const [rand, setRand] = useState(Math.random);
@@ -140,7 +124,7 @@ const RegistrationForm = () => {
     const formStatus = await handleFormSubmitHelper({
       formSchema,
       formData,
-      endPoint: "/auth/register",
+      endPoint: "/v1/auth/register",
       setSubmitStatus,
       onError(formStatus) {
         // Filter and handle unhandled/unfriendly backend errors
@@ -155,6 +139,13 @@ const RegistrationForm = () => {
           });
       },
     });
+
+    if (formStatus.status === "success") {
+      localStorage.setItem(
+        "_auth",
+        JSON.stringify(formStatus?.response?.data?.user)
+      );
+    }
   };
 
   return (
@@ -201,6 +192,11 @@ const RegistrationForm = () => {
             <br />
             <em>Signed SkillOnline ETSAP Onboarding team</em>
           </>
+        }
+        controls={
+          <Button className="mx-auto">
+            <Link href="/auth/payment">Proceed to payment</Link>
+          </Button>
         }
       />
       <ErrorDialog

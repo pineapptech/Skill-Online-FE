@@ -151,7 +151,9 @@ export const handleFormSubmitHelper = async ({
 }) => {
   // Can be controlled using events and/or setSubmitStatus state function
   let formStatus = {};
-  const validatedFormData = formSchema.safeParse(formData);
+  const validatedFormData = formSchema
+    ? formSchema.safeParse(formData)
+    : { success: true };
 
   if (!validatedFormData.success) {
     formStatus = {

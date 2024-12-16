@@ -1,7 +1,7 @@
 "use client";
 import React, { Suspense } from "react";
 import Navbar from "@/components/navbar";
-import RegistrationForm from "@/components/register/registration-form";
+import RegistrationForm from "@/components/auth/registration-form";
 
 const Register = () => {
   return (

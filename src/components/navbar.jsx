@@ -84,10 +84,10 @@ const Navbar = ({ className }) => {
               ></motion.div>
             </motion.li>
           ))}
-          {!fullUrl?.startsWith("/register") && (
+          {!fullUrl?.startsWith("/auth") && (
             <li>
               <Button className="rounded-full" asChild>
-                <Link href="/register" scroll={false}>
+                <Link href="/auth/register" scroll={false}>
                   Apply Now
                 </Link>
               </Button>
