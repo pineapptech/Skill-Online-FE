@@ -120,9 +120,10 @@ const HeroSection = () => {
           </div>
           <motion.p
             initial={fadeBottom.out}
-            className="fade-bottom text-xs xl:text-base font-medium "
+            className="fade-bottom text-sm xl:text-base font-medium "
           >
-            A European consortium supported by the EU
+            A European consortium in line with the European Commission Digital
+            Framework
           </motion.p>
 
           <motion.p
