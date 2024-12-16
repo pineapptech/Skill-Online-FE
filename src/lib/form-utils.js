@@ -153,7 +153,7 @@ export const handleFormSubmitHelper = async ({
   let formStatus = {};
   const validatedFormData = formSchema
     ? formSchema.safeParse(formData)
-    : { success: true };
+    : { success: true, data: formData };
 
   if (!validatedFormData.success) {
     formStatus = {
