@@ -12,10 +12,10 @@ import Navbar from "@/components/navbar";
 import RegistrationForm from "@/components/auth/registration-form";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 const Register = () => {
   const [authData, setAuthData] = useState(null);
-  const [submitStatus, setSubmitStatus] = useState(null);
 
   useEffect(() => {
     try {
@@ -70,14 +70,8 @@ const Register = () => {
             process
           </CardContent>
           <CardFooter>
-            <Button
-              className="grow"
-              disabled={submitStatus?.status === "submitting"}
-            >
-              Proceed to payment
-              {submitStatus?.status === "submitting" && (
-                <Loader2 className="animate-spin" />
-              )}
+            <Button className="grow">
+              <Link href="/auth/payment">Proceed to payment</Link>
             </Button>
           </CardFooter>
         </Card>
