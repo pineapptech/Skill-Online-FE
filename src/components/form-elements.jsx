@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const FileInput = ({
   label,
@@ -298,11 +299,63 @@ export const TextareaInput = ({
   );
 };
 
+export const CheckboxInput = ({
+  label,
+  name,
+  placeholder,
+  onChange,
+  value,
+  classes = "",
+  error,
+  inputProps = {},
+  required,
+}) => {
+  const controls = onChange
+    ? { checked: value, onCheckedChange: onChange }
+    : { defaultChecked: value };
+
+  return (
+    <div
+      className={cn(
+        "relative flex flex-col gap-1",
+        typeof classes == "string" ? classes : classes.main
+      )}
+    >
+      <label
+        htmlFor={name}
+        className={cn("text-sm", error && "text-red-500", classes.label)}
+      >
+        {placeholder} {required && <span className="text-red-400">{"*"}</span>}
+      </label>
+      <div
+        className={cn(
+          "relative flex items-center gap-2",
+          classes.inputContainer
+        )}
+      >
+        <Checkbox id={name} name={name} {...controls} {...inputProps} />
+        <label
+          htmlFor={name}
+          className={cn("text-sm", error && "text-red-500", classes.label)}
+        >
+          {label}
+        </label>
+      </div>
+      {error && (
+        <div className={cn("error text-xs text-red-500", classes.error)}>
+          {error}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const mapping = {
   text: TypeInput,
   file: FileInput,
   select: SelectInput,
   textarea: TextareaInput,
+  checkbox: CheckboxInput,
 };
 
 export const AllInput = ({

@@ -117,10 +117,10 @@ const GetStartedSection = () => {
             <p>
               To participate in this groundbreaking program, candidates are
               required to apply for any of the courses and pay a one-time
-              application fee of 5,000 Naira (or its dollar equivalent). The
+              application fee of 6,000 Naira (or its dollar equivalent). The
               application is processed instantly and candidate receives an
               admission letter and onboarding credentials into their desired
-              course
+              course.
             </p>
             <h3>Full tuition-free scholarship</h3>
             <p>

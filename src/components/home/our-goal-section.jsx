@@ -31,7 +31,7 @@ const OurGoalSection = () => {
           <img
             src="/images/our-goal.png"
             alt="A woman holding a tablet with a smile"
-            className="rounded-xl w-full h-full object-cover"
+            className="rounded-xl w-full object-contain"
           />
         </motion.div>
         <motion.div
@@ -63,8 +63,8 @@ const OurGoalSection = () => {
             and Canada, to deliver specialized distance learning, digital
             education and upskilling, offering certifications, professional
             development, and e-learning tools tailored to modern educational
-            needs and are proudly supported by the European Union(EU). They are
-            certified by ACCREDIA, an international Accreditation body,
+            needs, in line with the European commission digital framework. They
+            are certified by ACCREDIA, an international Accreditation body,
             responsible for accrediting organizations involved in testing,
             inspection, educational and technology upskilling and certification
             across Europe, America, Asia and Canada.

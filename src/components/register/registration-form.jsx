@@ -22,7 +22,7 @@ const inputs = [
     name: "course",
     options: courses.map((course) => ({
       label: course.name,
-      value: course.name.toLowerCase().replaceAll(" ", "-"),
+      value: course.id,
     })),
   },
   {
@@ -70,6 +70,13 @@ const inputs = [
     placeholder: "Enter your Passport/National ID number",
   },
   { label: "Passport ID/National ID", name: "idImage", type: "file" },
+  {
+    label: "I agree",
+    placeholder:
+      "Skillonline will use the form data only for the purpose of crediting the person as online course registration",
+    type: "checkbox",
+    name: "agreement",
+  },
 ].map((input) => ({
   ...input,
   required: true,
@@ -90,15 +97,14 @@ const RegistrationForm = () => {
   const [submitStatus, setSubmitStatus] = useState();
   const [rand, setRand] = useState(Math.random);
 
+  console.log(formData);
+
   useEffect(() => {
     if (!formData.course) return;
 
     setFormData((fd) => ({
       ...fd,
-      regNumber: `ETSAP/SO/${fd.course
-        .split("-")
-        .map((s) => s[0]?.toUpperCase())
-        .join("")}/${Math.floor(rand * 90000 + 10000)}`,
+      regNumber: `ETSAP/SO/${fd.course}/${Math.floor(rand * 90000 + 10000)}`,
     }));
   }, [formData.course, rand]);
 
@@ -112,7 +118,7 @@ const RegistrationForm = () => {
   return (
     <form className="p-8" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
-        <h1 className="text-3xl text-center mb-12">Application Form</h1>
+        <h1 className="text-3xl text-center mb-12">Registration Form</h1>
         <div className="max-w-[800px] mx-auto flex flex-col gap-4">
           <AllInput
             inputs={inputs}
@@ -122,7 +128,7 @@ const RegistrationForm = () => {
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
           <Button size="xl" className="w-full">
-            Submit
+            Register
           </Button>
         </div>
       </div>

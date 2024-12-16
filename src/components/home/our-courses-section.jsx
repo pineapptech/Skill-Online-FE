@@ -91,14 +91,13 @@ const OurCoursesSection = () => {
               <CourseCard key={course.name + index} {...course} />
             ))}
           </motion.div>
-          {/* <ScrollBar orientation="horizontal" /> */}
         </ScrollArea>
       </div>
     </motion.section>
   );
 };
 
-const CourseCard = ({ name, description, src, alt, href }) => {
+const CourseCard = ({ name, description, src, alt, id }) => {
   return (
     <motion.div
       variants={{
@@ -125,7 +124,7 @@ const CourseCard = ({ name, description, src, alt, href }) => {
           className="w-fit"
         >
           <Link
-            href={`/register?course=${name.toLowerCase().replaceAll(" ", "-")}`}
+            href={`/register?course=${id}`}
             className="relative inline-flex items-center gap-0 border-current group"
           >
             Apply Now
