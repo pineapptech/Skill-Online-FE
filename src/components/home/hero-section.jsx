@@ -1,6 +1,6 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
-import { motion, stagger, useAnimate, useMotionValue } from "motion/react";
+import React, { Fragment, useEffect } from "react";
+import { motion, stagger, useAnimate } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const fadeBottom = {
@@ -58,7 +58,7 @@ const HeroSection = () => {
           <motion.h1
             initial={fadeBottom.out}
             className={cn(
-              "relative overflow-hidden font-extrabold leading-10 text-4xl md:text-6xl 2xl:text-8xl py-4 ",
+              "relative overflow-hidden font-extrabold leading-10 text-4xl sm:text-6xl 2xl:text-8xl py-4 ",
               "fade-bottom",
               "flex gap-4 flex-wrap",
               "xl:mb-16"
@@ -97,20 +97,20 @@ const HeroSection = () => {
           >
             A transformative initiative hosted by
           </motion.p>
-          <div className="core-partners font-header grid grid-flow-col items-center font-bold text-sm tracking-wider">
+          <div className="core-partners font-header flex sm:justify-between items-center flex-wrap gap-3 font-bold text-sm tracking-wider">
             {["SkillOnline", "ACCREDIA", "Intertek", "CIRPS"].map(
               (item, index) => (
                 <Fragment key={item + index}>
                   {index !== 0 && (
                     <motion.div
                       initial={fadeBottom.out}
-                      className="divider fade-bottom h-4/5 w-0.5 bg-current"
+                      className="divider shrink-0 fade-bottom h-6 w-0.5 bg-current"
                     />
                   )}
                   <motion.p
                     initial={slideLeft.out}
                     key={index}
-                    className="core-partner mb-0"
+                    className="core-partner mb-0 text-center first:text-left"
                   >
                     {item}
                   </motion.p>
@@ -132,7 +132,7 @@ const HeroSection = () => {
           >
             In partnership with
           </motion.p>
-          <div className="partners font-header w-[700px] capitalize flex justify-between font-bold text-sm tracking-wider">
+          <div className="partners font-header md:w-[700px] capitalize flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 font-bold text-sm tracking-wider">
             {[
               "International Bio-research institute",
               "Enugu State TECH HUB - Enugu state GOVERNMENT, NIGERIA",
@@ -141,13 +141,13 @@ const HeroSection = () => {
                 {index !== 0 && (
                   <motion.div
                     initial={fadeBottom.out}
-                    className="fade-bottom divider fade-bottom  h-8 shrink-0 w-0.5 bg-current"
+                    className="fade-bottom divider fade-bottom w-16 h-0.5 sm:h-8 sm:w-0.5 shrink-0 bg-current"
                   />
                 )}
                 <motion.p
                   initial={slideLeft.out}
                   key={index}
-                  className="partner flex items-center justify-center uppercase text-left leading-4 px-4 first:pl-0"
+                  className="partner uppercase text-left leading-4 mb-0"
                 >
                   {item}
                 </motion.p>
@@ -158,7 +158,7 @@ const HeroSection = () => {
         <motion.div
           whileHover="hover"
           initial="initial"
-          className="img relative w-2/5 grow self-start"
+          className="img hidden md:block relative w-2/5 grow self-start"
           variants={{ hover: { scale: 1.1 } }}
         >
           <motion.div
