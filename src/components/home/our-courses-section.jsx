@@ -8,14 +8,21 @@ import courses from "@/data/courses";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const MotionScrollArea = motion.create(ScrollArea);
+
 const OurCoursesSection = () => {
   const scrollRef = useRef(null);
   const [scrollEdge, setScrollEdge] = useState({ start: false, end: false });
 
   const scrollCourses = (direction) => {
     const scrollarea = scrollRef.current;
+    const scrollAmount =
+      scrollarea.clientWidth < 700
+        ? scrollarea.clientWidth * direction
+        : scrollarea.clientWidth * direction * 0.9;
+
     scrollarea.querySelector("[data-radix-scroll-area-viewport]").scrollBy({
-      left: scrollarea.clientWidth * direction * 0.5,
+      left: scrollAmount,
       behaviour: "smooth",
     });
   };
@@ -26,11 +33,10 @@ const OurCoursesSection = () => {
       whileInView="whileInView"
       transition={{ staggerChildren: 0.1 }}
       viewport={{ once: true }}
-      className="our-courses"
       id="courses"
     >
       <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <motion.h2
             variants={{ initial: { opacity: 0 }, whileInView: { opacity: 1 } }}
             className=""
@@ -59,9 +65,13 @@ const OurCoursesSection = () => {
           </div>
         </div>
 
-        <ScrollArea
+        <MotionScrollArea
           ref={scrollRef}
-          className="rounded-xl shadow-[0_0_5px_5px_rgb(0_0_0_/_0.05)] p-4"
+          className="rounded-xl sm:shadow-[0_0_5px_5px_rgb(0_0_0_/_0.05)] sm:p-4 h-96"
+          initial="initial"
+          whileInView="whileInView"
+          transition={{ staggerChildren: 0.1 }}
+          viewport={{ amount: 0.2, once: true }}
           onScroll={(e) => {
             const sl = e.target.scrollLeft;
             const sw = e.target.scrollWidth;
@@ -80,18 +90,13 @@ const OurCoursesSection = () => {
             }
           }}
         >
-          <motion.div
-            initial="initial"
-            whileInView="whileInView"
-            transition={{ staggerChildren: 0.1 }}
-            viewport={{ amount: 0.2, once: true }}
-            className="flex *:shrink-0 gap-12"
-          >
+          <div className="flex *:shrink-0 gap-12">
             {courses.map((course, index) => (
               <CourseCard key={course.name + index} {...course} />
             ))}
-          </motion.div>
-        </ScrollArea>
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </MotionScrollArea>
       </div>
     </motion.section>
   );
