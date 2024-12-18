@@ -44,7 +44,7 @@ const LogosSection = () => {
         initial="initial"
         whileInView="whileInView"
         viewport={{ amount: 1, once: true, margin: "-60px 0px" }}
-        className="logos-wrapper grid grid-flow-col items-center justify-between"
+        className="logos-wrapper flex flex-wrap gap-4 items-center justify-center md:justify-between"
       >
         {logos.map((item, index) => {
           return (
@@ -55,7 +55,7 @@ const LogosSection = () => {
                     initial: { opacity: 0 },
                     whileInView: { opacity: 1 },
                   }}
-                  className="divider w-0.5 h-5/6 bg-primary/50"
+                  className="divider w-0.5 h-8 shrink-0 bg-primary/50"
                 />
               )}
               {Array.isArray(item) ? (
