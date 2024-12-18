@@ -91,12 +91,12 @@ const GetStartedSection = () => {
   });
   const radientScale = useTransform(
     scrollHalf.scrollYProgress,
-    [0.75, 1],
+    [0.85, 1],
     [1, 15]
   );
   const lightDrop = useTransform(
     scrollHalf.scrollYProgress,
-    [0.4, 0.8],
+    [0.5, 0.8],
     ["-50%", "0%"]
   );
   const glassSlide = useTransform(
@@ -111,8 +111,8 @@ const GetStartedSection = () => {
       className="get-started relative max-w-[100vw] overflow-hidden text-primary-foreground bg-transparent"
     >
       <div className="container mx-auto">
-        <div className="flex gap-4">
-          <div className="info basis-2/3">
+        <div className="grid grid-cols-3 gap-4">
+          <div className="info col-span-3 md:col-span-2 grow">
             <h2 className="">Get started today!</h2>
             <p>
               To participate in this groundbreaking program, candidates are
@@ -160,34 +160,37 @@ const GetStartedSection = () => {
               ))}
             </motion.ul>
           </div>
-
-          <motion.div className="img-wrapper relative basis-1/3 -mt-8 md:-mt-12">
-            <motion.img
+        </div>
+        <motion.div className="light-roll-wrapper absolute inset-0 -z-10">
+          <motion.div
+            className="light-roll relative h-2/3 w-fit mx-auto md:left-1/3"
+            style={{
+              top: lightDrop,
+            }}
+          >
+            <img
               src="/images/string-light.svg"
               alt="A light bulb"
-              className="h-2/3 mx-auto relative z-10"
-              style={{
-                top: lightDrop,
-              }}
+              className="w-full h-full -z-10"
             />
             <motion.div
               style={{
                 width: 40,
                 height: 40,
                 background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(46, 88, 255, 0.3) 77.5%, rgba(11, 19, 51, 0) 100%)",
-                y: "-50%",
+                  "radial-gradient(50% 50% at 50% 50%, rgba(46, 88, 255, 0.5) 77.5%, rgba(11, 19, 51, 0.3) 100%)",
+                y: "-100%",
                 scale: radientScale,
               }}
               className="radient mx-auto blur-sm pointer-events-none"
             />
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="bg-wrapper absolute inset-0 bg-primary -z-30">
         <motion.div
-          className="glass-bg absolute inset-0 backdrop-blur-3xl"
+          className="glass-bg hidden md:block absolute inset-0 backdrop-blur-3xl"
           style={{
             background: "rgba(0, 0, 0, 0.4)",
             right: glassSlide,
@@ -198,6 +201,11 @@ const GetStartedSection = () => {
           <StarLight />
           <StarLight />
         </motion.div>
+
+        <div className="glass-bg-mobile md:hidden absolute inset-0 backdrop-blur-3xl bg-black/40">
+          <StarLight />
+          <StarLight />
+        </div>
       </div>
     </section>
   );
@@ -239,6 +247,10 @@ const StarLight = () => {
       }}
     />
   );
+};
+
+const Lightbulb = () => {
+  return;
 };
 
 export default GetStartedSection;

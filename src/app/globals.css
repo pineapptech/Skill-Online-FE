@@ -55,9 +55,15 @@
   }
   section:not(.revert),
   .section {
-    @apply pt-20 pb-16 px-8 md:px-24;
+    @apply pt-20 pb-16 px-4 md:px-24;
   }
-  .section-escape {
-    @apply -mx-8 md:-mx-24;
+  .section-escape-x {
+    @apply -mx-4 md:-mx-24;
+  }
+  .section-escape-y {
+    @apply -mt-20 -mb-16;
+  }
+  .secion-escape {
+    @apply -mx-8 md:-mx-24 -mt-20 -mb-16;
   }
 }
