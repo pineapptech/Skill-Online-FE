@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -16,7 +16,14 @@ import { Loader2 } from "lucide-react";
 import { handleFormSubmitHelper } from "@/lib/form-utils";
 import { useSearchParams } from "next/navigation";
 
-const PaymentSuccess = () => {
+const PaymentSuccessPage = () => {
+  return (
+    <Suspense>
+      <PaymentSuccessComponent />;
+    </Suspense>
+  );
+};
+const PaymentSuccessComponent = () => {
   const searchParams = useSearchParams();
   const [authData, setAuthData] = useState(null);
   const [verifyStatus, setVerifyStatus] = useState(null);
@@ -226,4 +233,4 @@ const ErrorCard = ({ verifyStatus }) => {
   );
 };
 
-export default PaymentSuccess;
+export default PaymentSuccessPage;
