@@ -35,7 +35,6 @@ const Register = () => {
     );
   }
 
-  console.log(authData);
   if (authData === false) {
     return (
       <>
@@ -70,7 +69,7 @@ const Register = () => {
             process
           </CardContent>
           <CardFooter>
-            <Button className="grow">
+            <Button className="grow" asChild>
               <Link href="/auth/payment">Proceed to payment</Link>
             </Button>
           </CardFooter>
