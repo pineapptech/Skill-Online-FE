@@ -39,9 +39,7 @@ const Register = () => {
     return (
       <>
         <Navbar className="max-w-[900px]" />
-        <Suspense>
-          <RegistrationForm />
-        </Suspense>
+        <RegistrationForm />
       </>
     );
   }

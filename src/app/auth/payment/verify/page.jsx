@@ -20,14 +20,6 @@ import SuccessDialog from "@/components/ui/success-dialog";
 import Link from "next/link";
 import ErrorDialog from "@/components/ui/error-dialog";
 
-const VerifyPaymentPage = () => {
-  return (
-    <Suspense>
-      <VerifyPayment />
-    </Suspense>
-  );
-};
-
 const VerifyPayment = () => {
   const [authData, setAuthData] = useState(null);
   const [email, setEmail] = useState("");
@@ -181,4 +173,4 @@ const VerifyPayment = () => {
   );
 };
 
-export default VerifyPaymentPage;
+export default VerifyPayment;

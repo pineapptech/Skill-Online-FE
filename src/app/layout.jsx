@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 
@@ -23,7 +24,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <Suspense>{children}</Suspense>
+      </body>
     </html>
   );
 }
