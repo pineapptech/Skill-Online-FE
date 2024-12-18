@@ -26,7 +26,7 @@ const ContactSection = () => {
               <Mail className="text-primary shrink-0" />
               <div className="email-info">
                 <h3 className="text-primary m-0">Email Address</h3>
-                <p>communitymanager@etsap.com</p>
+                <p>emergingtechskill@gmail.com</p>
                 <p>enugutechhub@enugustate.gov.ng</p>
               </div>
             </div>
