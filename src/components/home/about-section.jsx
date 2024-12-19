@@ -256,14 +256,14 @@ const AboutSection = () => {
 
   return (
     <section id="about">
-      <div className="container grid grid-cols-9 gap-8">
-        <h2 className="mb-6 col-start-3 md:col-start-5 lg:col-start-7 col-end-11 ">
+      <div className="container grid grid-cols-9 gap-x-0 gap-y-4 md:gap-8">
+        <h2 className="mb-6 col-start-1 md:col-start-5 lg:col-start-7 col-end-11 ">
           About our Partners
         </h2>
         <AnimatePresence mode="wait">
           <motion.div
             key={partner.name}
-            className="info col-span-5 text-justify"
+            className="info col-start-1 row-start-3 col-span-9 md:row-start-2 md:col-span-5 text-justify"
             exit={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             initial={{ y: 100, opacity: 0 }}
@@ -279,14 +279,14 @@ const AboutSection = () => {
             </div>
           </motion.div>
         </AnimatePresence>
-        <nav className="col-start-7 col-end-11">
-          <ul className="flex flex-col gap-8">
+        <nav className="row-start-2 col-start-1 md:col-start-7 col-end-11">
+          <ul className="flex md:flex-col flex-wrap justify-center gap-4 md:gap-8">
             {partners.map((partner) => (
               <motion.li
                 key={partner.name}
                 onClick={() => setselectedPartner(partner.name)}
                 className={cn(
-                  "font-bold text-primary text-base cursor-pointer border-l-4 border-current p-2 hover:border-dashed transition-all",
+                  "font-bold text-primary text-base cursor-pointer border-b-4 md:border-b-0 md:border-l-4 border-current p-2 hover:border-dashed transition-all",
                   partner.name === selectedPartner &&
                     "text-secondary border-dashed"
                 )}
