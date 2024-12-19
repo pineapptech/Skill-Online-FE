@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/navbar";
 import { TypeInput } from "@/components/form-elements";
 import { Loader2, Mail } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -121,10 +120,9 @@ const VerifyPayment = () => {
 
   return (
     <>
-      <Navbar />
       <form
         method="post"
-        className="flex h-full justify-center items-center p-2 pt-[15vh]"
+        className="section flex h-full justify-center items-center"
         onSubmit={handleFormSubmit}
       >
         <Card className="w-[500px]">

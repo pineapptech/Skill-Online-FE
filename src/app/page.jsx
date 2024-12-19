@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/components/navbar";
 import HeroSection from "@/components/home/hero-section";
 import LogosSection from "@/components/home/logos-section";
 import OurGoalSection from "@/components/home/our-goal-section";
@@ -14,7 +13,6 @@ import Footer from "@/components/footer";
 const Homepage = () => {
   return (
     <>
-      <Navbar />
       <HeroSection />
       <LogosSection />
       <OurGoalSection />

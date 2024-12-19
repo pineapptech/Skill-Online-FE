@@ -38,7 +38,6 @@ const Register = () => {
   if (authData === false) {
     return (
       <>
-        <Navbar className="max-w-[900px]" />
         <RegistrationForm />
       </>
     );
@@ -46,8 +45,7 @@ const Register = () => {
 
   return (
     <>
-      <Navbar className="max-w-[900px]" />
-      <div className="flex justify-center items-center mt-[15vh]">
+      <div className="section flex justify-center items-center">
         <Card className="w-[500px]">
           <CardHeader>
             <CardTitle>

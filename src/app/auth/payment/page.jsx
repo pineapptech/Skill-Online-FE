@@ -1,6 +1,5 @@
 "use client";
 import { AllInput } from "@/components/form-elements";
-import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,12 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import ErrorDialog from "@/components/ui/error-dialog";
 import LoadingDialog from "@/components/ui/loading-dialog";
 import { handleFormSubmitHelper } from "@/lib/form-utils";
@@ -67,14 +60,13 @@ const Payment = () => {
   }
 
   return (
-    <main>
-      <Navbar />
+    <>
       <form
         method="post"
-        className="flex h-full justify-center items-center p-2 pt-[15vh]"
+        className="section flex h-fulls justify-center items-center"
         onSubmit={handlePayment}
       >
-        <Card className="min-w-[400px]">
+        <Card className="w-[480px]">
           <CardHeader>
             <CardTitle>
               <h1 className="text-3xl text-center">Payment</h1>
@@ -145,7 +137,7 @@ const Payment = () => {
         open={submitStatus?.status === "success"}
         title="Redirecting to payment gateway...."
       />
-    </main>
+    </>
   );
 };
 

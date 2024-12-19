@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`antialiased`}>
+        <Navbar />
         <Suspense>{children}</Suspense>
       </body>
     </html>
