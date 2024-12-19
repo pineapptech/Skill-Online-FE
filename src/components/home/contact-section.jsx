@@ -12,7 +12,7 @@ const formAnimation = {
 const MotionButton = motion.create(Button);
 const ContactSection = () => {
   return (
-    <section id="contact" className="contact bg-neutral-100">
+    <section id="contact" className="bg-neutral-100">
       <div className="container mx-auto">
         <h2 className="my-0">Get In Touch With Us</h2>
         <p className="mb-8">
@@ -20,10 +20,10 @@ const ContactSection = () => {
           Today.
         </p>
 
-        <div className="flex justify-between gap-6">
+        <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="info basis-2/5 space-y-4 [&_p]:mb-2">
             <div className="email-section flex gap-2">
-              <Mail className="text-primary shrink-0" />
+              <Mail className="text-primary shrink-0 mt-px" />
               <div className="email-info">
                 <h3 className="text-primary m-0">Email Address</h3>
                 <p>emergingtechskill@gmail.com</p>
@@ -31,7 +31,7 @@ const ContactSection = () => {
               </div>
             </div>
             <div className="location-section flex gap-4">
-              <MapPin className="text-primary shrink-0" />
+              <MapPin className="text-primary shrink-0 mt-px" />
               <div className="location-info">
                 <h3 className="text-primary m-0">Location</h3>
                 <p>
@@ -45,6 +45,7 @@ const ContactSection = () => {
               </div>
             </div>
           </div>
+          <hr className="border-primary md:hidden" />
           <motion.form
             initial="initial"
             whileInView="whileInView"
