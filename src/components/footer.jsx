@@ -86,12 +86,12 @@ const socialLinks = [
 ];
 const Footer = () => {
   return (
-    <footer className="p-8 pb-4 flex flex-col gap-8 items-center">
-      <ul className="links flex divide-x-2 divide-current">
+    <footer className="p-8 pb-4 flex flex-col gap-8 items-center text-center">
+      <ul className="links flex flex-col sm:flex-row items-center divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-current">
         {links.map((link, index) => (
           <motion.li
             key={link.name + index}
-            className="relative px-4"
+            className="relative p-4 sm:py-0"
             whileHover="show"
             initial="hide"
           >

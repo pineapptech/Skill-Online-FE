@@ -91,7 +91,7 @@ const ApplicationProcessSection = () => {
         <h2 className="text-center sm:text-left">Application Process</h2>
       </div>
 
-      <Steps />
+      <Steps animate={animate} />
       <StepsMobile />
 
       <MotionButton
@@ -105,7 +105,12 @@ const ApplicationProcessSection = () => {
   );
 };
 
-const Steps = () => {
+const itemVariants = {
+  show: { height: "auto", visibility: "visible" },
+  hide: { height: 0, visibility: "hidden" },
+};
+
+const Steps = ({ animate }) => {
   return (
     <div className="section-escape-x hidden md:grid grid-cols-2 grid-flow-col gap-4">
       <div className="img-wrapper relative overflow-hidden w-full h-[550px]">
@@ -121,12 +126,25 @@ const Steps = () => {
           <motion.li
             key={name}
             className={cn(
-              "col-span-10 grid grid-cols-6 grid-flow-col gap-4 my-2 rounded-md p-4 bg-neutral-200",
+              "col-span-10 grid grid-cols-6 grid-flow-col gap-4 my-2 rounded-md p-4 bg-neutral-200 outline-1 focus:outline",
               listShifts?.[index]
             )}
+            tabIndex={0}
             style={{ x: -30, opacity: 0 }}
             initial="hide"
             whileHover="show"
+            onFocus={(e) => {
+              animate(
+                e.target.querySelector(".dropdown-content"),
+                itemVariants.show
+              );
+            }}
+            onBlur={(e) => {
+              animate(
+                e.target.querySelector(".dropdown-content"),
+                itemVariants.hide
+              );
+            }}
             layout
           >
             <div className="number col-span-1 size-8 flex justify-center items-center rounded-full shrink-0 bg-slate-950 text-white">
@@ -135,11 +153,8 @@ const Steps = () => {
             <div className="self-center col-span-5">
               <h4 className="">{name}</h4>
               <motion.p
-                variants={{
-                  show: { height: "auto", visibility: "visible" },
-                  hide: { height: 0, visibility: "hidden" },
-                }}
-                className="transition-transform m-0 overflow-hidden origin-top duration-500"
+                variants={itemVariants}
+                className="dropdown-content transition-transform m-0 overflow-hidden origin-top duration-500"
               >
                 {description}
               </motion.p>
@@ -169,23 +184,23 @@ const StepsMobile = () => {
           <MotionAccordionItem
             key={id}
             value={id}
-            className="my-2 rounded-md bg-neutral-200 accordion-item"
+            className="my-2 rounded-2xl bg-neutral-200 accordion-item"
             style={{ x: -30, opacity: 0 }}
           >
             <AccordionHeader>
-              <AccordionTrigger className="group text-base grid grid-cols-6 items-center w-full px-4 py-2">
+              <AccordionTrigger className="group text-sm grid grid-cols-6 items-center w-full px-4 py-2">
                 <div className="number col-span-1 size-8 flex justify-center items-center rounded-full shrink-0 bg-primary text-white">
                   {index + 1}
                 </div>
 
-                <div className="col-span-4 justify-self-start text-left">
+                <div className="col-span-4 justify-self-start text-left text-primary/80">
                   {name}
                 </div>
                 <ChevronDown className=" size-4 justify-self-end group-data-[state=open]:rotate-180 transition-transform duration-300" />
               </AccordionTrigger>
             </AccordionHeader>
             <AccordionContent
-              className="group overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+              className="group overflow-hidden  text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
               data-content-id={id}
             >
               <div className="grid grid-cols-6 w-full pb-4 pr-4 group-data-[state=open]:pt-2 border-primary/50 group-data-[state=open]:border-t">
