@@ -67,7 +67,7 @@ const OurCoursesSection = () => {
 
         <MotionScrollArea
           ref={scrollRef}
-          className="rounded-xl sm:shadow-[0_0_5px_5px_rgb(0_0_0_/_0.05)] sm:p-4 h-96"
+          className="rounded-xl sm:shadow-[0_0_5px_5px_rgb(0_0_0_/_0.05)] sm:p-4 "
           initial="initial"
           whileInView="whileInView"
           transition={{ staggerChildren: 0.1 }}

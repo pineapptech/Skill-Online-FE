@@ -63,7 +63,7 @@
   .section-escape-y {
     @apply -mt-20 -mb-16;
   }
-  .secion-escape {
+  .section-escape {
     @apply -mx-8 md:-mx-24 -mt-20 -mb-16;
   }
 }
