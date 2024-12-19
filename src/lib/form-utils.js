@@ -161,13 +161,13 @@ export const handleFormSubmitHelper = async ({
       error: createErrors(validatedFormData.error),
     };
     setSubmitStatus?.(formStatus);
-    onFormError?.(formStatus);
+    await onFormError?.(formStatus);
     return formStatus;
   }
 
   formStatus = { status: "submitting", data: validatedFormData.data };
   setSubmitStatus?.(formStatus);
-  onSubmitStart?.(formStatus);
+  await onSubmitStart?.(formStatus);
 
   try {
     const response = await axiosInstance.request({
@@ -181,7 +181,7 @@ export const handleFormSubmitHelper = async ({
     });
     formStatus = { status: "success", response };
     setSubmitStatus?.(formStatus);
-    onSuccess?.(formStatus);
+    await onSuccess?.(formStatus);
   } catch (err) {
     formStatus = {
       status: "error",
@@ -194,8 +194,8 @@ export const handleFormSubmitHelper = async ({
       err,
     };
     setSubmitStatus?.(formStatus);
-    onError?.(formStatus);
+    await onError?.(formStatus);
   }
-  onSubmitEnd?.();
+  await onSubmitEnd?.();
   return formStatus;
 };

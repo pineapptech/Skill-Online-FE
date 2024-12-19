@@ -23,7 +23,7 @@ import ErrorDialog from "@/components/ui/error-dialog";
 const VerifyPayment = () => {
   const [authData, setAuthData] = useState(null);
   const [email, setEmail] = useState("");
-  const [verifyStatus, setVerifyStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -38,20 +38,17 @@ const VerifyPayment = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // Automatically verify payment if searchParams are available
-    if (!searchParams.toString()) return;
+  // useEffect(() => {
+  //   // Automatically verify payment if searchParams are available
+  //   if (!searchParams.toString()) return;
 
-    const controller = handlePaymentVerification();
+  //   const controller = handleSendMail();
 
-    return () => controller.abort();
-  }, [searchParams]);
+  //   return () => controller.abort();
+  // }, [searchParams]);
 
-  const handlePaymentVerification = async (e) => {
-    e?.preventDefault();
-    const controller = new AbortController();
-
-    const verifyStatus = await handleFormSubmitHelper({
+  const handleSendMail = async ({ axiosConfig, ...formSubmitParams } = {}) => {
+    const sendStatus = await handleFormSubmitHelper({
       formSchema: z.object({
         email: z
           .string({ required_error: "Email is required" })
@@ -59,15 +56,59 @@ const VerifyPayment = () => {
       }),
       formData: { email },
       endPoint: "/v1/attachment/offer-letter",
-      setSubmitStatus: setVerifyStatus,
+      setSubmitStatus: setSubmitStatus,
       axiosConfig: {
-        signal: controller.signal,
         headers: { "Content-Type": "application/json" },
+        ...axiosConfig,
       },
+
+      onSubmitStart(status) {
+        setSubmitStatus({ ...status, title: "Sending Application Details..." });
+      },
+      ...formSubmitParams,
     });
 
-    console.log(verifyStatus);
-    return controller;
+    console.log("Send Status", sendStatus);
+  };
+
+  const handlePaymentVerification = async (formSubmitParams) => {
+    const verifyStatus = await handleFormSubmitHelper({
+      method: "get",
+      endPoint: `/verify?${searchParams.toString()}`,
+      setSubmitStatus: setSubmitStatus,
+
+      onSubmitStart(status) {
+        setSubmitStatus({ ...status, title: "Verifying Payment..." });
+      },
+      ...formSubmitParams,
+    });
+
+    console.log("Verification Status", verifyStatus);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    handlePaymentVerification({
+      onSuccess(formStatus) {
+        if (!formStatus.response.data?.verified) {
+          setSubmitStatus({
+            status: "error",
+            errorTitle: "Error verifying payment",
+            error: (
+              <>
+                <strong>Payment not found.</strong>
+                If you paid and error persists, pleae contact our customer
+                support,
+                <em> emergingtechskill@gmail.com</em>
+              </>
+            ),
+          });
+        } else {
+          handleSendMail();
+        }
+      },
+    });
   };
 
   if (authData === null) {
@@ -84,15 +125,17 @@ const VerifyPayment = () => {
       <form
         method="post"
         className="flex h-full justify-center items-center p-2 pt-[15vh]"
-        onSubmit={handlePaymentVerification}
+        onSubmit={handleFormSubmit}
       >
-        <Card className="min-w-[400px]">
+        <Card className="w-[500px]">
           <CardHeader>
             <CardTitle>
-              <h1 className="text-3xl text-center">Verify Payment</h1>
+              <h1 className="text-3xl text-center">Complete Application</h1>
             </CardTitle>
             <CardDescription className="text-center">
-              Enter your email to verify payment
+              You are one step to completing your application. Click on the
+              button below to verify your payment and receive your onboarding
+              details.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -102,14 +145,14 @@ const VerifyPayment = () => {
               name="email"
               value={email}
               onChange={(value) => {
-                setVerifyStatus(null);
+                setSubmitStatus(null);
                 setEmail(value);
               }}
               icon={<Mail />}
               required={true}
               error={
-                verifyStatus?.status === "form_error"
-                  ? verifyStatus?.error?.email
+                submitStatus?.status === "form_error"
+                  ? submitStatus?.error?.email
                   : null
               }
             />
@@ -118,10 +161,10 @@ const VerifyPayment = () => {
             <Button
               type="submit"
               className="grow"
-              disabled={verifyStatus?.status === "submitting"}
+              disabled={submitStatus?.status === "submitting"}
             >
-              Verify
-              {verifyStatus?.status === "submitting" && (
+              Verify and complete
+              {submitStatus?.status === "submitting" && (
                 <Loader2 className="animate-spin" />
               )}
             </Button>
@@ -130,13 +173,13 @@ const VerifyPayment = () => {
       </form>
 
       <LoadingDialog
-        open={verifyStatus?.status === "submitting"}
-        title="Verifying Payment..."
+        open={submitStatus?.status === "submitting"}
+        title={submitStatus?.title}
       />
 
       <SuccessDialog
-        open={verifyStatus?.status === "success"}
-        onOpenChange={() => setVerifyStatus(null)}
+        open={submitStatus?.status === "success"}
+        onOpenChange={() => setSubmitStatus(null)}
         title="Application Successful"
         body={
           <div className="success-message text-pretty text-justify">
@@ -158,15 +201,14 @@ const VerifyPayment = () => {
       />
 
       <ErrorDialog
-        open={verifyStatus?.status === "error"}
-        onOpenChange={() => setVerifyStatus(null)}
-        title={verifyStatus?.error ?? "Failed to verify payment"}
-        description={
-          <>
-            If error persists, contact our customer support,
-            <em> emergingtechskill@gmail.com</em>
-          </>
+        open={submitStatus?.status === "error"}
+        onOpenChange={() => setSubmitStatus(null)}
+        title={
+          submitStatus?.errorTitle ??
+          submitStatus?.error ??
+          "Error completing application"
         }
+        description={submitStatus?.errorTitle ? submitStatus?.error : ""}
         classes={{ title: "text-center leading-6" }}
       />
     </>
