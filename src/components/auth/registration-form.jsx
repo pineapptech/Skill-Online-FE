@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import courses from "@/data/courses";
 import { AllInput } from "../form-elements";
 import { Button } from "@/components/ui/button";
@@ -149,7 +149,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form className="p-8" method="post" onSubmit={handleFormSubmit}>
+    <form className="section" method="post" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
         <h1 className="text-3xl text-center mb-12">Registration Form</h1>
         <div className="max-w-[800px] mx-auto flex flex-col gap-4">
