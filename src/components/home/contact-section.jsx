@@ -21,10 +21,10 @@ const ContactSection = () => {
         </p>
 
         <div className="flex flex-col md:flex-row justify-between gap-6">
-          <div className="info basis-2/5 space-y-4 [&_p]:mb-2">
+          <div className="info basis-2/5 space-y-4 [&_p]:mb-2 text-sm sm:text-base">
             <div className="email-section flex gap-2">
               <Mail className="text-primary shrink-0 mt-px" />
-              <div className="email-info">
+              <div className="email-info text-sm sm:text-base">
                 <h3 className="text-primary m-0">Email Address</h3>
                 <p>emergingtechskill@gmail.com</p>
                 <p>enugutechhub@enugustate.gov.ng</p>
@@ -51,7 +51,7 @@ const ContactSection = () => {
             whileInView="whileInView"
             transition={{ duration: 0.3, staggerChildren: 0.1 }}
             viewport={{ once: true, amount: 0.5 }}
-            className="contact-form basis-2/5 flex flex-col gap-4"
+            className="contact-form basis-2/5 flex flex-col gap-4 overflow-x-hidden"
           >
             <motion.input
               variants={formAnimation}

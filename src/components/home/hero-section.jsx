@@ -52,7 +52,7 @@ const HeroSection = () => {
 
   return (
     <section ref={scope} className={cn("hero revert p-8 md:px-24 relative")}>
-      <div className="absolute -top-1 left-4 size-[300px] md:bg-[url(/images/circuit-3.svg)] bg-no-repeat bg-contain" />
+      <div className="absolute hidden sm:block -top-1 left-4 size-[300px] md:bg-[url(/images/circuit-3.svg)] bg-no-repeat bg-contain" />
       <div className="container mx-auto flex justify-between gap-4">
         <div className="info w-3/5 grow z-10">
           <motion.h1
@@ -132,7 +132,7 @@ const HeroSection = () => {
           >
             In partnership with
           </motion.p>
-          <div className="partners font-header md:w-[700px] capitalize flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 font-bold text-sm tracking-wider">
+          <div className="partners font-header md:w-[600px] capitalize flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 font-bold text-sm tracking-wider">
             {[
               "International Bio-research institute",
               "Enugu State TECH HUB - Enugu state GOVERNMENT, NIGERIA",
