@@ -171,18 +171,16 @@ const GetStartedSection = () => {
             <img
               src="/images/string-light.svg"
               alt="A light bulb"
-              className="w-full h-full -z-10"
+              className="w-full h-full"
             />
             <motion.div
               style={{
-                width: 40,
-                height: 40,
                 background:
                   "radial-gradient(50% 50% at 50% 50%, rgba(46, 88, 255, 0.5) 77.5%, rgba(11, 19, 51, 0.3) 100%)",
                 y: "-100%",
                 scale: radientScale,
               }}
-              className="radient mx-auto blur-sm pointer-events-none"
+              className="relative -z-10 radient mx-auto blur-sm pointer-events-none w-6 h-6 md:w-10 md:h-10"
             />
           </motion.div>
         </motion.div>
