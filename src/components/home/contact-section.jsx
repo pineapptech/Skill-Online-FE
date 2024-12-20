@@ -1,17 +1,59 @@
 "use client";
-import React from "react";
-import { Mail, MapPin } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Loader2, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
-import { Input } from "../ui/input";
+import { stagger, useAnimate, useInView } from "motion/react";
+import { AllInput } from "../form-elements";
+import { handleFormSubmitHelper } from "@/lib/form-utils";
+import { z } from "zod";
+import MotionCheck from "../icon/check";
+import { cn } from "@/lib/utils";
+import MotionX from "../icon/x";
 
 const formAnimation = {
   initial: { x: 30, opacity: 0 },
   whileInView: { x: 0, opacity: 1 },
 };
 
-const MotionButton = motion.create(Button);
 const ContactSection = () => {
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope, { once: true, amount: 0.5 });
+  const [formData, setFormData] = useState({});
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  useEffect(() => {
+    if (isInView) {
+      animate(
+        ".form-element",
+        { x: [30, 0], opacity: [0, 1] },
+        { duration: 0.3, delay: stagger(0.1) }
+      );
+    }
+  }, [isInView]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const formStatus = await handleFormSubmitHelper({
+      formSchema: z.object({
+        email: z
+          .string({
+            required_error: "Email is required",
+          })
+          .email("Invalid email address"),
+        name: z.string({ required_error: "Name is required" }),
+        message: z.string({ required_error: "Message is required" }),
+      }),
+      formData,
+      endPoint: "/coming-soon",
+      setSubmitStatus,
+      onError() {
+        setSubmitStatus({ status: "success" });
+        setTimeout(setSubmitStatus, 3000, null);
+      },
+    });
+  };
+
   return (
     <section id="contact" className="bg-neutral-100">
       <div className="container mx-auto">
@@ -47,36 +89,71 @@ const ContactSection = () => {
             </div>
           </div>
           <hr className="border-primary md:hidden" />
-          <motion.form
-            initial="initial"
-            whileInView="whileInView"
-            transition={{ duration: 0.3, staggerChildren: 0.1 }}
-            viewport={{ once: true, amount: 0.5 }}
+          <form
+            ref={scope}
+            onSubmit={handleFormSubmit}
+            method="post"
             className="contact-form basis-2/5 flex flex-col gap-4 overflow-x-hidden"
           >
-            <motion.input
-              variants={formAnimation}
-              type="text"
-              placeholder="Full Name"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
+            <AllInput
+              inputs={[
+                { name: "name", placeholder: "Full Name" },
+                { name: "email", placeholder: "Email Address" },
+                {
+                  name: "message",
+                  type: "textarea",
+                  placeholder: "Message",
+                },
+              ].map((input) => ({
+                ...input,
+                classes: {
+                  main: "form-element opacity-0",
+                  input: cn(
+                    "bg-neutral-200 rounded-md w-full p-4 focus-visible:ring-0 h-auto",
+                    input.classes?.input
+                  ),
+                },
+              }))}
+              formData={formData}
+              setFormData={setFormData}
+              errors={
+                submitStatus?.status === "form_error" && submitStatus?.error
+              }
             />
-            <motion.input
-              variants={formAnimation}
-              type="email"
-              placeholder="Email Address"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
-            />
-            <motion.textarea
-              variants={formAnimation}
-              name="message"
-              id="message"
-              placeholder="Message"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
-            ></motion.textarea>
-            <MotionButton variants={formAnimation} size="lg">
-              Submit
-            </MotionButton>
-          </motion.form>
+            <Button
+              size="lg"
+              type="submit"
+              className={cn(
+                "form-element opacity-0 transition-all",
+                submitStatus?.status === "success" &&
+                  "bg-green-500 !opacity-90",
+                submitStatus?.status === "error" && "bg-red-500 !opacity-90",
+                submitStatus?.status === "submitting" && "!opacity-50"
+              )}
+              disabled={
+                submitStatus?.status && submitStatus?.status !== "form_error"
+              }
+            >
+              {submitStatus?.status === "submitting" ? (
+                <>
+                  Sending...
+                  <Loader2 className="animate-spin" />
+                </>
+              ) : submitStatus?.status === "success" ? (
+                <>
+                  Message Sent
+                  <MotionCheck />
+                </>
+              ) : submitStatus?.status === "error" ? (
+                <>
+                  Error sending message
+                  <MotionX />
+                </>
+              ) : (
+                "Send"
+              )}
+            </Button>
+          </form>
         </div>
       </div>
     </section>

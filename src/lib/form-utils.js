@@ -196,6 +196,6 @@ export const handleFormSubmitHelper = async ({
     setSubmitStatus?.(formStatus);
     await onError?.(formStatus);
   }
-  await onSubmitEnd?.();
+  await onSubmitEnd?.(formStatus);
   return formStatus;
 };

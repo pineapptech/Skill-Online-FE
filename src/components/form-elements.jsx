@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { CloudUpload } from "lucide-react";
@@ -106,6 +107,7 @@ export const FileInput = ({
 };
 
 export const TypeInput = ({
+  ref = null,
   type = "text",
   label,
   name,
@@ -145,6 +147,7 @@ export const TypeInput = ({
           </div>
         )}
         <Input
+          ref={ref}
           type={type}
           id={name}
           name={name}
@@ -252,6 +255,7 @@ export const SelectInput = ({
 };
 
 export const TextareaInput = ({
+  ref = null,
   name,
   label,
   placeholder,
@@ -278,6 +282,7 @@ export const TextareaInput = ({
         {label} {required && <span className="text-red-400">{"*"}</span>}
       </label>
       <Textarea
+        ref={ref}
         id={name}
         name={name}
         placeholder={placeholder ?? label}
