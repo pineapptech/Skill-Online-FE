@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const partners = [
   {
@@ -279,24 +280,28 @@ const AboutSection = () => {
             </div>
           </motion.div>
         </AnimatePresence>
-        <nav className="row-start-2 col-start-1 md:col-start-7 col-end-11">
-          <ul className="flex md:flex-col flex-wrap justify-center gap-4 md:gap-8">
-            {partners.map((partner) => (
-              <motion.li
-                key={partner.name}
-                onClick={() => setselectedPartner(partner.name)}
-                className={cn(
-                  "font-bold text-primary text-base cursor-pointer border-b-4 md:border-b-0 md:border-l-4 border-current p-2 hover:border-dashed transition-all",
-                  partner.name === selectedPartner &&
-                    "text-secondary border-dashed"
-                )}
-                layout
-              >
-                {partner.name}
-              </motion.li>
-            ))}
-          </ul>
-        </nav>
+        <ScrollArea className="row-start-2 col-start-1 md:col-start-7 col-end-11 pb-4 mb-4">
+          <nav>
+            <ul className="flex md:flex-col flex-wraps justify-center gap-4 md:gap-8">
+              {partners.map((partner) => (
+                <motion.li
+                  key={partner.name}
+                  onClick={() => setselectedPartner(partner.name)}
+                  className={cn(
+                    "font-bold text-primary text-base cursor-pointer border-b-4 md:border-b-0 md:border-l-4 border-current p-2 hover:border-dashed transition-all",
+                    partner.name === selectedPartner &&
+                      "text-secondary border-dashed"
+                  )}
+                  layout
+                >
+                  {partner.name}
+                </motion.li>
+              ))}
+            </ul>
+          </nav>
+
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
     </section>
   );

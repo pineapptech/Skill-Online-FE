@@ -96,7 +96,7 @@ const ApplicationProcessSection = () => {
 
       <MotionButton
         whileHover={{ maxWidth: "800px" }}
-        className="mx-auto container max-w-[700px] md:p-6"
+        className="mx-auto container max-w-[700px] p-7 rounded-2xl md:rounded-md"
         asChild
       >
         <Link href="/auth/register">Apply Now</Link>

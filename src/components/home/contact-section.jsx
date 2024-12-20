@@ -3,6 +3,7 @@ import React from "react";
 import { Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
+import { Input } from "../ui/input";
 
 const formAnimation = {
   initial: { x: 30, opacity: 0 },
@@ -57,20 +58,20 @@ const ContactSection = () => {
               variants={formAnimation}
               type="text"
               placeholder="Full Name"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
+              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
             />
             <motion.input
               variants={formAnimation}
               type="email"
               placeholder="Email Address"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
+              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
             />
             <motion.textarea
               variants={formAnimation}
               name="message"
               id="message"
               placeholder="Message"
-              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4"
+              className="bg-neutral-200 rounded-md placeholder:text-current w-full p-4 outline-none"
             ></motion.textarea>
             <MotionButton variants={formAnimation} size="lg">
               Submit
