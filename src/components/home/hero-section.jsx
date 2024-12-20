@@ -24,8 +24,8 @@ const scaleIn = {
 const HeroSection = () => {
   const [scope, animate] = useAnimate();
 
-  const animateFunc = async () => {
-    await animate([
+  useEffect(() => {
+    const control = animate([
       [".backdrop", scaleIn.in],
       [".hero-img", scaleIn.in],
       [
@@ -37,17 +37,14 @@ const HeroSection = () => {
       [".divider", fadeBottom.in, { delay: stagger(0.1) }],
       [".core-partners p", slideLeft.in, { delay: stagger(0.1) }],
       [".partners p", slideLeft.in, { delay: stagger(0.1), at: "<" }],
+      [
+        ".hero-text-bg",
+        { rotate: 360 },
+        { duration: 60, repeat: Infinity, ease: "linear" },
+      ],
     ]);
 
-    animate(
-      ".hero-text-bg",
-      { rotate: 360 },
-      { duration: 60, repeat: Infinity, ease: "linear" }
-    );
-  };
-
-  useEffect(() => {
-    animateFunc();
+    return () => control.stop();
   });
 
   return (
