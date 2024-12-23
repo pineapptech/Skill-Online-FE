@@ -8,6 +8,14 @@ const courses = [
     id: "CS",
   },
   {
+    name: "Cloud Computing",
+    description:
+      "Understand the principles of cloud technology, including deployment models and services, to leverage cloud solutions for businesses.",
+    src: "/images/courses/cloud-computing.png",
+    alt: "Cloud Computing Image",
+    id: "CC",
+  },
+  {
     name: "Virtual Reality, Augmented Reality, and Mixed Reality",
     description:
       "Explore immersive technologies that merge digital and physical worlds to create engaging user experiences",
@@ -48,6 +56,13 @@ const courses = [
       "Master Agile and Scrum framework to manage product development and boost team collaboration",
     src: "/images/courses/agile.png",
     id: "ASPM",
+  },
+  {
+    name: "Artificial Intelligence and Machine Learning",
+    description:
+      "Explore the concepts of AI and ML. Learn how to develop intelligent systems that analyze data  and make predictions.",
+    src: "/images/courses/ai.png",
+    id: "AI",
   },
   {
     name: "Product Design for Agile and Kanban Environments",
