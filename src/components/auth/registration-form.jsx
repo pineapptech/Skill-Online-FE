@@ -67,13 +67,18 @@ const inputs = [
   { label: "City", name: "city", placeholder: "Enter your City of residence" },
   { label: "Address", name: "address", placeholder: "Enter your address" },
   {
-    label: "iD Type",
+    label: "ID Type",
     name: "passportId",
     type: "select",
     options: ["Passport", "National ID", "Guadian ID"],
     placeholder: "Enter ID Type",
   },
-  { label: "ID File", name: "file", type: "file" },
+  {
+    label: "ID File",
+    name: "file",
+    type: "file",
+    uploadLabel: "Upload an image of your ID",
+  },
   {
     label: "I agree",
     placeholder:
