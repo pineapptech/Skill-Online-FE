@@ -61,7 +61,7 @@ const courses = [
     name: "Artificial Intelligence and Machine Learning",
     description:
       "Explore the concepts of AI and ML. Learn how to develop intelligent systems that analyze data  and make predictions.",
-    src: "/images/courses/ai.png",
+    src: "/images/courses/ai.jpg",
     id: "AI",
   },
   {

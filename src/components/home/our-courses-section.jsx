@@ -115,7 +115,7 @@ const CourseCard = ({ name, description, src, alt, id }) => {
       <img
         src={src}
         alt={alt || `${name} image`}
-        className="rounded-xl w-full max-h-48 object-cover"
+        className="rounded-xl w-full max-h-48 h-48 object-cover"
       />
       <div className="info">
         <h3 className="capitalize">{name}</h3>
