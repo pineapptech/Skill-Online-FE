@@ -217,7 +217,7 @@ export const SelectInput = ({
         >
           <div className="value flex gap-2 items-end">
             {icon}
-            <SelectValue placeholder={placeholder} />
+            <SelectValue className="" placeholder={placeholder} />
           </div>
         </SelectTrigger>
         <SelectContent className={classes.content}>
