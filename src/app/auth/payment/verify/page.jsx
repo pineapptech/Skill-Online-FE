@@ -201,11 +201,7 @@ const VerifyPayment = () => {
       <ErrorDialog
         open={submitStatus?.status === "error"}
         onOpenChange={() => setSubmitStatus(null)}
-        title={
-          submitStatus?.errorTitle ??
-          submitStatus?.error ??
-          "Error completing application"
-        }
+        title={submitStatus?.errorTitle ?? "Error completing application"}
         description={submitStatus?.errorTitle ? submitStatus?.error : ""}
         classes={{ title: "text-center leading-6" }}
       />

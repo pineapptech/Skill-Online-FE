@@ -130,7 +130,7 @@ const Payment = () => {
       <ErrorDialog
         open={submitStatus?.status === "error"}
         onOpenChange={() => setSubmitStatus(null)}
-        title={submitStatus?.error ?? "Payment initiation failed"}
+        title={"Payment initiation failed"}
       />
 
       <LoadingDialog

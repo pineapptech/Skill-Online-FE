@@ -212,8 +212,7 @@ const RegistrationForm = () => {
           setSubmitStatus(null);
         }}
         title="Registration Failed"
-        description="An Error Occured"
-        body={submitStatus?.error}
+        description="An Error Occured. Try again. If error persists, contact us."
         classes={{ body: "text-center" }}
       />
     </form>
