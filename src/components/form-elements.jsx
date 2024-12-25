@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export const FileInput = ({
   label,
+  description,
   name,
   onChange,
   fileTypes = [],
@@ -62,6 +63,8 @@ export const FileInput = ({
         <span className="text-sm">
           {label} {required && <span className="text-red-400">{"*"}</span>}
         </span>
+        <br />
+        <span className="text-sm italic">{description}</span>
         <VisuallyHidden.Root>
           <input
             type="file"

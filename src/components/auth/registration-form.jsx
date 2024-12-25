@@ -75,9 +75,13 @@ const inputs = [
   },
   {
     label: "ID File",
+    description:
+      "Note: Only png, jpg and pdf files are allowed. Maximum file size is 5MB",
     name: "file",
     type: "file",
     uploadLabel: "Upload an image of your ID",
+    fileTypes: ["image/png", "image/jpeg", "image/jpg", "application/pdf"],
+    maxSize: 5 * 1024 * 1024,
   },
   {
     label: "I agree",
