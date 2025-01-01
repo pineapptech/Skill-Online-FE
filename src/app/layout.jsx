@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Providers from "./providers";
+import GoogleTranslate from "@/components/google-translate";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Navbar />
           <Suspense>{children}</Suspense>
+          <GoogleTranslate />
         </Providers>
       </body>
     </html>
