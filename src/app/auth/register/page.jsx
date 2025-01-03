@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Navbar from "@/components/navbar";
 import RegistrationForm from "@/components/auth/registration-form";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -49,25 +48,49 @@ const Register = () => {
         <Card className="w-[500px]">
           <CardHeader>
             <CardTitle>
-              <h1 className="text-3xl text-center">Already registered</h1>
+              <h1 className="text-3xl text-center">
+                You&apos;re Already Registered! 🎉
+              </h1>
             </CardTitle>
-            <CardDescription className="text-center">
-              Click on proceed to payment to complete your application
-            </CardDescription>
+            {!authData?.hasPaid && (
+              <CardDescription className="text-center">
+                Click on proceed to payment to complete your application
+              </CardDescription>
+            )}
           </CardHeader>
-          <CardContent>
-            You have been already been registered with the following details:
-            <div className="details my-4">
-              Name: <span className="font-bold">{authData?.name}</span> <br />
-              Email: <span className="font-bold">{authData?.email}</span>
-            </div>
-            You should pay an application fee to complete your application
-            process
-          </CardContent>
+          {authData?.hasPaid ? (
+            <CardContent>
+              It looks like you&apos;ve already successfully registered for this
+              course. We&apos;re excited to have you on board! Kindly check your
+              email to view your onboarding details. If you need any assistance
+              or want to review your registration details, please contact
+              emergingtechskill@gmail.com
+              <div className="text-sm my-3">
+                <span className="italic">Registration Details:</span>
+                <div className="details my-1">
+                  Name: <span className="font-bold">{authData?.name}</span>{" "}
+                  <br />
+                  Email: <span className="font-bold">{authData?.email}</span>
+                </div>
+              </div>
+            </CardContent>
+          ) : (
+            <CardContent>
+              You have been already been registered with the following details:
+              <div className="details my-4">
+                Name: <span className="font-bold">{authData?.name}</span> <br />
+                Email: <span className="font-bold">{authData?.email}</span>
+              </div>
+              You should pay an application fee to complete your application
+              process
+            </CardContent>
+          )}
           <CardFooter>
-            <Button className="grow" asChild>
-              <Link href="/auth/payment">Proceed to payment</Link>
-            </Button>
+            {!authData?.hasPaid && (
+              <Button className="grow" asChild>
+                <Link href="/auth/payment">Proceed to payment</Link>
+              </Button>
+            )}
           </CardFooter>
         </Card>
       </div>

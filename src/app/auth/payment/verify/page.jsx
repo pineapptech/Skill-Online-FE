@@ -105,6 +105,10 @@ const VerifyPayment = () => {
           });
         } else {
           handleSendMail();
+          localStorage.setItem(
+            "_auth",
+            JSON.stringify({ ...authData, hasPaid: true })
+          );
         }
       },
     });
