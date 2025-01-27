@@ -12,6 +12,7 @@ import {
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
 import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const navlinks = [
   { label: "Home", href: "/#" },
@@ -23,6 +24,7 @@ const navlinks = [
 const Navbar = ({ className }) => {
   const { scrollY } = useScroll();
   const [inView, setInView] = useState(true);
+  const pathname = usePathname();
   const [fullUrl, setFullUrl] = useState(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -38,7 +40,7 @@ const Navbar = ({ className }) => {
     handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  }, [pathname]);
 
   return (
     <motion.nav

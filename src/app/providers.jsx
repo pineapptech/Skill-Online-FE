@@ -1,7 +1,15 @@
 "use client";
+import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Providers = ({ children }) => {
+  const { pathname } = usePathname();
+
+  // Automatically scrolls to top whenever pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     // Tawk.to script
     var Tawk_API = Tawk_API || {},

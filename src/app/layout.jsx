@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Providers from "./providers";
 import GoogleTranslate from "@/components/google-translate";
+import NoticeDialog from "@/components/notice-dialog";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,11 +28,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <Providers>
           <Navbar />
           <Suspense>{children}</Suspense>
           <GoogleTranslate />
+          <NoticeDialog />
         </Providers>
       </body>
     </html>
