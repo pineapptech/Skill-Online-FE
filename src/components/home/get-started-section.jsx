@@ -74,11 +74,11 @@ const list = [
   { content: "6 months duration (26 weeks)", icon: <Clock5 /> },
   {
     content:
-      "Application form registration closes Midnight (WAT), January 31st 2025 ",
+      "Application form registration closes Midnight (WAT), March 2nd 2025 ",
     icon: <FileX />,
   },
   {
-    content: "Online course sessions starts on Monday, February 3rd 2025",
+    content: "Online course sessions starts on Monday, March 3rd 2025",
     icon: <Rocket />,
   },
 ];
