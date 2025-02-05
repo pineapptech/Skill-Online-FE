@@ -18,7 +18,7 @@ const inputs = [
     name: "course",
     options: courses.map((course) => ({
       label: course.name,
-      value: course.id,
+      value: course.name,
     })),
   },
   {
@@ -115,7 +115,9 @@ const RegistrationForm = () => {
 
     setFormData((fd) => ({
       ...fd,
-      regNo: `ETSAP/SO/${fd.course}/${Math.floor(rand * 90000 + 10000)}`,
+      regNo: `ETSAP/SO/${
+        courses.find((course) => course.name === fd.course).id
+      }/${Math.floor(rand * 90000 + 10000)}`,
     }));
   }, [formData.course, rand]);
 
@@ -159,11 +161,21 @@ const RegistrationForm = () => {
     }
   };
 
+  const alreadyRegistered = (
+    <Link
+      href="/auth/payment"
+      className="text-center text-blue-400 hover:underline"
+    >
+      Already registered? Continue your application process
+    </Link>
+  );
+
   return (
     <form className="section" method="post" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
         <h1 className="text-3xl text-center mb-12">Registration Form</h1>
         <div className="max-w-[800px] mx-auto flex flex-col gap-4">
+          {alreadyRegistered}
           <AllInput
             inputs={inputs}
             formData={formData}
@@ -182,6 +194,7 @@ const RegistrationForm = () => {
               <Loader2 className="animate-spin" />
             )}
           </Button>
+          {alreadyRegistered}
         </div>
       </div>
 
@@ -189,7 +202,6 @@ const RegistrationForm = () => {
         open={submitStatus?.status === "success"}
         onOpenChange={() => {
           setSubmitStatus(null);
-          setFormData({});
         }}
         title="Registration Successful"
         description=""
@@ -206,7 +218,9 @@ const RegistrationForm = () => {
         }
         controls={
           <Button className="mx-auto">
-            <Link href="/auth/payment">Proceed to payment</Link>
+            <Link href={`/auth/payment?course=${formData.email}`}>
+              Proceed to payment
+            </Link>
           </Button>
         }
       />
