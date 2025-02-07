@@ -18,7 +18,7 @@ const NoticeDialog = () => {
         JSON.parse(localStorage.getItem("noticeDialogCount")) ?? 0;
 
       if (noticeDialogCount < 2) {
-        setOpen(true);
+        setTimeout(() => setOpen(true), 5000);
         localStorage.setItem("noticeDialogCount", `${noticeDialogCount + 1}`);
       }
     } catch {
@@ -29,7 +29,6 @@ const NoticeDialog = () => {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger />
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-red-600">
