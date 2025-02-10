@@ -77,7 +77,10 @@ const inputs = [
 const BulkRegistrationForm = () => {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
-    course: searchParams.get("course") ?? "",
+    course:
+      courses.find((course) => course.id === searchParams.get("course"))
+        ?.name ?? "",
+    bulkId: searchParams.get("id") ?? "",
   });
   const [submitStatus, setSubmitStatus] = useState(null);
   const [rand, setRand] = useState(Math.random);

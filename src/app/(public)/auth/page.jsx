@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PackagePlus, User, Users } from "lucide-react";
+import { PackagePlus, User, Users, Workflow } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -19,10 +19,10 @@ const AuthManager = () => {
       <LinkCard
         title="Continue your application"
         link="/auth/payment"
-        icon={<PackagePlus />}
+        icon={<Workflow />}
       />
       <LinkCard
-        title="Create a bulk"
+        title="Login/Create a bulk"
         link="/auth/bulk/create"
         icon={<PackagePlus />}
       />

@@ -60,7 +60,8 @@ const BulkLoginForm = () => {
           "Content-Type": "application/json",
         },
       },
-      onSuccess() {
+      onSuccess(formStatus) {
+        localStorage.setItem("token", formStatus.response.data.token);
         setTimeout(() => router.push("/admin"), 1000);
       },
       onError(formStatus) {
@@ -97,7 +98,7 @@ const BulkLoginForm = () => {
             type="submit"
             disabled={submitStatus?.status === "submitting"}
           >
-            Create Bulk
+            Login
             {submitStatus?.status === "submitting" && (
               <Loader2 className="animate-spin" />
             )}
@@ -111,11 +112,11 @@ const BulkLoginForm = () => {
         onOpenChange={() => {
           setSubmitStatus(null);
         }}
-        title="Bulk Created Successful"
+        title="Bulk Login Successful"
         description={submitStatus?.response?.data?.message || ""}
         controls={
           <Button className="mx-auto">
-            <Link href={`/auth/`}>Go to bulk management</Link>
+            <Link href="/admin">Go to bulk management</Link>
           </Button>
         }
       />

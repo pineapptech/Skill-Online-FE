@@ -29,7 +29,7 @@ const Navbar = ({ className }) => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 110 && inView) setInView(false);
-    else if (latest <= 110 && !inView) setInView(true);
+    else if (latest <= 10 && !inView) setInView(true);
   });
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const Navbar = ({ className }) => {
     <motion.nav
       animate={{ top: inView ? 0 : 16 }}
       className={cn(
-        "px-8 lg:px-24 py-4 sticky z-30 mx-4 lg:mx-auto",
+        "px-8 lg:px-24 py-4 sticky z-30 lg:mx-auto bg-background",
         !inView &&
-          "md:px-8 rounded-[2rem] max-w-screen-lg py-2 bg-primary-foreground/80 shadow-md backdrop-blur-sm",
+          "md:px-8 rounded-[2rem] max-w-screen-lg mx-4 py-2 bg-background/80 shadow-md backdrop-blur-sm",
         typeof className == "function" ? className(inView) : className
       )}
       style={{ top: inView ? 0 : 16 }}
