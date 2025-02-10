@@ -80,7 +80,7 @@ const ApplicationProcessSection = () => {
         ],
       ]);
     }
-  }, [inView]);
+  }, [inView, animate]);
 
   return (
     <section
@@ -99,7 +99,7 @@ const ApplicationProcessSection = () => {
         className="mx-auto container max-w-[700px] p-7 rounded-2xl md:rounded-md"
         asChild
       >
-        <Link href="/auth/register">Apply Now</Link>
+        <Link href="/auth">Get Started</Link>
       </MotionButton>
     </section>
   );

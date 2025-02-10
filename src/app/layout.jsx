@@ -30,10 +30,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <Providers>
-          <Navbar />
           <Suspense>{children}</Suspense>
           <GoogleTranslate />
-          <NoticeDialog />
         </Providers>
       </body>
     </html>

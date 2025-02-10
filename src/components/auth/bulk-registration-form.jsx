@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import courses from "@/data/courses";
 import { AllInput } from "../form-elements";
@@ -22,6 +23,11 @@ const inputs = [
     })),
   },
   {
+    label: "Bulk ID",
+    name: "bulkId",
+    placeholder: "Enter Bulk ID provided to you",
+  },
+  {
     label: "Unique Reg Number",
     name: "regNo",
     placeholder: "This will automatically be generated for you",
@@ -31,15 +37,9 @@ const inputs = [
     classes: { input: "italic cursor-not-allowed" },
   },
   {
-    type: "flex",
-    items: [
-      {
-        label: "First name",
-        name: "firstName",
-        placeholder: "Enter first name",
-      },
-      { label: "Last name", name: "lastName", placeholder: "Enter last name" },
-    ],
+    label: "Full Name",
+    name: "fullname",
+    placeholder: "Enter your fullname",
   },
   {
     label: "Email Address",
@@ -53,36 +53,8 @@ const inputs = [
     options: ["Male", "Female", "Non-binary"],
     placeholder: "Select your gender",
   },
-  {
-    label: "Phone Number",
-    name: "phone",
-    placeholder: "Enter your phone number",
-  },
-  {
-    label: "State/Country",
-    name: "state",
-    placeholder: "Enter your state or country residence",
-  },
   { label: "Province", name: "province", placeholder: "Enter your province" },
-  { label: "City", name: "city", placeholder: "Enter your City of residence" },
   { label: "Address", name: "address", placeholder: "Enter your address" },
-  {
-    label: "ID Type",
-    name: "passportId",
-    type: "select",
-    options: ["Passport", "National ID", "Guadian ID"],
-    placeholder: "Enter ID Type",
-  },
-  {
-    label: "ID File",
-    description:
-      "Note: Only png, jpg and pdf files are allowed. Maximum file size is 5MB",
-    name: "file",
-    type: "file",
-    uploadLabel: "Upload an image of your ID",
-    fileTypes: ["image/png", "image/jpeg", "image/jpg", "application/pdf"],
-    maxSize: 5 * 1024 * 1024,
-  },
   {
     label: "I agree",
     placeholder:
@@ -102,7 +74,7 @@ const inputs = [
   },
 }));
 
-const RegistrationForm = () => {
+const BulkRegistrationForm = () => {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     course: searchParams.get("course") ?? "",
@@ -137,10 +109,15 @@ const RegistrationForm = () => {
     const formStatus = await handleFormSubmitHelper({
       formSchema,
       formData,
-      endPoint: "/v1/auth/register",
+      endPoint: "/v1/bulk-admin/create-user",
       setSubmitStatus,
-
+      axiosConfig: {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
       onError(formStatus) {
+        console.log("Error registering under bulk", formStatus);
         // Filter and handle unhandled/unfriendly backend errors
         const issueField = Object.keys(formData).find((formField) =>
           formStatus.error.includes(formField)
@@ -163,21 +140,11 @@ const RegistrationForm = () => {
     }
   };
 
-  const alreadyRegistered = (
-    <Link
-      href="/auth/payment"
-      className="text-center text-blue-400 hover:underline"
-    >
-      Already registered? Continue your application process
-    </Link>
-  );
-
   return (
     <form className="section" method="post" onSubmit={handleFormSubmit}>
       <div className="container mx-auto">
-        <h1 className="text-3xl text-center mb-12">Registration Form</h1>
+        <h1 className="text-3xl text-center mb-12">Bulk Registration Form</h1>
         <div className="max-w-[800px] mx-auto flex flex-col gap-4">
-          {alreadyRegistered}
           <AllInput
             inputs={inputs}
             formData={formData}
@@ -196,7 +163,6 @@ const RegistrationForm = () => {
               <Loader2 className="animate-spin" />
             )}
           </Button>
-          {alreadyRegistered}
         </div>
       </div>
 
@@ -220,9 +186,7 @@ const RegistrationForm = () => {
         }
         controls={
           <Button className="mx-auto">
-            <Link href={`/auth/payment?email=${formData.email}`}>
-              Proceed to payment
-            </Link>
+            <Link href="/">Back to homepage</Link>
           </Button>
         }
       />
@@ -242,4 +206,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default BulkRegistrationForm;

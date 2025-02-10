@@ -115,15 +115,13 @@ const Nav = ({ fullUrl, mobile }) => {
           ></motion.div>
         </motion.li>
       ))}
-      {!fullUrl?.startsWith("/auth") && (
-        <li className="">
-          <Button className="rounded-full">
-            <Link href="/auth/register" scroll={false}>
-              Apply Now
-            </Link>
-          </Button>
-        </li>
-      )}
+      <li className="">
+        <Button className="rounded-full">
+          <Link href="/auth" scroll={false}>
+            Get Started
+          </Link>
+        </Button>
+      </li>
     </ul>
   );
 };

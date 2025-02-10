@@ -98,6 +98,7 @@ const validators = {
     let schema = z.enum(validValues, {
       required_error: `${name} is required`,
       invalid_type_error: `You need to select a valid value`,
+      message: "Select a valid option",
     });
 
     return schema;
