@@ -50,7 +50,11 @@ const inputs = [
     label: "Gender",
     type: "select",
     name: "gender",
-    options: ["Male", "Female", "Non-binary"],
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Non-binary", value: "other" },
+    ],
     placeholder: "Select your gender",
   },
   { label: "Province", name: "province", placeholder: "Enter your province" },

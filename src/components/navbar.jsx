@@ -116,7 +116,7 @@ const Nav = ({ fullUrl, mobile }) => {
         </motion.li>
       ))}
       <li className="">
-        <Button className="rounded-full">
+        <Button className="rounded-full" asChild>
           <Link href="/auth" scroll={false}>
             Get Started
           </Link>
