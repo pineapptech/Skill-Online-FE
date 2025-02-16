@@ -13,6 +13,12 @@ import {
 } from "@radix-ui/react-collapsible";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const navlinks = [
   { label: "Home", href: "/#" },
@@ -26,6 +32,7 @@ const Navbar = ({ className }) => {
   const [inView, setInView] = useState(true);
   const pathname = usePathname();
   const [fullUrl, setFullUrl] = useState(null);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(true);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 110 && inView) setInView(false);
@@ -39,6 +46,9 @@ const Navbar = ({ className }) => {
 
     handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
+
+    setIsNavbarOpen(false);
+
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, [pathname]);
 
@@ -53,7 +63,7 @@ const Navbar = ({ className }) => {
       )}
       style={{ top: inView ? 0 : 16 }}
     >
-      <Collapsible>
+      <DropdownMenu open={isNavbarOpen} onOpenChange={setIsNavbarOpen}>
         <div className="container grid grid-cols-3 justify-items-start items-center mx-auto">
           <Link href="/">
             <Image
@@ -67,31 +77,33 @@ const Navbar = ({ className }) => {
 
           <Nav fullUrl={fullUrl} mobile={false} />
 
-          <CollapsibleTrigger className="col-span-2 md:hidden justify-self-end">
+          <DropdownMenuTrigger className="col-span-2 md:hidden justify-self-end">
             <Menu />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="row-start-2 col-end-3 md:hidden justify-self-stretch">
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="md:hidden w-screen bg-background/80 shadow-md backdrop-blur-sm p-4">
             <Nav fullUrl={fullUrl} mobile={true} />
-          </CollapsibleContent>
+          </DropdownMenuContent>
         </div>
-      </Collapsible>
+      </DropdownMenu>
     </motion.nav>
   );
 };
 
 const Nav = ({ fullUrl, mobile }) => {
+  const ListItemElement = mobile ? motion.create(DropdownMenuItem) : motion.li;
+
   return (
     <ul
       className={cn(
-        "col-span-3  hidden md:flex items-center gap-2 md:gap-4 lg:gap-12 font-bold text-sm text-gray-600",
-        mobile ? "flex flex-col" : "col-span-2 justify-self-end"
+        "header-navlinks col-span-3 hidden md:flex items-center gap-2 md:gap-4 lg:gap-12 font-bold text-sm text-gray-600",
+        mobile ? "flex flex-col w-fit mx-auto" : "col-span-2 justify-self-end"
       )}
     >
       {navlinks.map(({ label, href }) => (
-        <motion.li
+        <ListItemElement
           key={label + href}
           whileHover="drawBorder"
-          className="relative self-stretch"
+          className="relative self-stretch focus:bg-transparent justify-center"
         >
           <a
             className={cn(
@@ -113,7 +125,7 @@ const Nav = ({ fullUrl, mobile }) => {
             }
             className={cn("absolute h-0.5 bg-current top-full")}
           ></motion.div>
-        </motion.li>
+        </ListItemElement>
       ))}
       <li className="">
         <Button className="rounded-full" asChild>
