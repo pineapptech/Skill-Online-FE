@@ -24,12 +24,14 @@ const AdminDashboard = () => {
       })
       .then((res) => {
         setDetails(res.data);
-        console.log(res);
       })
       .catch((error) => {
         console.log("Error fetching admin details", error);
         if (error.status === 401) router.push("/auth/bulk/login");
-        else setError("Error fetching admin details");
+        else
+          setError(
+            error.response?.data?.message ?? "Error fetching admin details"
+          );
       });
   }, [router]);
 
@@ -58,7 +60,7 @@ const AdminDashboard = () => {
           <Card className="w-fit container shadow-lg rounded-2xl">
             <CardHeader></CardHeader>
             <CardContent className="text-center flex flex-col gap-2">
-              Error fetching admin details
+              {error}
               <Button
                 variant="outline"
                 className="border-red-500 text-red-500"
@@ -87,16 +89,16 @@ const AdminDashboard = () => {
             <div className="font-bold">{details?.message}</div>
             <hr className="my-4 border-2" />
             <div className="space-y-2 text-gray-700 basis-1/2 grow">
-              {Object.entries(details?.adminDetails ?? {}).map(
-                ([key, value]) => (
+              {Object.entries(details?.adminDetails ?? {})
+                .filter(([key]) => key !== "id")
+                .map(([key, value]) => (
                   <p key={key} className="my-0">
                     <span className="font-bold capitalize">
                       {key.replace(/([a-z])([A-Z])/g, "$1 $2")}:
                     </span>{" "}
                     <span>{value}</span>
                   </p>
-                )
-              )}
+                ))}
             </div>
             <hr className="my-4 border-2" />
             {registrationLink && (
