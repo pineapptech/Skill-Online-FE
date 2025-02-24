@@ -35,6 +35,7 @@ const AdminDashboard = () => {
       });
   }, [router]);
 
+  // Create registration link for the QRCode
   useEffect(() => {
     const bulkId = details?.adminDetails?.bulkId;
     if (!bulkId) return;
@@ -88,6 +89,7 @@ const AdminDashboard = () => {
           <CardContent className="text-center">
             <div className="font-bold">{details?.message}</div>
             <hr className="my-4 border-2" />
+            <div className="font-bold">{details?.number_of_users}</div>
             <div className="space-y-2 text-gray-700 basis-1/2 grow">
               {Object.entries(details?.adminDetails ?? {})
                 .filter(([key]) => key !== "id")
