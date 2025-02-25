@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { CloudUpload } from "lucide-react";
+import { CloudUpload, Eye, EyeOff, XIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -13,6 +13,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "./ui/button";
 
 export const FileInput = ({
   label,
@@ -123,6 +124,7 @@ export const TypeInput = ({
   inputProps = {},
   required,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const val = onChange ? { value: value } : { defaultValue: value };
 
   return (
@@ -151,7 +153,13 @@ export const TypeInput = ({
         )}
         <Input
           ref={ref}
-          type={type}
+          type={
+            type === "password"
+              ? isPasswordVisible
+                ? "text"
+                : "password"
+              : type
+          }
           id={name}
           name={name}
           onChange={(e) => onChange?.(e.target.value)}
@@ -165,6 +173,17 @@ export const TypeInput = ({
           {...val}
           {...inputProps}
         />
+        {type === "password" && (
+          <Button
+            variant="ghost"
+            size="icon"
+            type="button"
+            className="absolute top-1/2 right-1 -translate-y-1/2"
+            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+          >
+            {isPasswordVisible ? <EyeOff /> : <Eye />}
+          </Button>
+        )}
       </div>
       {error && (
         <div className={cn("error text-xs text-red-500", classes.error)}>
