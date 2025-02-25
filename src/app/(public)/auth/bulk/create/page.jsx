@@ -2,6 +2,7 @@ import React from "react";
 import BulkCreationForm from "@/components/auth/bulk-creation-form";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -28,10 +29,10 @@ const BulkCreation = () => {
           </p>
           <DialogFooter className="sm:justify-between gap-4">
             <Button variant="outline" asChild>
-              <Link href="/auth/bulk/register">Go to BULK Registration</Link>
+              <DialogClose>Continue to ADMIN Creation</DialogClose>
             </Button>
             <Button asChild>
-              <Link href="/auth/register">Go to SINGLE Registration</Link>
+              <Link href="/auth/">Take Me Back</Link>
             </Button>
           </DialogFooter>
         </DialogContent>
