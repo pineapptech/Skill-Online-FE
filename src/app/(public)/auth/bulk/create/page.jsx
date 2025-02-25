@@ -18,7 +18,7 @@ const BulkCreation = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-red-500 text-center">
-              Disclaimer
+              Important
             </DialogTitle>
           </DialogHeader>
           <p>

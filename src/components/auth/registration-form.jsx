@@ -90,7 +90,7 @@ const inputs = [
   {
     label: "I agree",
     placeholder:
-      "Skillonline will use the form data only for the purpose of crediting the person as online course registration",
+      "Skillonline will use your data only for application processing and onboarding purposes.",
     type: "checkbox",
     name: "agreement",
   },
