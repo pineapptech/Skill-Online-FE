@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { Clock5, FileX, Rocket, SquareCheckBig } from "lucide-react";
+import { Clock5, FileX, Rocket, SquareCheckBig, Users } from "lucide-react";
 import {
   motion,
   useAnimate,
@@ -74,11 +74,16 @@ const list = [
   { content: "6 months duration (26 weeks)", icon: <Clock5 /> },
   {
     content:
-      "Application form registration closes Midnight (WAT), March 2nd 2025 ",
+      "Onboarding orientation commences Midnight (WAT), March 2nd 2025 and will last for 4 weeks",
+    icon: <Users />,
+  },
+  {
+    content:
+      "Application form registration closes after onboarding orientation",
     icon: <FileX />,
   },
   {
-    content: "Online course sessions starts on Monday, March 3rd 2025",
+    content: "Online course sessions starts after onboarding orientation",
     icon: <Rocket />,
   },
 ];
