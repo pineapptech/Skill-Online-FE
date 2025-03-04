@@ -41,7 +41,7 @@ const AdminDashboard = () => {
     if (!bulkId) return;
 
     setRegistrationLink(
-      `${window.location.origin}/auth/bulk/registration?id=${bulkId}`
+      `${window.location.origin}/auth/bulk/register?id=${bulkId}`
     );
   }, [details]);
 
