@@ -185,16 +185,34 @@ const BulkRegistrationForm = () => {
             Thank you for registering with us, we are excited that you have
             taken this milestone step towards acquiring you tech emerging skill,
             we are currently processing your application so you&apos;ll receive
-            your admission letter and your onboarding details shortly.
-            <br />
-            <br />
-            <em>Signed SkillOnline ETSAP Onboarding team</em>
+            your admission letter and your onboarding details shortly. In the
+            mean time, kindly join our{" "}
+            <Link
+              href="https://discord.gg/FwQmepvR"
+              className="text-blue-500 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              discord community
+            </Link>{" "}
+            to be part of our community.
           </>
         }
         controls={
-          <Button className="mx-auto">
-            <Link href="/">Back to homepage</Link>
-          </Button>
+          <div className="flex grow gap-4 justify-between">
+            <Button variant="outline">
+              <Link href="/">Back to homepage</Link>
+            </Button>
+            <Button>
+              <Link
+                href="https://discord.gg/FwQmepvR"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Go to discord
+              </Link>
+            </Button>
+          </div>
         }
       />
       <ErrorDialog
