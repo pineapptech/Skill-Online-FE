@@ -1,6 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const filesToView = ["/documents/etsap-onboarding-guide.pdf"];
+const filesToView = [
+  "/documents/etsap-onboarding-guide.pdf",
+  "/documents/welcome-to-etsap.pdf",
+];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -9,7 +12,7 @@ export function middleware(request: NextRequest) {
   if (filesToView.includes(pathname)) {
     response.headers.set(
       "Content-Disposition",
-      `inline; filename="${pathname}"`
+      `inline; filename="${pathname.split("/").pop()}"`
     );
   }
 
