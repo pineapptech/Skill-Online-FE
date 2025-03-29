@@ -10,10 +10,14 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { name: "All Users", href: "/super-admin/view-users", icon: <Baby /> },
   {
-    name: "All Admin Users",
-    href: "/super-admin/view-admin-users",
+    name: "All Single Users",
+    href: "/super-admin/single-users",
+    icon: <Baby />,
+  },
+  {
+    name: "All Bulk Users",
+    href: "/super-admin/bulk-users",
     icon: <HandPlatter />,
   },
 ];
@@ -27,7 +31,7 @@ const SuperAdminLayout = ({ children }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (passphrase === "#whogoes.") {
+    if (passphrase === "Admin@etsapafrica") {
       setIsPassphraseCorrect(true);
     } else {
       setIsPassphraseCorrect(false);

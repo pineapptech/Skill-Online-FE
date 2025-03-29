@@ -10,23 +10,34 @@ import {
 } from "../ui/table";
 import { Input } from "../ui/input";
 import { SearchIcon } from "lucide-react";
+import { PAGE_SIZE } from "./page-controls";
 
 const columns = [
-  { header: "SN", cell: ({ index }) => index + 1 },
-  {
-    header: "Email",
-    accessor: "email",
-  },
+  { header: "SN", accessor: "sn" },
+  { header: "Email", accessor: "email" },
+  { header: "Amount", accessor: "6000", cell: ({ row }) => `${row.amount}` },
+  { header: "Reference", accessor: "reference" },
+  { header: "Payment Status", accessor: "status" },
 ];
 
-const AllAdminTable = ({ data }) => {
+const SingleUsersTable = ({ data, page }) => {
   const [filterText, setFilterText] = useState("");
 
   const filteredData = data.filter((item) => {
     const filter = filterText.trim().toLowerCase();
 
-    return item.email.toLowerCase().includes(filter);
+    return (
+      item.email.toLowerCase().includes(filter) ||
+      item.amount.toString().includes(filter) ||
+      item.reference.toLowerCase().includes(filter) ||
+      item.status.toLowerCase().includes(filter)
+    );
   });
+
+  const paginatedData = filteredData.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
 
   return (
     <div className="w-fit max-w-full mx-auto">
@@ -54,7 +65,7 @@ const AllAdminTable = ({ data }) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredData.map((row, index) => (
+            {paginatedData.map((row, index) => (
               <TableRow key={row.email}>
                 {columns.map((column) => {
                   let cell = row[column.accessor];
@@ -79,7 +90,7 @@ const AllAdminTable = ({ data }) => {
                 })}
               </TableRow>
             ))}
-            {filteredData.length === 0 && (
+            {paginatedData.length === 0 && (
               <TableRow className="w-full">
                 <TableCell colSpan={columns.length} className="text-center">
                   No entry found
@@ -93,4 +104,4 @@ const AllAdminTable = ({ data }) => {
   );
 };
 
-export default AllAdminTable;
+export default SingleUsersTable;

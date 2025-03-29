@@ -2,19 +2,19 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { Loader2, ChevronLeft, ChevronRight, DownloadIcon } from "lucide-react";
+import { Loader2, DownloadIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AllUsersTable from "@/components/super-admin/all-users-table";
-import { Input } from "@/components/ui/input";
+import SingleUsersTable from "@/components/super-admin/single-users-table";
 import { downloadCSV } from "@/lib/utils";
-
-const PAGE_SIZE = 20;
+import {
+  PAGE_SIZE,
+  PageControls,
+} from "@/components/super-admin/page-controls";
 
 const ViewAllUsers = () => {
   const [users, setUsers] = useState(null);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
-  const [pageInputValue, setPageInputValue] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -38,9 +38,6 @@ const ViewAllUsers = () => {
       </div>
     );
   }
-
-  const isPageValid = (page) =>
-    page > 0 && page <= Math.ceil(users.length / PAGE_SIZE);
 
   if (error) {
     return (
@@ -72,55 +69,20 @@ const ViewAllUsers = () => {
           <DownloadIcon className="size-4" />
           Download CSV
         </Button>
-        <AllUsersTable
+        <SingleUsersTable
           data={users.map((user, index) => ({ ...user, sn: index + 1 }))}
           page={page}
-          pageSize={PAGE_SIZE}
         />
         <div className="current-page-number">
           Current Page: {page} / {Math.ceil(users.length / PAGE_SIZE)}
         </div>
       </div>
 
-      <div className="paingation my-8 justify-around flex gap-4 flex-col md:flex-row">
-        <Button
-          variant="outline"
-          onClick={() => {
-            if (isPageValid(page - 1)) setPage(page - 1);
-          }}
-        >
-          <ChevronLeft className="size-4" />
-          Previous
-        </Button>
-
-        <div className="flex max-md:flex-col gap-2">
-          <Input
-            type="number"
-            placeholder="Enter Page"
-            value={pageInputValue}
-            onChange={(e) => {
-              setPageInputValue(e.target.value);
-            }}
-          />
-          <Button
-            variant="outline"
-            onClick={() => {
-              if (isPageValid(pageInputValue)) setPage(pageInputValue);
-            }}
-          >
-            Go to page
-          </Button>
-        </div>
-        <Button
-          variant="outline"
-          onClick={() => {
-            if (isPageValid(page + 1)) setPage(page + 1);
-          }}
-        >
-          Next
-          <ChevronRight className="size-4" />
-        </Button>
-      </div>
+      <PageControls
+        page={page}
+        setPage={setPage}
+        totalPages={Math.ceil(users.length / PAGE_SIZE)}
+      />
     </>
   );
 };

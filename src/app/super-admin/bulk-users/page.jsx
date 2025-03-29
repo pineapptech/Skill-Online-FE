@@ -2,21 +2,21 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { Loader2, ChevronLeft, ChevronRight, DownloadIcon } from "lucide-react";
+import { Loader2, DownloadIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import AllAdminTable from "@/components/super-admin/all-admin-table";
+import BulkUsersTable from "@/components/super-admin/bulk-users-table";
 import { downloadCSV } from "@/lib/utils";
+import { PageControls } from "../../../components/super-admin/page-controls";
 
 const ViewAllAdmin = () => {
   const [userData, setUsers] = useState(null);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
-  const [pageInputValue, setPageInputValue] = useState("");
   const [isDownloadingCSV, setIsDownloadingCSV] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    setUsers(null);
     axiosInstance
       .get(`/v1/bulk-admin/bulk-users?limit=20&page=${page}`)
       .then((res) => {
@@ -29,14 +29,6 @@ const ViewAllAdmin = () => {
         setUsers(null);
       });
   }, [router, page]);
-
-  if (!userData && !error) {
-    return (
-      <div className="flex items-center justify-center min-h-20 p-4">
-        <Loader2 className="animate-spin size-14" />
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -57,12 +49,6 @@ const ViewAllAdmin = () => {
     );
   }
 
-  const isPageValid = (page) => page > 0 && page <= userData.totalPages;
-  const users = userData.emails.map((email, index) => ({
-    sn: index + 1,
-    email,
-  }));
-
   return (
     <>
       <div className="px-4 flex flex-col gap-4">
@@ -73,13 +59,7 @@ const ViewAllAdmin = () => {
             axiosInstance
               .get(`/v1/bulk-admin/bulk-users?limit=${userData.totalUsers}`)
               .then((res) => {
-                downloadCSV(
-                  res.data.emails.map((email, index) => ({
-                    sn: index + 1,
-                    email,
-                  })),
-                  "admin-users.csv"
-                );
+                downloadCSV(res.data.users, "admin-users.csv");
                 setIsDownloadingCSV(false);
               })
               .catch((error) => {
@@ -98,51 +78,23 @@ const ViewAllAdmin = () => {
           )}
           Download CSV
         </Button>
-        <AllAdminTable data={users} page={page} />
+
+        <BulkUsersTable
+          data={userData?.users}
+          page={page}
+          isLoading={!userData && !error}
+        />
+
         <div className="current-page-number py-2">
-          Current Page: {page} / {userData.totalPages}
+          Current Page: {page} / {userData?.totalPages || page}
         </div>
       </div>
 
-      <div className="paingation my-8 justify-around flex gap-4 flex-col md:flex-row">
-        <Button
-          variant="outline"
-          onClick={() => {
-            if (isPageValid(page - 1)) setPage(page - 1);
-          }}
-        >
-          <ChevronLeft className="size-4" />
-          Previous
-        </Button>
-
-        <div className="flex max-md:flex-col gap-2">
-          <Input
-            type="number"
-            placeholder="Enter Page"
-            value={pageInputValue}
-            onChange={(e) => {
-              setPageInputValue(e.target.value);
-            }}
-          />
-          <Button
-            variant="outline"
-            onClick={() => {
-              if (isPageValid(pageInputValue)) setPage(pageInputValue);
-            }}
-          >
-            Go to page
-          </Button>
-        </div>
-        <Button
-          variant="outline"
-          onClick={() => {
-            if (isPageValid(page + 1)) setPage(page + 1);
-          }}
-        >
-          Next
-          <ChevronRight className="size-4" />
-        </Button>
-      </div>
+      <PageControls
+        page={page}
+        setPage={setPage}
+        totalPages={userData?.totalPages || Infinity}
+      />
     </>
   );
 };
