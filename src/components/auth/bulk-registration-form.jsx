@@ -188,7 +188,7 @@ const BulkRegistrationForm = () => {
             your admission letter and your onboarding details shortly. In the
             mean time, kindly join our{" "}
             <Link
-              href="https://discord.gg/FwQmepvR"
+              href="https://discord.gg/3x7yPdjW"
               className="text-blue-500 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
@@ -205,7 +205,7 @@ const BulkRegistrationForm = () => {
             </Button>
             <Button>
               <Link
-                href="https://discord.gg/FwQmepvR"
+                href="https://discord.gg/3x7yPdjW"
                 target="_blank"
                 rel="noopener noreferrer"
               >
