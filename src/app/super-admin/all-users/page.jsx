@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { Loader2, DownloadIcon, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SingleUsersTable from "@/components/super-admin/single-users-table";
 import { cn, downloadCSV } from "@/lib/utils";
-import { CanceledError } from "axios";
 import {
   PAGE_SIZE,
   PageControls,
 } from "@/components/super-admin/page-controls";
+import AllUsersInfoTable from "@/components/super-admin/all-users-info-table";
+import { CanceledError } from "axios";
+import courses from "@/data/courses";
 
-const ViewAllUsers = () => {
+const ViewAllUsersInfo = () => {
   const [users, setUsers] = useState(null);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [error, setError] = useState("");
@@ -21,10 +22,10 @@ const ViewAllUsers = () => {
     setIsLoadingUsers(true);
 
     try {
-      const response = await axiosInstance.get("/status", {
+      const response = await axiosInstance.get("/users", {
         signal: controller?.signal,
       });
-      setUsers(response.data.status);
+      setUsers(response.data.users);
       setError("");
     } catch (error) {
       console.log("Error fetching all  users", error);
@@ -78,7 +79,16 @@ const ViewAllUsers = () => {
         <div className="flex gap-4 flex-wrap justify-center">
           <Button
             variant="outline"
-            onClick={() => downloadCSV(users, "users.csv")}
+            onClick={() => {
+              const resolvedUsers = users.map((user) => ({
+                ...user,
+                paymentCount: user.payments.length,
+                course:
+                  courses.find((course) => course.id === user.course)?.name ??
+                  user.course,
+              }));
+              downloadCSV(resolvedUsers, "all-users-info.csv");
+            }}
             className="self-center"
             disabled={isLoadingUsers}
           >
@@ -97,7 +107,7 @@ const ViewAllUsers = () => {
             Refresh
           </Button>
         </div>
-        <SingleUsersTable
+        <AllUsersInfoTable
           data={users.map((user, index) => ({ ...user, sn: index + 1 }))}
           page={page}
         />
@@ -115,4 +125,4 @@ const ViewAllUsers = () => {
   );
 };
 
-export default ViewAllUsers;
+export default ViewAllUsersInfo;

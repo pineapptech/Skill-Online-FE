@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import ErrorDialog from "@/components/ui/error-dialog";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
-import { Baby, Eye, EyeOff, HandPlatter } from "lucide-react";
+import { Baby, Eye, EyeOff, HandPlatter, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
@@ -19,6 +19,11 @@ const navLinks = [
     name: "All Bulk Users",
     href: "/super-admin/bulk-users",
     icon: <HandPlatter />,
+  },
+  {
+    name: "All Users Info",
+    href: "/super-admin/all-users",
+    icon: <Users />,
   },
 ];
 

@@ -1,41 +1,81 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
-import { useRouter } from "next/navigation";
-import { Loader2, DownloadIcon } from "lucide-react";
+import { Loader2, DownloadIcon, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BulkUsersTable from "@/components/super-admin/bulk-users-table";
-import { downloadCSV } from "@/lib/utils";
+import { downloadCSV, cn } from "@/lib/utils";
 import { PageControls } from "../../../components/super-admin/page-controls";
+import { CanceledError } from "axios";
 
 const ViewAllAdmin = () => {
-  const [userData, setUsers] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const [isDownloadingCSV, setIsDownloadingCSV] = useState(false);
-  const router = useRouter();
+
+  const fetchUsers = useCallback(
+    async (controller) => {
+      setIsLoadingUsers(true);
+      try {
+        const response = await axiosInstance.get(
+          `/v1/bulk-admin/bulk-users?limit=20&page=${page}`,
+          {
+            signal: controller?.signal,
+          }
+        );
+        setUserData(response.data);
+        setError("");
+      } catch (error) {
+        console.log("Error fetching all  users", error);
+        if (!(error instanceof CanceledError)) {
+          setError(error.response?.data?.message ?? "Error fetching all users");
+        }
+        setUserData(null);
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    },
+    [page]
+  );
+
+  const handleDownloadCSV = async () => {
+    setIsDownloadingCSV(true);
+    try {
+      const response = await axiosInstance.get(
+        `/v1/bulk-admin/bulk-users?limit=${userData.totalUsers}`
+      );
+      downloadCSV(response.data.users, "admin-users.csv");
+      setIsDownloadingCSV(false);
+    } catch (error) {
+      console.log("Error downloading CSV", error);
+      alert("Error downloading CSV");
+      setIsDownloadingCSV(false);
+    }
+  };
 
   useEffect(() => {
-    setUsers(null);
-    axiosInstance
-      .get(`/v1/bulk-admin/bulk-users?limit=20&page=${page}`)
-      .then((res) => {
-        setUsers(res.data);
-        setError("");
-      })
-      .catch((error) => {
-        console.log("Error fetching all  users", error);
-        setError(error.response?.data?.message ?? "Error fetching all users");
-        setUsers(null);
-      });
-  }, [router, page]);
+    const controller = new AbortController();
+    fetchUsers(controller);
 
-  if (error) {
+    return () => controller.abort();
+  }, [fetchUsers, page]);
+
+  if (isLoadingUsers) {
+    return (
+      <div className="flex items-center justify-center min-h-20 p-4">
+        <Loader2 className="animate-spin size-14" />
+      </div>
+    );
+  }
+
+  if (error || !userData) {
     return (
       <div>
         <div className="flex flex-col gap-4 items-center justify-center min-h-24 p-4">
           <p className="text-red-500 text-center max-w-[66ch] min-w-[40ch] mx-auto">
-            {error}
+            An error occurred while fetching users: {error}
           </p>
           <Button
             variant="outline"
@@ -52,33 +92,31 @@ const ViewAllAdmin = () => {
   return (
     <>
       <div className="px-4 flex flex-col gap-4">
-        <Button
-          variant="outline"
-          onClick={() => {
-            setIsDownloadingCSV(true);
-            axiosInstance
-              .get(`/v1/bulk-admin/bulk-users?limit=${userData.totalUsers}`)
-              .then((res) => {
-                downloadCSV(res.data.users, "admin-users.csv");
-                setIsDownloadingCSV(false);
-              })
-              .catch((error) => {
-                console.log("Error downloading CSV", error);
-                alert("Error downloading CSV");
-                setIsDownloadingCSV(false);
-              });
-          }}
-          disabled={isDownloadingCSV}
-          className="self-center"
-        >
-          {isDownloadingCSV ? (
-            <Loader2 className="animate-spin size-4" />
-          ) : (
-            <DownloadIcon className="size-4" />
-          )}
-          Download CSV
-        </Button>
-
+        <div className="flex gap-4 justify-center flex-wrap">
+          <Button
+            variant="outline"
+            onClick={handleDownloadCSV}
+            disabled={isDownloadingCSV || isLoadingUsers}
+            className="self-center"
+          >
+            {isDownloadingCSV ? (
+              <Loader2 className="animate-spin size-4" />
+            ) : (
+              <DownloadIcon className="size-4" />
+            )}
+            Download CSV
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => fetchUsers()}
+            disabled={isLoadingUsers}
+          >
+            <RefreshCcw
+              className={cn("size-4", isLoadingUsers && "animate-spin")}
+            />
+            Refresh
+          </Button>
+        </div>
         <BulkUsersTable
           data={userData?.users}
           page={page}
