@@ -113,6 +113,8 @@ const ViewAllUsersInfo = () => {
         />
         <div className="current-page-number">
           Current Page: {page} / {Math.ceil(users.length / PAGE_SIZE)}
+          <hr className="w-60 my-1 border-current" />
+          Total Users: {users.length.toLocaleString()}
         </div>
       </div>
 

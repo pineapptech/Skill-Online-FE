@@ -24,11 +24,15 @@ const BulkUsersTable = ({ data, page, isLoading }) => {
   const columns = [
     { header: "SN", cell: ({ index }) => index + 1 + (page - 1) * PAGE_SIZE },
     { header: "Full Name", accessor: "fullname" },
+    { header: "Reg Number", accessor: "regNo" },
     {
       header: "Email",
       accessor: "email",
     },
     { header: "Course", accessor: "course" },
+    { header: "Address", accessor: "address" },
+    { header: "Province", accessor: "province" },
+    { header: "Gender", accessor: "gender" },
   ];
 
   return (

@@ -31,8 +31,8 @@ const ViewAllAdmin = () => {
         console.log("Error fetching all  users", error);
         if (!(error instanceof CanceledError)) {
           setError(error.response?.data?.message ?? "Error fetching all users");
+          setUserData(null);
         }
-        setUserData(null);
       } finally {
         setIsLoadingUsers(false);
       }
@@ -61,6 +61,14 @@ const ViewAllAdmin = () => {
 
     return () => controller.abort();
   }, [fetchUsers, page]);
+
+  if (isLoadingUsers) {
+    return (
+      <div className="flex items-center justify-center min-h-20 p-4">
+        <Loader2 className="animate-spin size-14" />
+      </div>
+    );
+  }
 
   if (isLoadingUsers) {
     return (
@@ -125,6 +133,8 @@ const ViewAllAdmin = () => {
 
         <div className="current-page-number py-2">
           Current Page: {page} / {userData?.totalPages || page}
+          <hr className="w-60 my-1 border-current" />
+          Total Users: {(userData?.totalUsers).toLocaleString()}
         </div>
       </div>
 
