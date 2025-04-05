@@ -5,9 +5,18 @@ import { Input } from "@/components/ui/input";
 import ErrorDialog from "@/components/ui/error-dialog";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
-import { Baby, Eye, EyeOff, HandPlatter, Users } from "lucide-react";
+import {
+  Baby,
+  Eye,
+  EyeOff,
+  HandPlatter,
+  Loader2,
+  Tag,
+  Users,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
 const navLinks = [
   {
@@ -25,28 +34,42 @@ const navLinks = [
     href: "/super-admin/all-users",
     icon: <Users />,
   },
+  {
+    name: "Create Promo Code",
+    href: "/super-admin/promo-code",
+    icon: <Tag />,
+  },
 ];
 
 const SuperAdminLayout = ({ children }) => {
   const [passphrase, setPassphrase] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isPassphraseCorrect, setIsPassphraseCorrect] = useState(null);
+  const [isValidatingPassphrase, setIsValidatingPassphrase] = useState(false);
   const pathname = usePathname();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setIsValidatingPassphrase(true);
 
-    if (passphrase === "Admin@etsapafrica" || true) {
+    const isPassphraseValid = await axios
+      .post("/api/validate-super-admin-passphrase", { passphrase })
+      .then((res) => res.data.success);
+
+    if (isPassphraseValid) {
       setIsPassphraseCorrect(true);
     } else {
       setIsPassphraseCorrect(false);
     }
+
+    setIsValidatingPassphrase(false);
   };
 
   if (isPassphraseCorrect) {
     return (
       <>
         <Navbar />
+
         <nav>
           <ul className="flex justify-center gap-4 my-4 bg-gradient-to-r from-primary/5 p-4">
             {navLinks.map((link) => (
@@ -65,6 +88,7 @@ const SuperAdminLayout = ({ children }) => {
             ))}
           </ul>
         </nav>
+
         <div className="px-4">{children}</div>
       </>
     );
@@ -99,7 +123,12 @@ const SuperAdminLayout = ({ children }) => {
             </button>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isValidatingPassphrase}
+          >
+            {isValidatingPassphrase && <Loader2 className="animate-spin" />}
             Submit
           </Button>
         </form>
