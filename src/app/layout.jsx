@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 import Providers from "./providers";
 import GoogleTranslate from "@/components/google-translate";
-import NoticeDialog from "@/components/notice-dialog";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,6 +31,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Suspense>{children}</Suspense>
           <GoogleTranslate />
+          <Toaster position="top-center" />
         </Providers>
       </body>
     </html>

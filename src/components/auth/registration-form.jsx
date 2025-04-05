@@ -88,6 +88,12 @@ const inputs = [
     maxSize: 5 * 1024 * 1024,
   },
   {
+    label: "Promo Code (Optional)",
+    name: "promoCode",
+    placeholder: "Enter Promo Code",
+    required: false,
+  },
+  {
     label: "I agree",
     placeholder:
       "Skillonline will use your data only for application processing and onboarding purposes.",
@@ -96,7 +102,7 @@ const inputs = [
   },
 ].map((input) => ({
   ...input,
-  required: true,
+  required: input.required ?? true,
   classes: {
     input: `${
       input.type !== "file"
@@ -140,9 +146,12 @@ const RegistrationForm = () => {
       regNo: z.string().optional(),
     });
 
+    const resolvedFormData = { ...formData };
+    if (!resolvedFormData.promoCode) delete resolvedFormData.promoCode;
+
     const formStatus = await handleFormSubmitHelper({
       formSchema,
-      formData,
+      formData: resolvedFormData,
       endPoint: "/v1/auth/register",
       setSubmitStatus,
 
