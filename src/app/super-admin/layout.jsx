@@ -69,26 +69,26 @@ const SuperAdminLayout = ({ children }) => {
     return (
       <>
         <Navbar />
-
-        <nav>
-          <ul className="flex justify-center gap-4 my-4 bg-gradient-to-r from-primary/5 p-4">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link
-                  href={link.href}
-                  className={cn(
-                    "flex flex-col p-4  min-w-20 border border-primary rounded-md items-center gap-2 hover:scale-105 hover:bg-primary/70 hover:border-transparent hover:text-white transition-all duration-300",
-                    link.href === pathname && "bg-primary text-white"
-                  )}
-                >
-                  {link.icon}
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
+        {pathname !== "/super-admin/promo-code" && (
+          <nav>
+            <ul className="flex justify-center gap-4 my-4 bg-gradient-to-r from-primary/5 p-4">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "flex flex-col p-4  min-w-20 border border-primary rounded-md items-center gap-2 hover:scale-105 hover:bg-primary/70 hover:border-transparent hover:text-white transition-all duration-300",
+                      link.href === pathname && "bg-primary text-white"
+                    )}
+                  >
+                    {link.icon}
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <div className="px-4">{children}</div>
       </>
     );
