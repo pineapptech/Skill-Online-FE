@@ -25,6 +25,7 @@ const navlinks = [
   { label: "Courses", href: "/#courses" },
   { label: "About us", href: "/#about" },
   { label: "Contact", href: "/#contact" },
+  { label: "Scholarship", href: "/scholarship" },
 ];
 
 const Navbar = ({ className }) => {
