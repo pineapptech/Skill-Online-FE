@@ -9,92 +9,94 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Copy } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 const scholarshipData = [
   {
     lga: "Aninri",
-    email: "aninriemergingtech@gmail.com",
+    // email: "aninriemergingtech@gmail.com",
     bulkId: "BULK/A/746957",
   },
   {
     lga: "Awgu",
-    email: "awguemergingtechprogram@gmail.com",
+    // email: "awguemergingtechprogram@gmail.com",
     bulkId: "BULK/AETP/388287",
   },
   {
     lga: "Enugu East",
-    email: "enugueastemergingtech@gmail.com",
+    // email: "enugueastemergingtech@gmail.com",
     bulkId: "BULK/EEET/912199",
   },
   {
     lga: "Enugu North",
-    email: "chijiokediogu@gmail.com",
+    // email: "chijiokediogu@gmail.com",
     bulkId: "BULK/ENET/899780",
   },
   {
     lga: "Enugu South",
-    email: "enugusouthemergingtech@gmail.com",
+    // email: "enugusouthemergingtech@gmail.com",
     bulkId: "BULK/ES/769364",
   },
   {
     lga: "Ezeagu",
-    email: "vudeani@gmail.com",
+    // email: "vudeani@gmail.com",
     bulkId: "BULK/ELET/346586",
   },
   {
     lga: "Igbo-Etiti",
-    email: "igboetitiemergingtechprogram@gmail.com",
+    // email: "igboetitiemergingtechprogram@gmail.com",
     bulkId: "BULK/IE/746846",
   },
   {
     lga: "Igbo-Eze North",
-    email: "igboezenorthemergingtech@gmail.com",
+    // email: "igboezenorthemergingtech@gmail.com",
     bulkId: "BULK/IE/195370",
   },
   {
     lga: "Igbo-Eze South",
-    email: "igslg.bursary.scholarship@gmail.com",
+    // email: "igslg.bursary.scholarship@gmail.com",
     bulkId: "BULK/IE/735676",
   },
   {
     lga: "Isi-Uzo",
-    email: "isiuzoemergingtech@gmail.com",
+    // email: "isiuzoemergingtech@gmail.com",
     bulkId: "BULK/IELT/316437",
   },
   {
     lga: "Nkanu East",
-    email: "nkanueastemergingtech@gmail.com",
+    // email: "nkanueastemergingtech@gmail.com",
     bulkId: "BULK/NE/542745",
   },
   {
     lga: "Nkanu West",
-    email: "oigwesi@gmail.com",
+    // email: "oigwesi@gmail.com",
     bulkId: "BULK/NW/794375",
   },
   {
     lga: "Nsukka",
-    email: "nsukkaemergingtech@gmail.com",
+    // email: "nsukkaemergingtech@gmail.com",
     bulkId: "BULK/N/213631",
   },
   {
     lga: "Oji River",
-    email: "emergingtechgojiriver@gmail.com",
+    // email: "emergingtechgojiriver@gmail.com",
     bulkId: "BULK/OR/170339",
   },
   {
     lga: "Udenu",
-    email: "udenuemergingtech@gmail.com",
+    // email: "udenuemergingtech@gmail.com",
     bulkId: "BULK/UL/858971",
   },
   {
     lga: "Udi",
-    email: "uditechsolutions1@gmail.com",
+    // email: "uditechsolutions1@gmail.com",
     bulkId: "BULK/U/496659",
   },
   {
     lga: "Uzo-Uwani",
-    email: "uzouwaniemergingtech@gmail.com",
+    // email: "uzouwaniemergingtech@gmail.com",
     bulkId: "BULK/UU/137843",
   },
 ];
@@ -134,9 +136,9 @@ const ScholarshipPage = () => {
             <TableHead className="border-r last:border-r-0 bg-primary text-white hover:bg-primary/70">
               L.G.A
             </TableHead>
-            <TableHead className="border-r last:border-r-0 bg-primary text-white hover:bg-primary/70">
+            {/* <TableHead className="border-r last:border-r-0 bg-primary text-white hover:bg-primary/70">
               EMAIL
-            </TableHead>
+            </TableHead> */}
             <TableHead className="border-r last:border-r-0 bg-primary text-white hover:bg-primary/70">
               BULK ID
             </TableHead>
@@ -146,8 +148,23 @@ const ScholarshipPage = () => {
           {scholarshipData.map(({ lga, email, bulkId }) => (
             <TableRow key={bulkId}>
               <TableCell>{lga}</TableCell>
-              <TableCell>{email}</TableCell>
-              <TableCell>{bulkId}</TableCell>
+              {/* <TableCell>{email}</TableCell> */}
+              <TableCell>
+                {bulkId}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-2"
+                  onClick={() => {
+                    navigator.clipboard.writeText(bulkId);
+                    toast("Copied!", {
+                      description: "BulkID copied to clipboard",
+                    });
+                  }}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
