@@ -2,7 +2,7 @@
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
 
 const textVariants = {
   initial: { y: 50, opacity: 0 },
@@ -101,14 +101,25 @@ const OurGoalSection = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-            <Button
-              variant="ghost"
-              className="text-secondary hover:underline"
-              onClick={() => setMoreInfo(!moreInfo)}
-            >
-              View {moreInfo ? "less" : "more"}
-              {moreInfo ? <ChevronUp /> : <ChevronDown />}
-            </Button>
+            <div className="flex gap-4 items-center">
+              <Button
+                variant="ghost"
+                className="text-secondary hover:underline"
+                onClick={() => setMoreInfo(!moreInfo)}
+              >
+                View {moreInfo ? "less" : "more"}
+                {moreInfo ? <ChevronUp /> : <ChevronDown />}
+              </Button>
+
+              <a
+                href="https://discord.gg/Jqmb2Ga9pE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary border-b border-transparent hover:border-secondary text-sm flex items-center gap-2"
+              >
+                Join our discord community <ChevronRight size={16} />
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>

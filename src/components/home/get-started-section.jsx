@@ -127,6 +127,18 @@ const GetStartedSection = () => {
               admission letter and onboarding credentials into their desired
               course.
             </p>
+            <p>
+              You can also{" "}
+              <a
+                href="https://discord.gg/Jqmb2Ga9pE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-white hover:border-b-2 text-sm inline-flex items-center gap-2"
+              >
+                Join our discord community
+              </a>{" "}
+              for updates and more details.
+            </p>
             <h3>Full tuition-free scholarship</h3>
             <p>
               The program offers a full tuition-free scholarship on ALL ten
