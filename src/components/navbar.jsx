@@ -6,12 +6,7 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@radix-ui/react-collapsible";
-import { Menu } from "lucide-react";
+import { ExternalLinkIcon, Menu, XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
@@ -54,39 +49,42 @@ const Navbar = ({ className }) => {
   }, [pathname]);
 
   return (
-    <motion.nav
-      animate={{ top: inView ? 0 : 16 }}
-      className={cn(
-        "px-8 lg:px-24 py-4 sticky z-30 lg:mx-auto bg-background",
-        !inView &&
-          "md:px-8 rounded-[2rem] max-w-screen-lg mx-4 py-2 bg-background/80 shadow-md backdrop-blur-sm",
-        typeof className == "function" ? className(inView) : className
-      )}
-      style={{ top: inView ? 0 : 16 }}
-    >
-      <DropdownMenu open={isNavbarOpen} onOpenChange={setIsNavbarOpen}>
-        <div className="container grid grid-cols-3 justify-items-start items-center mx-auto">
-          <Link href="/">
-            <Image
-              src={logo}
-              alt="ETSAP Logo"
-              className="logo w-20"
-              width={92}
-              height={52}
-            />
-          </Link>
+    <>
+      <motion.nav
+        animate={{ top: inView ? 0 : 16 }}
+        className={cn(
+          "px-8 lg:px-24 py-4 sticky z-30 lg:mx-auto bg-background",
+          !inView &&
+            "md:px-8 rounded-[2rem] max-w-screen-lg mx-4 py-2 bg-background/80 shadow-md backdrop-blur-sm",
+          typeof className == "function" ? className(inView) : className
+        )}
+        style={{ top: inView ? 0 : 16 }}
+      >
+        <DropdownMenu open={isNavbarOpen} onOpenChange={setIsNavbarOpen}>
+          <div className="container grid grid-cols-3 justify-items-start items-center mx-auto">
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="ETSAP Logo"
+                className="logo w-20"
+                width={92}
+                height={52}
+              />
+            </Link>
 
-          <Nav fullUrl={fullUrl} mobile={false} />
+            <Nav fullUrl={fullUrl} mobile={false} />
 
-          <DropdownMenuTrigger className="col-span-2 md:hidden justify-self-end">
-            <Menu />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="md:hidden w-screen bg-background/80 shadow-md backdrop-blur-sm p-4">
-            <Nav fullUrl={fullUrl} mobile={true} />
-          </DropdownMenuContent>
-        </div>
-      </DropdownMenu>
-    </motion.nav>
+            <DropdownMenuTrigger className="col-span-2 md:hidden justify-self-end">
+              <Menu />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="md:hidden w-screen bg-background/80 shadow-md backdrop-blur-sm p-4">
+              <Nav fullUrl={fullUrl} mobile={true} />
+            </DropdownMenuContent>
+          </div>
+        </DropdownMenu>
+      </motion.nav>
+      <SearchUserBanner />
+    </>
   );
 };
 
@@ -136,6 +134,31 @@ const Nav = ({ fullUrl, mobile }) => {
         </Button>
       </li>
     </ul>
+  );
+};
+
+const SearchUserBanner = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="bg-primary text-white flex items-center justify-center relative">
+      <Link
+        href="/user/search"
+        className="hover:underline grow text-center px-4 py-2"
+      >
+        Click here to find your registration number
+      </Link>
+
+      <button
+        onClick={() => setIsVisible(false)}
+        className="absolute right-4 hover:bg-white/20 rounded p-1 transition-colors"
+        aria-label="Close banner"
+      >
+        <XIcon className="h-4 w-4" />
+      </button>
+    </div>
   );
 };
 
