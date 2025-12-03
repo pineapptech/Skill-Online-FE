@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import courses from "@/data/courses";
-import { AllInput } from "../form-elements";
+import { zones } from "@/data/zones";
+import { AllInput, SelectInput } from "../form-elements";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import { createZodSchema, handleFormSubmitHelper } from "@/lib/form-utils";
@@ -67,7 +68,7 @@ const inputs = [
     name: "state",
     placeholder: "Enter your state or country residence",
   },
-  { label: "Province", name: "province", placeholder: "Enter your province" },
+  // { label: "Province", name: "province", placeholder: "Enter your province" },
   { label: "City", name: "city", placeholder: "Enter your City of residence" },
   { label: "Address", name: "address", placeholder: "Enter your address" },
   {
@@ -200,6 +201,41 @@ const RegistrationForm = () => {
             className="p-4 rounded-lg bg-neutral-50 border"
             errors={submitStatus?.status === "form_error" && submitStatus.error}
           />
+          <SelectInput
+            label="Zone"
+            name="province"
+            options={Object.keys(zones)}
+            value={formData.province}
+            onChange={(val) => setFormData({ ...formData, province: val })}
+            className="p-4 rounded-lg bg-neutral-50 border"
+            classes={{
+              input:
+                "py-6 border-0 shadow-none rounded-none focus-visible:ring-0 border-b border-neutral-500",
+            }}
+            placeholder="Select a Zone"
+          />
+
+          {formData.province && (
+            <SelectInput
+              label="Zone TIC Code"
+              name="TIC"
+              options={Object.entries(zones[formData.province]).map(
+                ([state, code]) => ({
+                  value: `${state}-${code}`,
+                  label: `${state}-${code}`,
+                })
+              )}
+              className="p-4 rounded-lg bg-neutral-50 border"
+              value={formData.TIC}
+              classes={{
+                input:
+                  "py-6 border-0 shadow-none rounded-none focus-visible:ring-0 border-b border-neutral-500",
+              }}
+              onChange={(val) => setFormData({ ...formData, TIC: val })}
+              placeholder="Select a TIC Code"
+            />
+          )}
+
           <Button
             size="xl"
             className="w-full"

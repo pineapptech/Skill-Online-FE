@@ -40,12 +40,12 @@ const HeroSection = () => {
       [
         ".hero-text-bg",
         { rotate: 360 },
-        { duration: 60, repeat: Infinity, ease: "linear" },
+        { duration: 60, repeat: 15, ease: "linear" },
       ],
     ]);
 
     return () => control.stop();
-  });
+  }, []);
 
   return (
     <section ref={scope} className={cn("hero revert p-8 md:px-24 relative")}>
