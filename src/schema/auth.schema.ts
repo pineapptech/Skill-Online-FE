@@ -32,9 +32,9 @@ export const registrationSchema = z.object({
   state: z
     .string({ required_error: "State/Country is required" })
     .min(1, "State/Country is required"),
-  // city: z
-  //   .string({ required_error: "City is required" })
-  //   .min(1, "City is required"),
+  city: z
+    .string({ required_error: "City is required" })
+    .min(1, "City is required"),
   address: z
     .string({ required_error: "Address is required" })
     .min(1, "Address is required"),
@@ -63,4 +63,16 @@ export const registrationSchema = z.object({
   }),
   province: z.string().min(1, "Province/Zone is required"),
   TIC: z.string().min(1, "TIC Code is required"),
+});
+
+export const updateTicSchema = z.object({
+  regNo: z
+    .string({ required_error: "Registration Number is required" })
+    .min(1, "Registration Number is required"),
+  province: z
+    .string({ required_error: "Province/Zone is required" })
+    .min(1, "Province/Zone is required"),
+  TIC: z
+    .string({ required_error: "TIC Code is required" })
+    .min(1, "TIC Code is required"),
 });

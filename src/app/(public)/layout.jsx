@@ -7,7 +7,7 @@ const PublicLayout = ({ children }) => {
     <>
       <Navbar />
       {children}
-      <NoticeDialog />
+      {/* <NoticeDialog /> */}
     </>
   );
 };
