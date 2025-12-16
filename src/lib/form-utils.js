@@ -176,7 +176,7 @@ export const handleFormSubmitHelper = async ({
       method,
       data: validatedFormData.data,
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
       ...axiosConfig,
     });

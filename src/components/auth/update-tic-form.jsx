@@ -38,8 +38,14 @@ const UpdateTicForm = () => {
   const onSubmit = async (data) => {
     await handleFormSubmitHelper({
       formSchema: updateTicSchema,
+      method: "PATCH",
       formData: data,
       endPoint: "/v1/auth/update-tic",
+      axiosConfig: {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
       setSubmitStatus,
     });
   };
@@ -172,7 +178,10 @@ const UpdateTicForm = () => {
         open={submitStatus?.status === "success"}
         onOpenChange={() => setSubmitStatus(null)}
         title="Update Successful"
-        body={<>Your TIC details have been successfully updated.</>}
+        description={
+          submitStatus?.response?.data.message ||
+          "Your TIC details have been successfully updated"
+        }
         controls={
           <Button className="mx-auto" onClick={() => setSubmitStatus(null)}>
             Close
